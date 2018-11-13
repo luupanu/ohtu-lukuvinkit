@@ -6,6 +6,6 @@
 
 ## Misc
 
-Suorita sovellus komennolla _gradle run_, käynnistyy osoitteeseen http://localhost:8080
-Testit suoritetaan komennolla _gradle test_
-Testit käyttävät _lib_-hakemistossa olevaa firefox Geckodriveriä
+* Suorita sovellus komennolla _gradle run_, käynnistyy osoitteeseen http://localhost:8080  
+* Testit suoritetaan komennolla _gradle test_  
+* Testit käyttävät _lib_-hakemistossa olevaa firefox Geckodriveriä
