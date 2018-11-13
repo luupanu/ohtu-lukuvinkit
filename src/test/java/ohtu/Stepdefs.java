@@ -18,12 +18,14 @@ public class Stepdefs {
     public Stepdefs() {
         File file;
         if (System.getProperty("os.name").matches("Mac OS X")) {
-            file = new File("lib/macgeckodriver");
+            file = new File("lib/chromedriver-mac");
+        } else if (System.getProperty("os.name").matches("Windows 10")) {
+            file = new File("lib/chromedriver.exe");
         } else {
-            file = new File("lib/geckodriver");
+            file = new File("lib/chromedriver");
         }
         String absolutePath = file.getAbsolutePath();
-        System.setProperty("webdriver.gecko.driver", absolutePath);
+        System.setProperty("webdriver.chrome.driver", absolutePath);
 
         this.driver = new ChromeDriver();
     }
