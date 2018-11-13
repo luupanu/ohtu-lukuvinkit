@@ -24,6 +24,11 @@ hs_err_pid*
 
 # Ignore hidden files and/or folders
 .gradle/
+.classpath
+.project
 
 # Ignore build folder
 build/
+
+# Ignore bin
+bin/
