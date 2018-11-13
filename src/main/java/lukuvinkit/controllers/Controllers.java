@@ -13,7 +13,7 @@ public class Controllers {
     public String home() {
         return "<a href='/other'>linkki</a>";
     }
-    
+
     @GetMapping("/other")
     @ResponseBody
     public String other() {

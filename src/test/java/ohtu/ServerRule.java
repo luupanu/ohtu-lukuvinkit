@@ -4,8 +4,9 @@ import org.junit.rules.ExternalResource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import lukuvinkit.Main;
 
-class ServerRule extends ExternalResource{
+class ServerRule extends ExternalResource {
 
     private final int port;
     ConfigurableApplicationContext app;
