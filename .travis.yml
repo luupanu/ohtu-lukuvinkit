@@ -1,7 +1,6 @@
 language: java
 jdk:
 - openjdk8
-sudo: required
 dist: trusty
 addons:
   chrome: stable
@@ -9,3 +8,10 @@ before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - sleep 3
+deploy:
+  provider: heroku
+  api_key:
+    secure: Y7vMwMmIqO0+u9kdcsWTwCr0xQ/NitoIwwHDi5W/0/kVdpKq2+XP7ZoByicV3GNB/xurwF4JYJKXSvOWCGqrA923gziV1dXolA9VmpZjmJpfFIpTx/a7GLExtQO4SoTulqJPYPKZS312HL06e1X1NTn0/hgnBH2m/Ehuuta/wwu1Df3uOZ9XoXH460l5bqa65EgHCFoC/oRX30Be1Te/UIqYMqL0NBxBQIIN9BvW0n5DRS3L3nb3dex9idm/DcFosMgRSAkhp/Kv9kKeSXzi/yc+XzHyEcQ2qyrmG4Yi2AeRqbJImDzs32Na2ZqhdatWXLBXBCHz7JMuP2QwrN0/riHc8gCR3L75wj/Ui0Va7fRGYw8LO2A2zYmnKoNgCRkQAAYazM0zRPEFrBZwLw0//+xV1ZeqXblU1bBAjYjeCGE8YyPBW1yDzqIHpjpNJRP2pqjyEEUbJR+LuiaH76ecBaGHX1m5T8XUPTb79yeO/GNl49UCBpx00Sp1IHTsIFesvV1HVn3FK0G2KPIHGEceslysnb0CgkDtPMJtbdTfvGxMYHfw/1BZX3EMdKOiyNfZ9wNUixVRzrP4ftE5twnuoE3pKAKlAX9WiAsS3kuoh0N4A2TldTVSALc8FOEXOY1asIDigqN2tcYNbXcur6aM/rwzq6y/aVc61WBP5ovayOI=
+  app: lukuvinkit
+  on:
+    repo: luupanu/ohtu-lukuvinkit
