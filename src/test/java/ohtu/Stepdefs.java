@@ -19,10 +19,10 @@ public class Stepdefs {
         File file;
         if (System.getProperty("os.name").matches("Mac OS X")) {
             file = new File("lib/chromedriver-mac");
-        } else if (System.getProperty("os.name").matches("Windows 10")) {
-            file = new File("lib/chromedriver.exe");
-        } else {
+        } else if (System.getProperty("os.name").matches("Linux")) {
             file = new File("lib/chromedriver");
+        } else { // assume Windows 32-bit
+            file = new File("lib/chromedriver.exe");
         }
         String absolutePath = file.getAbsolutePath();
         System.setProperty("webdriver.chrome.driver", absolutePath);
