@@ -22,7 +22,6 @@ public class Controllers {
     }
 
     @GetMapping("/")
-    @ResponseBody
     public String home(Model model) {
         model.addAttribute("list", list);
         return "index";
