@@ -22,7 +22,7 @@ public class Stepdefs {
         } else if (System.getProperty("os.name").matches("Linux")) {
             file = new File("lib/chromedriver");
         } else { // assume Windows 32-bit
-            file = new File("lib/chromedriver.exe");
+            file = new File("lib/chromedriver-win.exe");
         }
         String absolutePath = file.getAbsolutePath();
         System.setProperty("webdriver.chrome.driver", absolutePath);
