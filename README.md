@@ -6,7 +6,20 @@
 ## Links
 
 * [Heroku](https://lukuvinkit.herokuapp.com/)
-* [Product backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU)
+* [Product Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU)
+* [Sprint 1 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=0)
+
+## Definition of Done
+
+User story katsotaan toteutetuksi kun kaikki seuraavat vaatimukset täyttyvät:
+
+- User storyn hyväksymiskriteerit täyttyvät.
+- Kaikkien yksikkötestien suoritus onnistuu hyväksytysti.
+- Koko koodin yksikkötestauksen rivikattavuus on vähintään 80%.
+- User storyn toteuttamista varten lisätyn koodin yksikkötestauksen rivikattavuus on vähintään 80%.
+- Koodi on dokumentoitu karkealla tasolla (Luokkien käyttötarkoitukset ja luokkien rajapinnat on dokumentoitu JavaDoc:illa).
+- Travis CI onnistuu rakentamaan projektin.
+- Heroku onnistuu suorittamaan projektia.
 
 ## Misc
 
