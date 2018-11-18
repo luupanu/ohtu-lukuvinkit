@@ -10,6 +10,7 @@
 
     <tr th:each="lukuvinkki : ${list}">
         <li>
+            <!-- url isnt giving absolute path - must be fixed. -->
             <a th:href="@{__${lukuvinkki.url}__}"><b>
                     <td th:text="${lukuvinkki.title}" /></b></a><br />
             <td th:text="${lukuvinkki.description}" />
