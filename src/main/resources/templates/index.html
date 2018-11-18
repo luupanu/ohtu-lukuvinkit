@@ -8,11 +8,22 @@
 <body>
     <h1>Lukuvinkit</h1>
 
-    <ol>
-        <li th:each="lukuvinkki : ${list}">
-            <span th:text="${lukuvinkki.title}"></span>
+    <tr th:each="lukuvinkki : ${list}">
+        <li>
+            <a th:href="@{__${lukuvinkki.url}__}"><b>
+                    <td th:text="${lukuvinkki.title}" /></b></a><br />
+            <td th:text="${lukuvinkki.description}" />
         </li>
-    </ol>
+    </tr>
+
+    <h2>Lisää uusi lukuvinkki</h2>
+
+    <form th:action="@{/}" method="POST">
+        <input type="text" name="title" />
+        <input type="text" name="url" />
+        <input type="text" name="description" />
+        <input type="submit" />
+    </form>
 </body>
 
 </html>

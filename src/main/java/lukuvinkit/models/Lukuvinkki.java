@@ -1,10 +1,17 @@
 package lukuvinkit.models;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Lukuvinkki {
 
     private String title;
     private String url;
     private String description;
+
+    public Lukuvinkki() {
+        // default constructor for Spring
+    }
 
     public Lukuvinkki(String title, String url, String description) {
         this.title = title;
