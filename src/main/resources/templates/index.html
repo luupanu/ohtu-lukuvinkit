@@ -21,11 +21,29 @@
 
     <h2>Lisää uusi lukuvinkki</h2>
 
-    <form th:action="@{/}" method="POST">
-        <p>Title:<input type="text" name="title" /></p>
-        <p>Description:<input type="text" name="description" /></p>
-        <p>Url:<input type="text" name="url" /></p>
-        <input type="submit" />
+    <form th:action="@{/}" th:object="${lukuvinkki}" method="POST">
+        <table>
+            <tr>
+                <td>Title: </td>
+                <td><input type="text" th:field="*{title}" /></td>
+                <td class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></td>
+            </tr>
+
+            <tr>
+                <td>Description: </td>
+                <td><input type="text" th:field="*{description}" /></td>
+                <td class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+            </tr>
+
+            <tr>
+                <td>URL: </td>
+                <td><input type="text" th:field="*{url}" /></td>
+                <td class="error" th:if="${#fields.hasErrors('url')}" th:errors="*{url}"></td>
+            </tr>
+            <tr>
+                <td><input type="submit"></input></td>
+            </tr>
+        </table>
     </form>
 </body>
 

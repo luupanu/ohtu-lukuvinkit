@@ -1,12 +1,20 @@
 package lukuvinkit.models;
 
 import org.springframework.stereotype.Component;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 
 @Component
 public class Lukuvinkki {
 
+    @NotEmpty
     private String title;
+
+    @NotEmpty
+    @URL
     private String url;
+
+    @NotEmpty
     private String description;
 
     public Lukuvinkki() {
