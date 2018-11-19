@@ -37,14 +37,14 @@ public class Stepdefs {
 
     @Given("^user is at the main page$")
     public void user_is_at_the_main_page() throws Throwable {
-        driver.get("http://localhost:" + 8080 + "/" );
+        driver.get("http://localhost:" + 8080 + "/");
         Thread.sleep(1000);        
     }
 
     @When("^a link is clicked$")
     public void a_link_is_clicked() throws Throwable {
         Thread.sleep(1000);  
-        clickLinkWithText("linkki" );
+        clickLinkWithText("linkki");
         Thread.sleep(1000);  
     }    
    
@@ -56,8 +56,8 @@ public class Stepdefs {
 
     private void clickLinkWithText(String text) {
         int trials = 0;
-        while( trials++<5 ) {
-            try{
+        while(trials++ < 5) {
+            try {
                 WebElement element = driver.findElement(By.linkText(text));
                 element.click();
                 break;           
