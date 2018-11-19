@@ -27,7 +27,7 @@ public class Controllers {
         this.list.add(dummy);
     }
 
-    @GetMapping("/")
+    @GetMapping("*")
     public String home(Model model) {
         model.addAttribute("list", list);
         model.addAttribute("lukuvinkki", new Lukuvinkki());
@@ -42,11 +42,5 @@ public class Controllers {
 
         this.list.add(lukuvinkki);
         return "redirect:/";
-    }
-
-    @GetMapping("/other")
-    @ResponseBody
-    public String other() {
-        return "Hei Maailma!";
     }
 }
