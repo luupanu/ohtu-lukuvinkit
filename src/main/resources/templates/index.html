@@ -2,10 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
     <title>Lukuvinkit</title>
 </head>
 
 <body>
+
     <h1>Lukuvinkit</h1>
 
     <tr th:each="lukuvinkki : ${list}">
