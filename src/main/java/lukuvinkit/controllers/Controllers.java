@@ -1,6 +1,13 @@
 package lukuvinkit.controllers;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import lukuvinkit.models.Lukuvinkki;
@@ -12,12 +19,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 // this can be turned into lukuvinkkicontroller if needed
 @Controller
@@ -31,7 +32,9 @@ public class Controllers {
         Connection connection = DriverManager.getConnection(Controllers.DATABASE_ADDRESS);
 
         // Check if database table is already created.
-        PreparedStatement statementTableCheck = connection.prepareStatement("select count(*) from sqlite_master");
+        PreparedStatement statementTableCheck = connection.prepareStatement(
+            "select count(*) from sqlite_master"
+        );
         ResultSet result = statementTableCheck.executeQuery();
         result.next();
         int tableExists = result.getInt(1);
@@ -40,8 +43,9 @@ public class Controllers {
 
         // Create database table if it is not yet created.
         if (tableExists == 0) {
-            PreparedStatement statementCreateTable = connection
-                    .prepareStatement("CREATE TABLE Lukuvinkki(title TEXT, url TEXT, description TEXT)");
+            PreparedStatement statementCreateTable = connection.prepareStatement(
+                "CREATE TABLE Lukuvinkki(title TEXT, url TEXT, description TEXT)"
+            );
             statementCreateTable.executeUpdate();
             statementCreateTable.close();
         }
@@ -58,7 +62,8 @@ public class Controllers {
     }
 
     @PostMapping(value = "/")
-    public String post(@Valid @ModelAttribute Lukuvinkki lukuvinkki, BindingResult bindingResult) throws SQLException {
+    public String post(@Valid @ModelAttribute
+            Lukuvinkki lukuvinkki, BindingResult bindingResult) throws SQLException {
         if (bindingResult.hasErrors()) {
             return "index";
         }
