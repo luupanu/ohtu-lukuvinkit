@@ -11,3 +11,6 @@ build/
 
 # Ignore bin
 bin/
+
+# Ignore local db
+data.db

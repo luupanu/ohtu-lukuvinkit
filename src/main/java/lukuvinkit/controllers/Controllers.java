@@ -12,9 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.validation.BindingResult;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,24 +19,19 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import lukuvinkit.models.Lukuvinkki;
-
 // this can be turned into lukuvinkkicontroller if needed
 @Controller
 public class Controllers {
 
     public static final String DATABASE_ADDRESS = "jdbc:sqlite:data.db";
-    private ArrayList<Lukuvinkki> list;
 
-    // dummy before database setup
     @Autowired
     public Controllers() throws SQLException {
         // Database initialization
         Connection connection = DriverManager.getConnection(Controllers.DATABASE_ADDRESS);
 
         // Check if database table is already created.
-        PreparedStatement statementTableCheck = connection.prepareStatement(
-                "select count(*) from sqlite_master");
+        PreparedStatement statementTableCheck = connection.prepareStatement("select count(*) from sqlite_master");
         ResultSet result = statementTableCheck.executeQuery();
         result.next();
         int tableExists = result.getInt(1);
@@ -47,9 +39,9 @@ public class Controllers {
         statementTableCheck.close();
 
         // Create database table if it is not yet created.
-        if(tableExists == 0) {
-            PreparedStatement statementCreateTable = connection.prepareStatement(
-                    "CREATE TABLE Lukuvinkki(title TEXT, url TEXT, description TEXT)");
+        if (tableExists == 0) {
+            PreparedStatement statementCreateTable = connection
+                    .prepareStatement("CREATE TABLE Lukuvinkki(title TEXT, url TEXT, description TEXT)");
             statementCreateTable.executeUpdate();
             statementCreateTable.close();
         }
