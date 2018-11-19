@@ -44,6 +44,8 @@ dependencies {
     compile("org.postgresql:postgresql:9.4.1212.jre7")
     
     compile("org.springframework.boot:spring-boot-devtools")
+    
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.25.2'
 	
 	compile group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
     
