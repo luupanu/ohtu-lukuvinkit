@@ -1,11 +1,12 @@
 package ohtu;
 
+import static org.junit.Assert.assertTrue;
+
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.io.File;
-import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -56,12 +57,12 @@ public class Stepdefs {
 
     private void clickLinkWithText(String text) {
         int trials = 0;
-        while(trials++ < 5) {
+        while (trials++ < 5) {
             try {
                 WebElement element = driver.findElement(By.linkText(text));
                 element.click();
                 break;           
-            } catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getStackTrace());
             }
         }
