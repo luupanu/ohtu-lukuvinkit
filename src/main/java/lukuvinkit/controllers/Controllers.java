@@ -19,7 +19,7 @@ public class Controllers {
     // dummy before database setup
     @Autowired
     public Controllers() {
-        Lukuvinkki dummy = new Lukuvinkki("esim", "www.esim.com", "esim esim esim");
+        Lukuvinkki dummy = new Lukuvinkki("esim", "https://www.esim.com", "esim esim esim");
         this.list = new ArrayList<Lukuvinkki>();
         this.list.add(dummy);
     }
