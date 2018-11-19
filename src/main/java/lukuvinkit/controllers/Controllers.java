@@ -3,10 +3,14 @@ package lukuvinkit.controllers;
 import java.util.ArrayList;
 import javax.validation.Valid;
 
+import lukuvinkit.models.Lukuvinkki;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,7 +27,7 @@ import lukuvinkit.models.Lukuvinkki;
 // this can be turned into lukuvinkkicontroller if needed
 @Controller
 public class Controllers {
-    
+
     public static final String DATABASE_ADDRESS = "jdbc:sqlite:data.db";
     private ArrayList<Lukuvinkki> list;
 
@@ -32,7 +36,7 @@ public class Controllers {
     public Controllers() throws SQLException {
         // Database initialization
         Connection connection = DriverManager.getConnection(Controllers.DATABASE_ADDRESS);
-        
+
         // Check if database table is already created.
         PreparedStatement statementTableCheck = connection.prepareStatement(
                 "select count(*) from sqlite_master");
@@ -41,7 +45,7 @@ public class Controllers {
         int tableExists = result.getInt(1);
         result.close();
         statementTableCheck.close();
-        
+
         // Create database table if it is not yet created.
         if(tableExists == 0) {
             PreparedStatement statementCreateTable = connection.prepareStatement(
@@ -49,7 +53,7 @@ public class Controllers {
             statementCreateTable.executeUpdate();
             statementCreateTable.close();
         }
-        
+
         connection.close();
     }
 

@@ -5,6 +5,7 @@ import lukuvinkit.controllers.Controllers;
 import org.springframework.stereotype.Component;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
@@ -60,10 +61,10 @@ public class Lukuvinkki {
     public void setUrl(String url) {
         this.url = url;
     }
-    
-    
+
+
     // Database methods
-    
+
     public void save() throws SQLException {
         Connection connection = DriverManager.getConnection(Controllers.DATABASE_ADDRESS);
         PreparedStatement statement = connection.prepareStatement(
@@ -74,27 +75,27 @@ public class Lukuvinkki {
 
         int success = statement.executeUpdate();
         System.out.println("SUCCESS: " + success);
-        
+
         statement.close();
         connection.close();
     }
-    
+
     public static ArrayList<Lukuvinkki> listAll() throws SQLException {
         Connection connection = DriverManager.getConnection(Controllers.DATABASE_ADDRESS);
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Lukuvinkki");
-        
+
         ResultSet result = statement.executeQuery();
-        
+
         ArrayList<Lukuvinkki> allBookmarks = new ArrayList<>();
-        
+
         while (result.next()) {
             allBookmarks.add(new Lukuvinkki(result.getString("title"), result.getString("url"), result.getString("description")));
-        } 
-            
+        }
+
         result.close();
         statement.close();
         connection.close();
-        
+
         return allBookmarks;
     }
 
