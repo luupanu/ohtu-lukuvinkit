@@ -43,7 +43,7 @@ public class Stepdefs {
     }
     
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" and is submitted$")
-    public void form_is_filled_and_sumbmitted(String title, String description, String url) throws Throwable {
+    public void form_is_filled_and_submitted(String title, String description, String url) throws Throwable {
         Thread.sleep(1000);  
         submitNewTip(title, description, url);
         Thread.sleep(1000);  
