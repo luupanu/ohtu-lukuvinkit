@@ -41,19 +41,39 @@ public class Stepdefs {
         driver.get("http://localhost:" + 8080 + "/");
         Thread.sleep(1000);        
     }
+    
+    @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" and is submitted$")
+    public void form_is_filled_and_sumbmitted(String title, String description, String url) throws Throwable {
+        Thread.sleep(1000);  
+        submitNewTip(title, description, url);
+        Thread.sleep(1000);  
+    } 
 
     @When("^a link is clicked$")
     public void a_link_is_clicked() throws Throwable {
         Thread.sleep(1000);  
         clickLinkWithText("linkki");
         Thread.sleep(1000);  
-    }    
+    } 
+    
    
     @Then("^\"([^\"]*)\" is shown$")
     public void is_shown(String arg1) throws Throwable {
         assertTrue(driver.findElement(By.tagName("body"))
                 .getText().contains(arg1));
     }
+    
+    private void submitNewTip(String title, String description, String url) {
+        assertTrue(driver.getPageSource().contains("Lisää uusi lukuvinkki"));
+        WebElement element = driver.findElement(By.name("title"));
+        element.sendKeys(title);
+        element = driver.findElement(By.name("description"));
+        element.sendKeys(description);
+        element = driver.findElement(By.name("url"));
+        element.sendKeys(url);
+        element = driver.findElement(By.name("submit_form"));
+        element.submit();  
+    }    
 
     private void clickLinkWithText(String text) {
         int trials = 0;
