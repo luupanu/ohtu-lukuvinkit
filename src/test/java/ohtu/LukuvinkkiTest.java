@@ -1,7 +1,12 @@
 package ohtu;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import lukuvinkit.controllers.Controllers;
 import lukuvinkit.models.*;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,7 +24,30 @@ public class LukuvinkkiTest {
     }
     
     @BeforeClass
-    public static void setUpClass() {
+    public static void setUpClass() throws SQLException {
+        // Database initialization
+        Connection connection = DriverManager.getConnection(DATABASE_ADDRESS);
+
+        // Check if database table is already created.
+        PreparedStatement statementTableCheck = connection.prepareStatement(
+            "select count(*) from sqlite_master"
+        );
+        ResultSet result = statementTableCheck.executeQuery();
+        result.next();
+        int tableExists = result.getInt(1);
+        result.close();
+        statementTableCheck.close();
+
+        // Create database table if it is not yet created.
+        if (tableExists == 0) {
+            PreparedStatement statementCreateTable = connection.prepareStatement(
+                "CREATE TABLE Lukuvinkki(title TEXT, url TEXT, description TEXT)"
+            );
+            statementCreateTable.executeUpdate();
+            statementCreateTable.close();
+        }
+
+        connection.close();
     }
     
     @AfterClass
