@@ -2,49 +2,60 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
     <title>Lukuvinkit</title>
 </head>
 
 <body>
+    <div class="page_container">
 
-    <h1>Lukuvinkit</h1>
-
-    <tr th:each="lukuvinkki : ${list}">
+    <div class="h1_container">        
+        <h1>Lukuvinkit</h1>
+    </div>     
+    
+    <div class="list_container"> 
+      <tr th:each="lukuvinkki : ${list}">
         <li>
             <!-- url isnt giving absolute path - must be fixed. -->
             <a th:href="@{__${lukuvinkki.url}__}"><b>
                     <td th:text="${lukuvinkki.title}" /></b></a><br />
             <td th:text="${lukuvinkki.description}" />
-        </li>
-    </tr>
+          </li>
+      </tr>
+    </div>
 
-    <h2>Lisää uusi lukuvinkki</h2>
+    <div class="h2_container">
+        <h2>Lisää uusi lukuvinkki</h2>
+    </div>    
+        
+    <div class="form_container">    
+      <form th:action="@{/}" th:object="${lukuvinkki}" method="POST">
+          <table>
+              <tr>
+                  <td>Title: </td>
+                  <td><input type="text" th:field="*{title}" /></td>
+                  <td class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></td>
+              </tr>
 
-    <form th:action="@{/}" th:object="${lukuvinkki}" method="POST">
-        <table>
-            <tr>
-                <td>Title: </td>
-                <td><input type="text" th:field="*{title}" /></td>
-                <td class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></td>
-            </tr>
+              <tr>
+                  <td>Description: </td>
+                  <td><input type="text" th:field="*{description}" /></td>
+                  <td class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+              </tr>
 
-            <tr>
-                <td>Description: </td>
-                <td><input type="text" th:field="*{description}" /></td>
-                <td class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
-            </tr>
-
-            <tr>
-                <td>URL: </td>
-                <td><input type="text" th:field="*{url}" /></td>
-                <td class="error" th:if="${#fields.hasErrors('url')}" th:errors="*{url}"></td>
-            </tr>
-            <tr>
-                <td><input type="submit"></input></td>
-            </tr>
-        </table>
-    </form>
+              <tr>
+                  <td>URL: </td>
+                  <td><input type="text" th:field="*{url}" /></td>
+                  <td class="error" th:if="${#fields.hasErrors('url')}" th:errors="*{url}"></td>
+              </tr>
+              <tr>
+                  <td><input type="submit"></input></td>
+              </tr>
+          </table>
+      </form>
+    </div>     
+    
+    </div>
 </body>
 
 </html>
