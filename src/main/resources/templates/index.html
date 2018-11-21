@@ -14,12 +14,12 @@
     </div>     
     
     <div class="list_container"> 
-      <tr th:each="lukuvinkki : ${list}">
+      <tr th:each="listingUnit : ${list}">
         <li>
             <!-- url isnt giving absolute path - must be fixed. -->
-            <a th:href="@{__${lukuvinkki.url}__}"><b>
-                    <td th:text="${lukuvinkki.title}" /></b></a><br />
-            <td th:text="${lukuvinkki.description}" />
+            <a th:href="@{__${listingUnit.readingTip.url}__}"><b>
+                    <td th:text="${listingUnit.readingTip.title}" /></b></a><br />
+            <td th:text="${listingUnit.readingTip.description}" />
           </li>
       </tr>
     </div>
@@ -29,7 +29,7 @@
     </div>    
         
     <div class="form_container">    
-      <form th:action="@{/}" th:object="${lukuvinkki}" method="POST">
+      <form th:action="@{/}" th:object="${newReadingTip}" method="POST">
           <table>
               <tr>
                   <td>Title: </td>
