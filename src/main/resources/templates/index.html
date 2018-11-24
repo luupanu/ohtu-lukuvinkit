@@ -16,10 +16,11 @@
     <div class="list_container"> 
       <tr th:each="listingUnit : ${list}">
         <li>
-            <!-- url isnt giving absolute path - must be fixed. -->
             <a th:href="@{__${listingUnit.readingTip.url}__}"><b>
-                    <td th:text="${listingUnit.readingTip.title}" /></b></a><br />
+                    <td th:text="${listingUnit.readingTip.title}" /></b></a>
+            <br />
             <td th:text="${listingUnit.readingTip.description}" />
+            <br />
           </li>
       </tr>
     </div>
