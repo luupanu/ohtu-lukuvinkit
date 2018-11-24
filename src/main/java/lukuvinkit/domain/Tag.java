@@ -10,19 +10,19 @@ public class Tag {
     private int id;
     
     @NotEmpty
-    private String description;
+    private String tagDescription;
     
     public Tag() {
         // default constructor for Spring
     }
     
     public Tag(String description) {
-        this.description = description;
+        this.tagDescription = description;
     }
 
     public Tag(int id, String description) {
         this.id = id;
-        this.description = description;
+        this.tagDescription = description;
     }
 
     public int getId() {
@@ -33,12 +33,12 @@ public class Tag {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTagDescription() {
+        return tagDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTagDescription(String description) {
+        this.tagDescription = description;
     }
     
     

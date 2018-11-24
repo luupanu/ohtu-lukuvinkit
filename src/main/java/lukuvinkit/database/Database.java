@@ -46,7 +46,7 @@ public class Database {
             statementCreateTable.executeUpdate();
             
             statementCreateTable = connection.prepareStatement(
-                "CREATE TABLE Tag(id INTEGER PRIMARY KEY, description TEXT UNIQUE)"
+                "CREATE TABLE Tag(id INTEGER PRIMARY KEY, tagDescription TEXT UNIQUE)"
             );
             statementCreateTable.executeUpdate();
             

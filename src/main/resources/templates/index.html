@@ -2,60 +2,68 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
     <title>Lukuvinkit</title>
 </head>
 
 <body>
     <div class="page_container">
 
-    <div class="h1_container">        
-        <h1>Lukuvinkit</h1>
-    </div>     
-    
-    <div class="list_container"> 
-      <tr th:each="listingUnit : ${list}">
-        <li>
-            <a th:href="@{__${listingUnit.readingTip.url}__}"><b>
-                    <td th:text="${listingUnit.readingTip.title}" /></b></a>
-            <br />
-            <td th:text="${listingUnit.readingTip.description}" />
-            <br />
-          </li>
-      </tr>
-    </div>
+        <div class="h1_container">
+            <h1>Lukuvinkit</h1>
+        </div>
 
-    <div class="h2_container">
-        <h2>Lisää uusi lukuvinkki</h2>
-    </div>    
-        
-    <div class="form_container">    
-      <form th:action="@{/}" th:object="${readingTip}" method="POST">
-          <table>
-              <tr>
-                  <td>Title: </td>
-                  <td><input type="text" th:field="*{title}" /></td>
-                  <td class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></td>
-              </tr>
+        <div class="list_container">
+            <tr th:each="listingUnit : ${list}">
+                <li>
+                    <a th:href="@{__${listingUnit.readingTip.url}__}"><b>
+                            <td th:text="${listingUnit.readingTip.title}" /></b></a>
+                    <br />
+                    <td th:text="${listingUnit.readingTip.description}" />
+                    <br />
+                </li>
+            </tr>
+        </div>
 
-              <tr>
-                  <td>Description: </td>
-                  <td><input type="text" th:field="*{description}" /></td>
-                  <td class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
-              </tr>
+        <div class="h2_container">
+            <h2>Lisää uusi lukuvinkki</h2>
+        </div>
 
-              <tr>
-                  <td>URL: </td>
-                  <td><input type="text" th:field="*{url}" /></td>
-                  <td class="error" th:if="${#fields.hasErrors('url')}" th:errors="*{url}"></td>
-              </tr>
-              <tr>
-                  <td><input name="submit_form" type="submit"></input></td>
-              </tr>
-          </table>
-      </form>
-    </div>     
-    
+        <div class="form_container">
+            <form th:action="@{/}" method="POST">
+                <!--th:object="${readingTip}"-->
+                <table>
+                    <tr>
+                        <td>Title: </td>
+                        <td><input type="text" th:value="*{readingTip.title}" name="title" /></td>
+                        <td class="error" th:if="${#fields.hasErrors('readingTip.title')}" th:errors="*{readingTip.title}"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Description: </td>
+                        <td><input type="text" th:value="*{readingTip.description}" name="description" /></td>
+                        <td class="error" th:if="${#fields.hasErrors('readingTip.description')}" th:errors="*{readingTip.description}"></td>
+                    </tr>
+
+                    <tr>
+                        <td>URL: </td>
+                        <td><input type="text" th:value="*{readingTip.url}" name="url" /></td>
+                        <td class="error" th:if="${#fields.hasErrors('readingTip.url')}" th:errors="*{readingTip.url}"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Tag: </td>
+                        <td><input type="text" th:value="*{tag.tagDescription}" name="tagDescription" /></td>
+                        <td class="error" th:if="${#fields.hasErrors('tag.tagDescription')}" th:errors="*{tag.tagDescription}"></td>
+                    </tr>
+
+                    <tr>
+                        <td><input name="submit_form" type="submit"></input></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
     </div>
 </body>
 

@@ -81,6 +81,4 @@ public class ReadingTip {
         this.read = read;
     }
     
-    
-    
 }

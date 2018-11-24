@@ -36,7 +36,7 @@ public class TagDao {
         while (result.next()) {
             allTags.add(new Tag(
                 result.getInt("id"),
-                result.getString("description")
+                result.getString("tagDescription")
             ));
         }
 
@@ -50,7 +50,7 @@ public class TagDao {
     public ArrayList<Tag> findAllForReadingTip(int readingtip_id) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
-            "SELECT Tag.id, Tag.description FROM ReadingTipTag, Tag "
+            "SELECT Tag.id, Tag.tagDescription FROM ReadingTipTag, Tag "
                     + "WHERE ReadingTipTag.readingtip_id = ? AND ReadingTipTag.tag_id = Tag.id"
         );
         statement.setInt(1, readingtip_id);
@@ -62,7 +62,7 @@ public class TagDao {
         while (result.next()) {
             allTagsForReadingTip.add(new Tag(
                 result.getInt("id"),
-                result.getString("description")
+                result.getString("tagDescription")
             ));
         }
 
@@ -76,10 +76,10 @@ public class TagDao {
     public void save(Tag tag) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
-            "INSERT INTO Tag(description) values (?)"
+            "INSERT INTO Tag(tagDescription) values (?)"
         );
 
-        statement.setString(1, tag.getDescription());
+        statement.setString(1, tag.getTagDescription());
 
         statement.executeUpdate();
 

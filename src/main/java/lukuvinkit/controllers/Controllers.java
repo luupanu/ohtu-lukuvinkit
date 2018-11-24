@@ -39,16 +39,23 @@ public class Controllers {
         ArrayList<ReadingTipListingUnit> tipListing = service.generateReadingTipListing();
         model.addAttribute("list", tipListing);
         model.addAttribute("readingTip", new ReadingTip());
+        model.addAttribute("tag", new Tag());
         return "index";
     }
 
     @PostMapping(value = "/")
     public String post(@Valid @ModelAttribute
-            ReadingTip readingTip, BindingResult bindingResult) throws SQLException {
+            ReadingTip readingTip, @ModelAttribute
+            Tag tag, BindingResult bindingResult) throws SQLException {
         if (bindingResult.hasErrors()) {
             return "index";
         }
-
+        /*
+        1. make saving multiple tags possible (seperate with comma, parse string?)
+        2. save tip and tags both to db (need to implement automatic IDs in domain)
+        3. make a service method for saving both into ReadingTipTag 
+           so that ReadingTipTag.readingtip_id = ? AND ReadingTipTag.tag_id = Tag.id
+        */
         service.saveNewReadingTip(readingTip);
         return "redirect:/";
     }
