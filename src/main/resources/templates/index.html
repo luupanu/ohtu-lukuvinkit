@@ -30,31 +30,31 @@
         </div>
 
         <div class="form_container">
-            <form th:action="@{/}" method="POST">
+            <form th:action="@{/}" th:object="${readingTip}" method="POST">
                 <!--th:object="${readingTip}"-->
                 <table>
                     <tr>
                         <td>Title: </td>
-                        <td><input type="text" th:value="*{readingTip.title}" name="title" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('readingTip.title')}" th:errors="*{readingTip.title}"></td>
+                        <td><input type="text" th:field="*{title}" name="title" /></td>
+                        <td class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></td>
                     </tr>
 
                     <tr>
                         <td>Description: </td>
-                        <td><input type="text" th:value="*{readingTip.description}" name="description" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('readingTip.description')}" th:errors="*{readingTip.description}"></td>
+                        <td><input type="text" th:field="*{description}" name="description" /></td>
+                        <td class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
                     </tr>
 
                     <tr>
                         <td>URL: </td>
-                        <td><input type="text" th:value="*{readingTip.url}" name="url" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('readingTip.url')}" th:errors="*{readingTip.url}"></td>
+                        <td><input type="text" th:field="*{url}" name="url" /></td>
+                        <td class="error" th:if="${#fields.hasErrors('url')}" th:errors="*{url}"></td>
                     </tr>
 
-                    <tr>
+                    <tr th:object="${tag}">
                         <td>Tag: </td>
-                        <td><input type="text" th:value="*{tag.tagDescription}" name="tagDescription" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('tag.tagDescription')}" th:errors="*{tag.tagDescription}"></td>
+                        <td><input type="text" th:field="*{tagDescription}" name="tagDescription" /></td>
+                        <td class="error" th:if="${#fields.hasErrors('tagDescription')}" th:errors="*{tagDescription}"></td>
                     </tr>
 
                     <tr>

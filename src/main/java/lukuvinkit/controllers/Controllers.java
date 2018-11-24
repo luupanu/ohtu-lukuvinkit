@@ -44,12 +44,15 @@ public class Controllers {
     }
 
     @PostMapping(value = "/")
-    public String post(@Valid @ModelAttribute
-            ReadingTip readingTip, @ModelAttribute
-            Tag tag, BindingResult bindingResult) throws SQLException {
-        if (bindingResult.hasErrors()) {
+    public String post(@Valid @ModelAttribute ReadingTip readingTip, 
+            BindingResult bindingResultTip, 
+            @Valid @ModelAttribute Tag tag, 
+            BindingResult bindingResultTag) throws SQLException {
+        if (bindingResultTip.hasErrors() || bindingResultTag.hasErrors()) {
             return "index";
         }
+        System.out.println(tag.getTagDescription());
+        System.out.println(readingTip.getDescription());
         /*
         1. make saving multiple tags possible (seperate with comma, parse string?)
         2. save tip and tags both to db (need to implement automatic IDs in domain)
