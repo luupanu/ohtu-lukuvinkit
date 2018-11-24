@@ -38,18 +38,18 @@ public class Controllers {
     public String home(Model model) throws SQLException {
         ArrayList<ReadingTipListingUnit> tipListing = service.generateReadingTipListing();
         model.addAttribute("list", tipListing);
-        model.addAttribute("newReadingTip", new ReadingTip());
+        model.addAttribute("readingTip", new ReadingTip());
         return "index";
     }
 
     @PostMapping(value = "/")
     public String post(@Valid @ModelAttribute
-            ReadingTip newReadingTip, BindingResult bindingResult) throws SQLException {
+            ReadingTip readingTip, BindingResult bindingResult) throws SQLException {
         if (bindingResult.hasErrors()) {
             return "index";
         }
 
-        service.saveNewReadingTip(newReadingTip);
+        service.saveNewReadingTip(readingTip);
         return "redirect:/";
     }
 }
