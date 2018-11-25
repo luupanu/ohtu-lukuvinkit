@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReadingTipListingUnit {
-    
+
     public ReadingTip readingTip;
     public ArrayList<Comment> comments;
     public ArrayList<Tag> tags;
-    
+
     public ReadingTipListingUnit() {
         // default constructor for Spring
     }
@@ -20,5 +20,5 @@ public class ReadingTipListingUnit {
         this.comments = comments;
         this.tags = tags;
     }
-    
+
 }

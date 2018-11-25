@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -64,6 +63,7 @@ public class Controllers {
         service.saveNewReadingTip(readingTip);
 
         // to do: make service calls for combining readingTip and tags in ReadingTipTag
+        // might need auto generated IDs for readingtips+tags
         // make listingUnit tags visible in view
         // make cucumber tests when tags are visible
 

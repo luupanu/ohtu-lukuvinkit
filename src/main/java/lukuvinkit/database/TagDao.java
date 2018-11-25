@@ -76,15 +76,13 @@ public class TagDao {
             i = result.getInt("count(*)");
         }
 
+        result.close();
+        statement.close();
+        connection.close();
+
         if (i > 0) {
-            result.close();
-            statement.close();
-            connection.close();
             return true;
         } else {
-            result.close();
-            statement.close();
-            connection.close();
             return false;
         }
     }

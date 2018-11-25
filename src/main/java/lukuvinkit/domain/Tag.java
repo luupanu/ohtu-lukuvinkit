@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Tag {
-    
+
     private int id;
-    
+
     @NotEmpty
     private String tagDescription;
-    
+
     public Tag() {
         // default constructor for Spring
     }
-    
+
     public Tag(String description) {
         this.tagDescription = description;
     }
@@ -40,6 +40,5 @@ public class Tag {
     public void setTagDescription(String description) {
         this.tagDescription = description;
     }
-    
-    
+
 }

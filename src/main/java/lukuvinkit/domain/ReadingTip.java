@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReadingTip {
-    
+
     private int id;
-    
+
     @NotEmpty
     private String title;
 
@@ -19,13 +19,13 @@ public class ReadingTip {
 
     @NotEmpty
     private String description;
-    
+
     private boolean read;
-    
+
     public ReadingTip() {
         // default constructor for Spring
     }
-    
+
     public ReadingTip(String title, String url, String description, boolean read) {
         this.title = title;
         this.url = url;
@@ -40,7 +40,7 @@ public class ReadingTip {
         this.description = description;
         this.read = read;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -80,5 +80,5 @@ public class ReadingTip {
     public void setRead(boolean read) {
         this.read = read;
     }
-    
+
 }

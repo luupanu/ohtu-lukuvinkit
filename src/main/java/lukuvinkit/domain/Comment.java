@@ -6,18 +6,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Comment {
-    
+
     private int id;
-    
+
     @NotEmpty
     private String description;
-    
+
     private int readingtip_id;
-    
+
     public Comment() {
         // default constructor for Spring
     }
-    
+
     public Comment(String description, int readingtip_id) {
         this.description = description;
         this.readingtip_id = readingtip_id;
@@ -52,7 +52,5 @@ public class Comment {
     public void setReadingtip_id(int readingtip_id) {
         this.readingtip_id = readingtip_id;
     }
-    
-    
-    
+
 }
