@@ -3,6 +3,8 @@ package lukuvinkit.controllers;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 // this can be turned into lukuvinkkicontroller if needed
 @Controller
 public class Controllers {
-    
+
     private ReadingTipService service;
 
     @Autowired
@@ -44,20 +46,39 @@ public class Controllers {
     }
 
     @PostMapping(value = "/")
-    public String post(@Valid @ModelAttribute ReadingTip readingTip, 
-            BindingResult bindingResultTip, 
-            @ModelAttribute Tag tag, 
-            BindingResult bindingResultTag) throws SQLException {
+    public String post(@Valid @ModelAttribute ReadingTip readingTip, BindingResult bindingResultTip,
+            @ModelAttribute Tag tag, BindingResult bindingResultTag) throws SQLException {
         if (bindingResultTip.hasErrors() || bindingResultTag.hasErrors()) {
             return "index";
         }
-        /*
-        1. make saving multiple tags possible (seperate with comma, parse string?)
-        2. save tip and tags both to db (need to implement automatic IDs in domain)
-        3. make a service method for saving both into ReadingTipTag 
-           so that ReadingTipTag.readingtip_id = ? AND ReadingTipTag.tag_id = Tag.id
-        */
+        ArrayList<Tag> tags = new ArrayList<Tag>();
+        ArrayList<String> tagsAsString = new ArrayList<String>(
+                Arrays.asList((tag.getTagDescription()).split("\\s*,\\s*")));
+        // convert list of strings to tags
+        for (String t : tagsAsString) {
+            tags.add(new Tag(t));
+        }
+        // convert list of strings to tags
+        tagSaveCheck(tags);
+
         service.saveNewReadingTip(readingTip);
+
+        // to do: make service calls for combining readingTip and tags in ReadingTipTag
+        // make listingUnit tags visible in view
+        // make cucumber tests when tags are visible
+
         return "redirect:/";
     }
+
+    public void tagSaveCheck(ArrayList<Tag> tags) throws SQLException {
+        for (Tag t : tags) {
+            if (service.findDuplicates(t)) {
+                // turn this into error that's displayed
+                System.out.println("tag " + t.getTagDescription() + " already exists, won't be saved");
+            } else {
+                service.saveNewTag(t);
+            }
+        }
+    }
+
 }

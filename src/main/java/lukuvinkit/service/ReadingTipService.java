@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReadingTipService {
-    
+
     private ReadingTipDao readingTipDao;
     private CommentDao commentDao;
     private TagDao tagDao;
@@ -20,31 +20,43 @@ public class ReadingTipService {
     public ReadingTipService() {
         // default constructor for Spring
     }
-    
+
     public ReadingTipService(ReadingTipDao readingTipDao, CommentDao commentDao, TagDao tagDao) {
         this.readingTipDao = readingTipDao;
         this.commentDao = commentDao;
         this.tagDao = tagDao;
     }
-    
+
     public ArrayList<ReadingTipListingUnit> generateReadingTipListing() throws SQLException {
-        
+
         ArrayList<ReadingTipListingUnit> readingTipListing = new ArrayList<>();
-        
+
         ArrayList<ReadingTip> allReadingTips = readingTipDao.findAll();
-        
-        for(ReadingTip tip : allReadingTips) {
+
+        for (ReadingTip tip : allReadingTips) {
             ArrayList<Comment> commentsOfTip = commentDao.findAllForReadingTip(tip.getId());
             ArrayList<Tag> tagsOfTip = tagDao.findAllForReadingTip(tip.getId());
             ReadingTipListingUnit listingUnit = new ReadingTipListingUnit(tip, commentsOfTip, tagsOfTip);
             readingTipListing.add(listingUnit);
         }
-        
+
         return readingTipListing;
     }
-    
+
     public void saveNewReadingTip(ReadingTip newTip) throws SQLException {
         readingTipDao.save(newTip);
     }
-    
+
+    public ArrayList<Tag> findAllTags() throws SQLException {
+        return tagDao.findAll();
+    }
+
+    public boolean findDuplicates(Tag t) throws SQLException {
+        return tagDao.findDuplicates(t);
+    }
+
+    public void saveNewTag(Tag tag) throws SQLException {
+        tagDao.save(tag);
+    }
+
 }

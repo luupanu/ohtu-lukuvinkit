@@ -31,7 +31,6 @@
 
         <div class="form_container">
             <form th:action="@{/}" th:object="${readingTip}" method="POST">
-                <!--th:object="${readingTip}"-->
                 <table>
                     <tr>
                         <td>Title: </td>
@@ -52,7 +51,7 @@
                     </tr>
 
                     <tr th:object="${tag}">
-                        <td>Tag: </td>
+                        <td>Tags (seperate with a comma): </td>
                         <td><input type="text" th:field="*{tagDescription}" name="tagDescription" /></td>
                         <td class="error" th:if="${#fields.hasErrors('tagDescription')}" th:errors="*{tagDescription}"></td>
                     </tr>
@@ -63,7 +62,6 @@
                 </table>
             </form>
         </div>
-
     </div>
 </body>
 
