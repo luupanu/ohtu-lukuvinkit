@@ -18,8 +18,11 @@
             <article th:each="listingUnit : ${list}">
 
                 <div class="readingtips-read">
-                    <label for="read">Mark as read</label>
-                    <input type="checkbox" name="read"/>
+                    <form th:action="@{/}" th:object="${listingUnit.readingTip}" th:method="PATCH">
+                        <input type="hidden" name="id" th:value="${listingUnit.readingTip.id}" />
+                        <label for="read">Mark as read</label>
+                        <input type="checkbox" name="read" onclick="submitForm(this)" />
+                    </form>
                 </div>
 
                 <div class="readingtips-title">
@@ -35,7 +38,7 @@
                 </div>
 
                 <div class="readingtips-comments">
-                    <a href="#" onclick="toggleComments(this)" th:text="${#lists.size(listingUnit.comments)} + ' comments'"></a>
+                    <a href="#" onclick="toggleComments(this)" th:text="${#lists.size(listingUnit.comments)} + ' comment(s)'"></a>
 
                     <div class="commentarea">
                         <li class="comment" th:each="comment : ${listingUnit.comments}" th:text="${comment.description}"></li>
@@ -67,7 +70,7 @@
 
                     <tr>
                         <td><label for="description">Description:</label></td>
-                        <td><input type="text" th:field="*{description}" name="description"  /></td>
+                        <td><input type="text" th:field="*{description}" name="description" /></td>
                         <td class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" />
                     </tr>
 

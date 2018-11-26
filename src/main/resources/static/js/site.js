@@ -1,3 +1,8 @@
+const submitForm = (checkbox) => {
+  const form = checkbox.parentNode;
+  form.submit()
+}
+
 const toggleComments = (link) => {
   const comments = link.parentNode.querySelectorAll('.commentarea')
 
