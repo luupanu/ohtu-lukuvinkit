@@ -106,6 +106,7 @@ public class ReadingTipDao {
         return tip;
     }
     
+    // Not yet needed, possibly not needed never? DO NOT WASTE TIME TESTING THIS. Maybe comment out before end of sprint.
     public void update(ReadingTip tip) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
@@ -116,6 +117,21 @@ public class ReadingTipDao {
         statement.setString(2, tip.getUrl());
         statement.setString(3, tip.getDescription());
         statement.setBoolean(4, tip.isRead());
+        
+        statement.executeUpdate();
+
+        statement.close();
+        connection.close();
+    }
+    
+    public void updateRead(int readingtip_id, boolean isRead) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+            "UPDATE ReadingTip SET read = ? WHERE id = ?"
+        );
+        
+        statement.setBoolean(1, isRead);
+        statement.setInt(2, readingtip_id);
         
         statement.executeUpdate();
 
