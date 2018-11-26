@@ -42,12 +42,13 @@
                     <a href="#" onclick="toggleComments(this)" th:text="${#lists.size(listingUnit.comments)} + ' comment(s)'"></a>
 
                     <div class="commentarea">
-                        <li class="comment" th:each="comment : ${listingUnit.comments}" th:text="${comment.description}"></li>
+                        <li class="comment" th:each="comment : ${listingUnit.comments}" th:text="${comment.commentDescription}"></li>
 
                         <div class="newcomment">
-                            <form action="">
+                            <form th:action="@{/comment}" th:object="${comment}" method="POST">
+                                <input type="hidden" name="readingTipId" th:value="${listingUnit.readingTip.id}" />
                                 <label for="comment">Add a new comment:</label>
-                                <input type="text" name="newcomment" placeholder="Type your new comment here..." />
+                                <input type="text" name="commentDescription" placeholder="Type your new comment here..." />
                                 <input name="create-comment" type="submit" />
                             </form>
                         </div>
@@ -61,7 +62,7 @@
         </div>
 
         <div class="create-readingtip">
-            <form th:action="@{/}" th:object="${readingTip}" method="POST">
+            <form th:action="@{/readingtip}" th:object="${readingTip}" method="POST">
                 <table>
                     <tr>
                         <td><label for="title">Title:</label></td>

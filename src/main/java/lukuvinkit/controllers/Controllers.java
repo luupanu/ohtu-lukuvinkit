@@ -45,13 +45,20 @@ public class Controllers {
         Collections.sort(tipListing);
 
         model.addAttribute("list", tipListing);
+        model.addAttribute("comment", new Comment());
         model.addAttribute("readingTip", new ReadingTip());
         model.addAttribute("tag", new Tag());
         return "index";
     }
 
-    @PostMapping("/")
-    public String post(@Valid @ModelAttribute ReadingTip readingTip, BindingResult bindingResultTip,
+    @PostMapping("/comment")
+    public String createComment(@RequestParam Integer readingTipId, @ModelAttribute Comment comment) throws SQLException {
+        service.saveNewComment(comment, readingTipId);
+        return "redirect:/";
+    }
+
+    @PostMapping("/readingtip")
+    public String createReadingTip(@Valid @ModelAttribute ReadingTip readingTip, BindingResult bindingResultTip,
             @ModelAttribute Tag tag, BindingResult bindingResultTag) throws SQLException {
         if (bindingResultTip.hasErrors() || bindingResultTag.hasErrors()) {
             return "index";
