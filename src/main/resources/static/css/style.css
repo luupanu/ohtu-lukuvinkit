@@ -1,20 +1,28 @@
 .error {
-  color: red;
+    color: red;
 }
 
-html, body {
+a {
+    display: inline;
+    color: #0000d9;
+}
+
+body {
+    background-image: url(../images/lukuvinkit_bg.jpg);
     margin: 0;
-    height: 100%;
+    padding: 0;
+    height: 100%
 }
 
 .page_container {
-    background-image: url(../images/lukuvinkit_bg.jpg);
-    margin: 0;
+    margin: 0 auto;
     height: 100%;
+    width: 800px;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .h1_container {
-    padding-top: 200px;
+    padding-top: 50px;
     text-align: center;
 }
 
@@ -22,7 +30,7 @@ h1 {
     padding: 10px;
     border-radius: 10px;
     display:inline;
-    background-color: #909090;
+    background-color: #999;
     color: #76f9bf;
 }
 
@@ -36,25 +44,59 @@ h2 {
     padding: 10px;
     border-radius: 10px;
     display:inline;
-    background-color: #909090;
+    background-color: #999;
     color: #76f9bf;
 }
 
 table {
     padding: 10px;
     border-radius: 10px;
-    background-color: #909090;
+    background-color: #999;
     margin-left: auto;
     margin-right: auto;
 }
 
-.list_container {
-    margin-top: 40px;
-    text-align: center;
+.article_container {
+    width: 350px;
+    margin: 40px auto 0;
 }
 
-li {
-    background-color: #909090;
-    display:inline;
-    color: #76f9bf;    
+article {
+    background-color: #999;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+article h3 {
+    font-size: 24px;
+    margin: 5px 0;
+}
+
+.description {
+    color: #76f9bf;
+}
+
+.tag {
+    display: inline-block;
+    color: black;
+    background-color: pink;
+    padding: 4px;
+    margin: 3px 1px;
+}
+
+.comments {
+ margin: 10px 0 0;
+}
+
+.comment {
+    display: none;
+    margin-left: 20px;
+}
+
+.comment:before {
+    content: "- "
+}
+
+.form_container {
+    margin-bottom: 50px;
 }
