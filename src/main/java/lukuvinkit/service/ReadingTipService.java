@@ -67,5 +67,13 @@ public class ReadingTipService {
         // Bind all tags to the new reading tip.
         readingTipDao.bindTagsToReadingTip(newTip, tags);
     }
+    
+    public void saveNewComment(Comment newComment) throws SQLException {
+        commentDao.save(newComment);
+    }
+    
+    public void setReadingTipAsReadOrUnread(int readingTipID, boolean isRead) throws SQLException {
+        readingTipDao.updateRead(readingTipID, isRead);
+    }
 
 }
