@@ -1,14 +1,19 @@
-
 package lukuvinkit.service;
 
-import lukuvinkit.database.ReadingTipDao;
-import lukuvinkit.database.CommentDao;
-import lukuvinkit.database.TagDao;
-import lukuvinkit.domain.*;
+import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.sql.SQLException;
 import java.util.Arrays;
+
+import lukuvinkit.database.CommentDao;
+import lukuvinkit.database.ReadingTipDao;
+import lukuvinkit.database.TagDao;
+
+import lukuvinkit.domain.Comment;
+import lukuvinkit.domain.ReadingTip;
+import lukuvinkit.domain.ReadingTipListingUnit;
+import lukuvinkit.domain.Tag;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -37,7 +42,11 @@ public class ReadingTipService {
         for (ReadingTip tip : allReadingTips) {
             ArrayList<Comment> commentsOfTip = commentDao.findAllForReadingTip(tip.getId());
             ArrayList<Tag> tagsOfTip = tagDao.findAllForReadingTip(tip.getId());
-            ReadingTipListingUnit listingUnit = new ReadingTipListingUnit(tip, commentsOfTip, tagsOfTip);
+            ReadingTipListingUnit listingUnit = new ReadingTipListingUnit(
+                tip,
+                commentsOfTip,
+                tagsOfTip
+            );
             readingTipListing.add(listingUnit);
         }
 
@@ -53,7 +62,8 @@ public class ReadingTipService {
             tags.add(new Tag(t));
         }
         
-        // Save all tags into database that are not yet there, fetch IDs for all tags at the same time.
+        // Save all tags into database that are not yet there,
+        // fetch IDs for all tags at the same time.
         int i = 0;
         while (i < tags.size()) {
             Tag tag = tags.get(i);
