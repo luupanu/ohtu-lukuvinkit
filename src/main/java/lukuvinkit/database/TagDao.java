@@ -64,43 +64,29 @@ public class TagDao {
         return allTagsForReadingTip;
     }
 
-//    public boolean findDuplicates(Tag t) throws SQLException {
-//        Connection connection = database.getConnection();
-//        PreparedStatement statement = connection.prepareStatement("SELECT count(*) FROM Tag WHERE tagDescription = ?");
-//        statement.setString(1, t.getTagDescription());
-//
-//        ResultSet result = statement.executeQuery();
-//
-//        int i = 0;
-//        while (result.next()) {
-//            i = result.getInt("count(*)");
-//        }
-//
-//        result.close();
-//        statement.close();
-//        connection.close();
-//
-//        if (i > 0) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
     public Tag save(Tag tag) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement;
         
         statement = connection.prepareStatement("INSERT INTO Tag(tagDescription) values (?) ON CONFLICT (tagDescription) DO NOTHING");
         statement.setString(1, tag.getTagDescription());
-        statement.executeUpdate();
-
-        statement = connection.prepareStatement("select last_insert_rowid()");
-        ResultSet result = statement.executeQuery();
-        result.next();
-        int id = result.getInt(1);
-        result.close();
+        int rowsInserted = statement.executeUpdate();
         
+        int id;
+        ResultSet result;
+        if (rowsInserted == 0) {  // If the tag was already in the database
+            statement = connection.prepareStatement("SELECT id FROM Tag WHERE tagDescription = ?");
+            statement.setString(1, tag.getTagDescription());
+            result = statement.executeQuery();
+            id = result.getInt(1);
+        } else {  // If new tag was inserted
+            statement = connection.prepareStatement("select last_insert_rowid()");
+            result = statement.executeQuery();
+            result.next();
+            id = result.getInt(1);           
+        }
+        
+        result.close(); 
         statement.close();
         connection.close();
         
