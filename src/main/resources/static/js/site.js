@@ -1,5 +1,5 @@
 const toggleComments = (link) => {
-  const comments = link.parentNode.querySelectorAll('.comment')
+  const comments = link.parentNode.querySelectorAll('.commentarea')
 
   comments.forEach(comment => {
     if (comment.style.display === 'block') {

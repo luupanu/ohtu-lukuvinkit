@@ -5,7 +5,7 @@ body {
     height: 100%
 }
 
-/* containers */
+/* main containers */
 
 .container {
     margin: 0 auto;
@@ -21,12 +21,12 @@ body {
 
 .readingtips {
     width: 500px;
-    margin: 40px auto 0;
+    margin: 30px auto 0;
 }
 
 .create-readingtip {
     width: 400px;
-    margin: 25px auto;
+    margin: 30px auto 100px auto;
     padding: 10px;
     border-radius: 10px;
     background-color: #999;
@@ -70,7 +70,14 @@ input[type=text] {
     font-size: 16px;
     padding: 10px;
     margin: 2px 0;
+}
+
+.create-readingtip input[type=text] {
     width: 350px;
+}
+
+.commentarea input[type=text] {
+    width: 436px;
 }
 
 input[type=submit] {
@@ -95,25 +102,38 @@ td {
 
 /* other custom classes */
 
+.error {
+    color: red;
+}
+
 .comment {
+    background-color: white;
+    list-style: none;
+    margin: 10px 0;
+    padding: 8px;
+}
+
+.commentarea {
     display: none;
     margin-left: 20px;
 }
 
-.comment:before {
-    content: "- "
+.newcomment {
+    border-top: 2px solid #777;
+    padding: 20px 0 0 0;
+    margin-top: 30px;
 }
 
-.comments {
+.readingtips-comments {
  margin: 10px 0 0;
 }
 
-.description {
+.readingtips-description {
     color: #76f9bf;
 }
 
-.error {
-    color: red;
+.readingtips-read {
+    float: right;
 }
 
 .tag {
