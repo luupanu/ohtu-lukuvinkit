@@ -54,8 +54,7 @@ public class Stepdefs {
     }
 
     @When("^form is filled with tags \"([^\"]*)\" and is submitted$")
-    public void formIsFilledAndSubmittedWithTags(String tags)
-            throws Throwable {
+    public void formIsFilledAndSubmittedWithTags(String tags) throws Throwable {
         submitNewTipWithTags("", "", "", tags);
     }
 
