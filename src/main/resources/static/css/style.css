@@ -45,15 +45,7 @@ article {
     padding: 10px;
 }
 
-h1 {
-    padding: 10px;
-    border-radius: 10px;
-    display:inline;
-    background-color: #999;
-    color: #76f9bf;
-}
-
-h2 {
+h1, h2 {
     padding: 10px;
     border-radius: 10px;
     display:inline;
@@ -62,6 +54,7 @@ h2 {
 }
 
 h3 {
+    display: inline-block;
     font-size: 24px;
     margin: 5px 0;
 }
@@ -122,6 +115,13 @@ td {
     border-top: 2px solid #777;
     padding: 20px 0 0 0;
     margin-top: 30px;
+}
+
+.read-tag {
+    color: #a00;
+    border: 2px solid #a00;
+    padding: 2px;
+    margin-left: 5px;
 }
 
 .readingtips-comments {
