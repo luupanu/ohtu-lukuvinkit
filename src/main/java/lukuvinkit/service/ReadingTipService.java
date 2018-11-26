@@ -72,8 +72,8 @@ public class ReadingTipService {
         commentDao.save(newComment);
     }
     
-    public void setReadingTipAsReadOrUnread(int readingTipID, boolean isRead) throws SQLException {
-        readingTipDao.updateRead(readingTipID, isRead);
+    public void toggleReadingTipRead(int readingTipID) throws SQLException {
+        readingTipDao.toggleRead(readingTipID);
     }
 
 }
