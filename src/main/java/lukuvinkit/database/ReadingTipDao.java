@@ -2,6 +2,7 @@
 package lukuvinkit.database;
 
 import lukuvinkit.domain.ReadingTip;
+import lukuvinkit.domain.Tag;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -79,21 +80,30 @@ public class ReadingTipDao {
         return allReadingTipsForTag;
     }
     
-    public void save(ReadingTip tip) throws SQLException {
+    public ReadingTip save(ReadingTip tip) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
+        PreparedStatement statement;
+        
+        statement = connection.prepareStatement(
             "INSERT INTO ReadingTip(title, url, description, read) values (?, ?, ?, ?)"
         );
-
         statement.setString(1, tip.getTitle());
         statement.setString(2, tip.getUrl());
         statement.setString(3, tip.getDescription());
         statement.setBoolean(4, tip.isRead());
-
         statement.executeUpdate();
+        
+        statement = connection.prepareStatement("select last_insert_rowid()");
+        ResultSet result = statement.executeQuery();
+        result.next();
+        int id = result.getInt(1);
+        result.close();
 
         statement.close();
         connection.close();
+        
+        tip.setId(id);
+        return tip;
     }
     
     public void update(ReadingTip tip) throws SQLException {
@@ -108,6 +118,30 @@ public class ReadingTipDao {
         statement.setBoolean(4, tip.isRead());
         
         statement.executeUpdate();
+
+        statement.close();
+        connection.close();
+    }
+    
+    public void bindTagsToReadingTip(ReadingTip tip, ArrayList<Tag> tags) throws SQLException {
+        if (tags.isEmpty()) {
+            return;
+        }
+        
+        Connection connection = database.getConnection();
+        PreparedStatement statement;
+        
+        int i = 0;
+        do {
+            Tag tag = tags.get(i);
+            statement = connection.prepareStatement(
+                "INSERT INTO ReadingTipTag(readingtip_id, tag_id) values (?, ?)"
+            );
+            statement.setInt(1, tip.getId());
+            statement.setInt(2, tag.getId());
+            statement.executeUpdate();
+            ++i;
+        } while (i < tags.size());
 
         statement.close();
         connection.close();

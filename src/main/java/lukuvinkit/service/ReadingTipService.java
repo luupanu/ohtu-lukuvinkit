@@ -8,6 +8,7 @@ import lukuvinkit.domain.*;
 
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.Arrays;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -43,20 +44,28 @@ public class ReadingTipService {
         return readingTipListing;
     }
 
-    public void saveNewReadingTip(ReadingTip newTip) throws SQLException {
-        readingTipDao.save(newTip);
-    }
-
-    public ArrayList<Tag> findAllTags() throws SQLException {
-        return tagDao.findAll();
-    }
-
-    public boolean findDuplicates(Tag t) throws SQLException {
-        return tagDao.findDuplicates(t);
-    }
-
-    public void saveNewTag(Tag tag) throws SQLException {
-        tagDao.save(tag);
+    public void saveNewReadingTip(ReadingTip newTip, Tag allTagsTogether) throws SQLException {
+        // Separate tags into individual Tag-instances.
+        ArrayList<Tag> tags = new ArrayList<Tag>();
+        ArrayList<String> tagsAsString = new ArrayList<String>(
+                Arrays.asList((allTagsTogether.getTagDescription()).split("\\s*,\\s*")));
+        for (String t : tagsAsString) {
+            tags.add(new Tag(t));
+        }
+        
+        // Save all tags into database that are not yet there, fetch IDs for all tags at the same time.
+        int i = 0;
+        while (i < tags.size()) {
+            Tag tag = tags.get(i);
+            tag = tagDao.save(tag);
+            ++i;
+        }
+        
+        // Save the new reading tip.
+        newTip = readingTipDao.save(newTip);
+        
+        // Bind all tags to the new reading tip.
+        readingTipDao.bindTagsToReadingTip(newTip, tags);
     }
 
 }

@@ -50,35 +50,10 @@ public class Controllers {
         if (bindingResultTip.hasErrors() || bindingResultTag.hasErrors()) {
             return "index";
         }
-        ArrayList<Tag> tags = new ArrayList<Tag>();
-        ArrayList<String> tagsAsString = new ArrayList<String>(
-                Arrays.asList((tag.getTagDescription()).split("\\s*,\\s*")));
-        // convert list of strings to tags
-        for (String t : tagsAsString) {
-            tags.add(new Tag(t));
-        }
-        // convert list of strings to tags
-        tagSaveCheck(tags);
 
-        service.saveNewReadingTip(readingTip);
-
-        // to do: make service calls for combining readingTip and tags in ReadingTipTag
-        // might need auto generated IDs for readingtips+tags
-        // make listingUnit tags visible in view
-        // make cucumber tests when tags are visible
+        service.saveNewReadingTip(readingTip, tag);
 
         return "redirect:/";
-    }
-
-    public void tagSaveCheck(ArrayList<Tag> tags) throws SQLException {
-        for (Tag t : tags) {
-            if (service.findDuplicates(t)) {
-                // turn this into error that's displayed
-                System.out.println("tag " + t.getTagDescription() + " already exists, won't be saved");
-            } else {
-                service.saveNewTag(t);
-            }
-        }
     }
 
 }
