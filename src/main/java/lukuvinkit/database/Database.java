@@ -41,22 +41,45 @@ public class Database {
         // Create database tables if it is not yet created.
         if (tableExists == 0) {
             PreparedStatement statementCreateTable = connection.prepareStatement(
-                "CREATE TABLE ReadingTip(id INTEGER PRIMARY KEY, title TEXT, url TEXT, description TEXT, read BOOLEAN)"
+                "CREATE TABLE ReadingTip"
+                + "("
+                    + "id INTEGER PRIMARY KEY,"
+                    + "title TEXT,"
+                    + "url TEXT,"
+                    + "description TEXT,"
+                    + "read BOOLEAN"
+                + ")"
             );
             statementCreateTable.executeUpdate();
             
             statementCreateTable = connection.prepareStatement(
-                "CREATE TABLE Tag(id INTEGER PRIMARY KEY, tagDescription TEXT UNIQUE)"
+                "CREATE TABLE Tag"
+                + "("
+                    + "id INTEGER PRIMARY KEY,"
+                    + "tagDescription TEXT UNIQUE"
+                + ")"
             );
             statementCreateTable.executeUpdate();
             
             statementCreateTable = connection.prepareStatement(
-                "CREATE TABLE ReadingTipTag(readingtip_id INTEGER, tag_id INTEGER, FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id), FOREIGN KEY(tag_id) REFERENCES Tag(id))"
+                "CREATE TABLE ReadingTipTag"
+                + "("
+                    + "readingtip_id INTEGER,"
+                    + "tag_id INTEGER,"
+                    + "FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id),"
+                    + "FOREIGN KEY(tag_id) REFERENCES Tag(id)"
+                + ")"
             );
             statementCreateTable.executeUpdate();
             
             statementCreateTable = connection.prepareStatement(
-                "CREATE TABLE Comment(id INTEGER PRIMARY KEY, description TEXT, readingtip_id INTEGER, FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id))"
+                "CREATE TABLE Comment"
+                + "("
+                    + "id INTEGER PRIMARY KEY,"
+                    + "description TEXT,"
+                    + "readingtip_id INTEGER,"
+                    + "FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id)"
+                + ")"
             );
             statementCreateTable.executeUpdate();
             

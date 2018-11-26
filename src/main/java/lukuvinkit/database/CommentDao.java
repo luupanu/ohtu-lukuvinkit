@@ -1,13 +1,14 @@
-
 package lukuvinkit.database;
-
-import lukuvinkit.domain.Comment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
+
+import lukuvinkit.domain.Comment;
+
 import org.springframework.stereotype.Component;
 
 @Component

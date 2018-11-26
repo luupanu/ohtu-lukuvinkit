@@ -7,8 +7,16 @@ import java.util.Collections;
 
 import javax.validation.Valid;
 
-import lukuvinkit.database.*;
-import lukuvinkit.domain.*;
+import lukuvinkit.database.CommentDao;
+import lukuvinkit.database.Database;
+import lukuvinkit.database.ReadingTipDao;
+import lukuvinkit.database.TagDao;
+
+import lukuvinkit.domain.Comment;
+import lukuvinkit.domain.ReadingTip;
+import lukuvinkit.domain.ReadingTipListingUnit;
+import lukuvinkit.domain.Tag;
+
 import lukuvinkit.service.ReadingTipService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,13 +60,15 @@ public class Controllers {
     }
 
     @PostMapping("/comment")
-    public String createComment(@RequestParam Integer readingTipId, @ModelAttribute Comment comment) throws SQLException {
+    public String createComment(@RequestParam Integer readingTipId,
+            @ModelAttribute Comment comment) throws SQLException {
         service.saveNewComment(comment, readingTipId);
         return "redirect:/";
     }
 
     @PostMapping("/readingtip")
-    public String createReadingTip(@Valid @ModelAttribute ReadingTip readingTip, BindingResult bindingResultTip,
+    public String createReadingTip(@Valid
+            @ModelAttribute ReadingTip readingTip, BindingResult bindingResultTip,
             @ModelAttribute Tag tag, BindingResult bindingResultTag) throws SQLException {
         if (bindingResultTip.hasErrors() || bindingResultTag.hasErrors()) {
             return "index";
