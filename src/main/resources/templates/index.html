@@ -22,10 +22,8 @@
                 <p class="description" th:text="${listingUnit.readingTip.description}"></p>
                 <span class="tag" th:each="tag : ${listingUnit.tags}" th:text="${tag.tagDescription}"></span>
                 <div class="comments">
-                    <a href="#" onclick="toggleComments(this)">3 comments</a>
-                    <li class="comment">Hyvä kommentti 1</li>
-                    <li class="comment">Hyvä kommentti 2</li>
-                    <li class="comment">Hyvä kommentti 3</li>
+                    <a href="#" onclick="toggleComments(this)" th:text="${#lists.size(listingUnit.comments)} + ' comments'"></a>
+                    <li class="comment" th:each="comment : ${listingUnit.comments}" th:text="${comment.description}"></li>
                 </div>
             </article>
         </div>
