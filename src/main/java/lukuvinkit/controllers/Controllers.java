@@ -3,7 +3,6 @@ package lukuvinkit.controllers;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.validation.Valid;
 
@@ -18,9 +17,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 // this can be turned into lukuvinkkicontroller if needed
 @Controller
+@SessionAttributes("list")
 public class Controllers {
 
     private ReadingTipService service;
