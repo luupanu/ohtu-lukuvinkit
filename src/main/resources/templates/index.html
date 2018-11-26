@@ -20,9 +20,7 @@
                     <a th:href="@{__${listingUnit.readingTip.url}__}" th:text="${listingUnit.readingTip.title}"/>
                 </h3>
                 <p class="description" th:text="${listingUnit.readingTip.description}"></p>
-                <span class="tag">tag</span>
-                <span class="tag">tag2</span>
-                <span class="tag">mew2</span>
+                <span class="tag" th:each="tag : ${listingUnit.tags}" th:text="${tag.tagDescription}"></span>
                 <div class="comments">
                     <a href="#" onclick="toggleComments(this)">3 comments</a>
                     <li class="comment">Hyvä kommentti 1</li>
