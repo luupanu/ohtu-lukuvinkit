@@ -1,14 +1,15 @@
-
 package lukuvinkit.database;
-
-import lukuvinkit.domain.ReadingTip;
-import lukuvinkit.domain.Tag;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
+
+import lukuvinkit.domain.ReadingTip;
+import lukuvinkit.domain.Tag;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -51,13 +52,19 @@ public class ReadingTipDao {
         return allReadingTips;
     }
     
-    public ArrayList<ReadingTip> findAllForTag(int tag_id) throws SQLException {
+    public ArrayList<ReadingTip> findAllForTag(int tagId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
-            "SELECT ReadingTip.id, ReadingTip.title, ReadingTip.url, ReadingTip.description, ReadingTip.read FROM ReadingTip, ReadingTipTag "
-                    + "WHERE ReadingTipTag.tag_id = ? AND ReadingTipTag.readingtip_id = ReadingTip.id"
+            "SELECT"
+                + "ReadingTip.id,"
+                + "ReadingTip.title,"
+                + "ReadingTip.url,"
+                + "ReadingTip.description,"
+                + "ReadingTip.read"
+            + "FROM ReadingTip, ReadingTipTag"
+            + "WHERE ReadingTipTag.tag_id = ? AND ReadingTipTag.readingtip_id = ReadingTip.id"
         );
-        statement.setInt(1, tag_id);
+        statement.setInt(1, tagId);
 
         ResultSet result = statement.executeQuery();
 
@@ -96,17 +103,19 @@ public class ReadingTipDao {
         statement = connection.prepareStatement("select last_insert_rowid()");
         ResultSet result = statement.executeQuery();
         result.next();
-        int id = result.getInt(1);
-        result.close();
 
+        int id = result.getInt(1);
+        tip.setId(id);
+
+        result.close();
         statement.close();
         connection.close();
         
-        tip.setId(id);
         return tip;
     }
     
-    // Not yet needed, possibly not needed never? DO NOT WASTE TIME TESTING THIS. Maybe comment out before end of sprint.
+    // Not yet needed, possibly not needed never?
+    // DO NOT WASTE TIME TESTING THIS. Maybe comment out before end of sprint.
     public void update(ReadingTip tip) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(

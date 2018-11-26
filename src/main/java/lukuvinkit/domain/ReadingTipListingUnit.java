@@ -15,7 +15,8 @@ public class ReadingTipListingUnit implements Comparable<ReadingTipListingUnit> 
         // default constructor for Spring
     }
 
-    public ReadingTipListingUnit(ReadingTip readingTip, ArrayList<Comment> comments, ArrayList<Tag> tags) {
+    public ReadingTipListingUnit(ReadingTip readingTip,
+            ArrayList<Comment> comments, ArrayList<Tag> tags) {
         this.readingTip = readingTip;
         this.comments = comments;
         this.tags = tags;

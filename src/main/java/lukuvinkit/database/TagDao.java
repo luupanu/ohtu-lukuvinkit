@@ -1,13 +1,14 @@
-
 package lukuvinkit.database;
-
-import lukuvinkit.domain.Tag;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
+
+import lukuvinkit.domain.Tag;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -42,19 +43,23 @@ public class TagDao {
         return allTags;
     }
 
-    public ArrayList<Tag> findAllForReadingTip(int readingtip_id) throws SQLException {
+    public ArrayList<Tag> findAllForReadingTip(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement statement = connection
-                .prepareStatement("SELECT Tag.id, Tag.tagDescription FROM ReadingTipTag, Tag "
-                        + "WHERE ReadingTipTag.readingtip_id = ? AND ReadingTipTag.tag_id = Tag.id");
-        statement.setInt(1, readingtip_id);
+        PreparedStatement statement = connection.prepareStatement(
+            "SELECT Tag.id, Tag.tagDescription FROM ReadingTipTag, Tag "
+            + "WHERE ReadingTipTag.readingtip_id = ? AND ReadingTipTag.tag_id = Tag.id"
+        );
+        statement.setInt(1, readingTipId);
 
         ResultSet result = statement.executeQuery();
 
         ArrayList<Tag> allTagsForReadingTip = new ArrayList<>();
 
         while (result.next()) {
-            allTagsForReadingTip.add(new Tag(result.getInt("id"), result.getString("tagDescription")));
+            allTagsForReadingTip.add(new Tag(
+                result.getInt("id"),
+                result.getString("tagDescription")
+            ));
         }
 
         result.close();
@@ -68,7 +73,9 @@ public class TagDao {
         Connection connection = database.getConnection();
         PreparedStatement statement;
         
-        statement = connection.prepareStatement("INSERT INTO Tag(tagDescription) values (?) ON CONFLICT (tagDescription) DO NOTHING");
+        statement = connection.prepareStatement(
+            "INSERT INTO Tag(tagDescription) values (?) ON CONFLICT (tagDescription) DO NOTHING"
+        );
         statement.setString(1, tag.getTagDescription());
         int rowsInserted = statement.executeUpdate();
         
