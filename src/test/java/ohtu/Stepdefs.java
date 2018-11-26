@@ -74,14 +74,14 @@ public class Stepdefs {
     }
 
     private void submitNewTip(String title, String description, String url) {
-        assertTrue(driver.getPageSource().contains("Lisää uusi lukuvinkki"));
+        assertTrue(driver.getPageSource().contains("Add a new reading tip"));
         WebElement element = driver.findElement(By.name("title"));
         element.sendKeys(title);
         element = driver.findElement(By.name("description"));
         element.sendKeys(description);
         element = driver.findElement(By.name("url"));
         element.sendKeys(url);
-        element = driver.findElement(By.name("submit_form"));
+        element = driver.findElement(By.name("create-readingtip"));
         element.submit();
     }
 
