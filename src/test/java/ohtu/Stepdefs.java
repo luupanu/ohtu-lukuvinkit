@@ -37,39 +37,27 @@ public class Stepdefs {
     }
 
     @Given("^user is at the main page$")
-    public void user_is_at_the_main_page() throws Throwable {
+    public void user_is_at_the_main_page() {
         driver.get("http://localhost:" + 8080 + "/");
-        Thread.sleep(1000);
     }
 
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" and is submitted$")
     public void form_is_filled_and_submitted(String title, String description, String url) throws Throwable {
-        Thread.sleep(1000);
         submitNewTip(title, description, url);
-        Thread.sleep(1000);
     }
 
     @When("^form is not filled and is submitted$")
-    public void form_is_not_filled_and_is_submitted() throws Throwable {
-        Thread.sleep(1000);
+    public void form_is_not_filled_and_is_submitted() {
         submitNewTip("", "", "");
-        Thread.sleep(1000);
-    }
-
-    @When("^a link is clicked$")
-    public void a_link_is_clicked() throws Throwable {
-        Thread.sleep(1000);
-        clickLinkWithText("linkki");
-        Thread.sleep(1000);
     }
 
     @Then("^\"([^\"]*)\" is shown$")
-    public void is_shown(String arg1) throws Throwable {
+    public void is_shown(String arg1) {
         assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
     }
 
     @Then("^error \"([^\"]*)\" is shown$")
-    public void error_is_shown(String arg1) throws Throwable {
+    public void error_is_shown(String arg1) {
         assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
     }
 
@@ -84,18 +72,4 @@ public class Stepdefs {
         element = driver.findElement(By.name("create-readingtip"));
         element.submit();
     }
-
-    private void clickLinkWithText(String text) {
-        int trials = 0;
-        while (trials++ < 5) {
-            try {
-                WebElement element = driver.findElement(By.linkText(text));
-                element.click();
-                break;
-            } catch (Exception e) {
-                System.out.println(e.getStackTrace());
-            }
-        }
-    }
-
 }
