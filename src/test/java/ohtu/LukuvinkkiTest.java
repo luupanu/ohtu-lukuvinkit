@@ -1,18 +1,22 @@
 package ohtu;
 
+import static org.junit.Assert.assertEquals;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.sql.SQLException;
+
+import java.util.ArrayList;
+
 import lukuvinkit.controllers.Controllers;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class LukuvinkkiTest {
     

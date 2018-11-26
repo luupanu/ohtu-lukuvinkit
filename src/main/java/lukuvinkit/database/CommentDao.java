@@ -1,13 +1,14 @@
-
 package lukuvinkit.database;
-
-import lukuvinkit.domain.Comment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
+
+import lukuvinkit.domain.Comment;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,12 +24,12 @@ public class CommentDao {
         this.database = database;
     }
     
-    public ArrayList<Comment> findAllForReadingTip(int readingtip_id) throws SQLException {
+    public ArrayList<Comment> findAllForReadingTip(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
             "SELECT * FROM Comment WHERE readingtip_id = ?"
         );
-        statement.setInt(1, readingtip_id);
+        statement.setInt(1, readingTipId);
 
         ResultSet result = statement.executeQuery();
 
@@ -55,8 +56,8 @@ public class CommentDao {
             "INSERT INTO Comment(description, readingtip_id) values (?, ?)"
         );
 
-        statement.setString(1, comment.getDescription());
-        statement.setInt(2, comment.getReadingtip_id());
+        statement.setString(1, comment.getCommentDescription());
+        statement.setInt(2, comment.getReadingTipId());
 
         statement.executeUpdate();
 

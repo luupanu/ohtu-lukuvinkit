@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReadingTipListingUnit {
+public class ReadingTipListingUnit implements Comparable<ReadingTipListingUnit> {
 
     public ReadingTip readingTip;
     public ArrayList<Comment> comments;
@@ -19,6 +19,11 @@ public class ReadingTipListingUnit {
         this.readingTip = readingTip;
         this.comments = comments;
         this.tags = tags;
+    }
+
+    @Override
+    public int compareTo(ReadingTipListingUnit other) {
+        return this.readingTip.isRead() ? 1 : -1;
     }
 
 }

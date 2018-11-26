@@ -10,23 +10,23 @@ public class Comment {
     private int id;
 
     @NotEmpty
-    private String description;
+    private String commentDescription;
 
-    private int readingtip_id;
+    private int readingTipId;
 
     public Comment() {
         // default constructor for Spring
     }
 
-    public Comment(String description, int readingtip_id) {
-        this.description = description;
-        this.readingtip_id = readingtip_id;
+    public Comment(String description, int readingTipId) {
+        this.commentDescription = description;
+        this.readingTipId = readingTipId;
     }
 
-    public Comment(int id, String description, int readingtip_id) {
+    public Comment(int id, String description, int readingTipId) {
         this.id = id;
-        this.description = description;
-        this.readingtip_id = readingtip_id;
+        this.commentDescription = description;
+        this.readingTipId = readingTipId;
     }
 
     public int getId() {
@@ -37,20 +37,20 @@ public class Comment {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCommentDescription() {
+        return commentDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCommentDescription(String description) {
+        this.commentDescription = description;
     }
 
-    public int getReadingtip_id() {
-        return readingtip_id;
+    public int getReadingTipId() {
+        return readingTipId;
     }
 
-    public void setReadingtip_id(int readingtip_id) {
-        this.readingtip_id = readingtip_id;
+    public void setReadingTipId(int readingTipId) {
+        this.readingTipId = readingTipId;
     }
 
 }

@@ -68,12 +68,13 @@ public class ReadingTipService {
         readingTipDao.bindTagsToReadingTip(newTip, tags);
     }
     
-    public void saveNewComment(Comment newComment) throws SQLException {
+    public void saveNewComment(Comment newComment, int readingTipId) throws SQLException {
+        newComment.setReadingTipId(readingTipId);
         commentDao.save(newComment);
     }
     
-    public void toggleReadingTipRead(int readingTipID) throws SQLException {
-        readingTipDao.toggleRead(readingTipID);
+    public void toggleReadingTipRead(int readingTipId) throws SQLException {
+        readingTipDao.toggleRead(readingTipId);
     }
 
 }
