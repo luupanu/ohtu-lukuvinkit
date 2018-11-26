@@ -124,14 +124,13 @@ public class ReadingTipDao {
         connection.close();
     }
     
-    public void updateRead(int readingtip_id, boolean isRead) throws SQLException {
+    public void toggleRead(int readingtip_id) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
-            "UPDATE ReadingTip SET read = ? WHERE id = ?"
+            "UPDATE ReadingTip SET read=CASE read WHEN true THEN false ELSE true END WHERE id=?"
         );
         
-        statement.setBoolean(1, isRead);
-        statement.setInt(2, readingtip_id);
+        statement.setInt(1, readingtip_id);
         
         statement.executeUpdate();
 
