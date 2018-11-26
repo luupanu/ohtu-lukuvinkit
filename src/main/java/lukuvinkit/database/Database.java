@@ -43,10 +43,10 @@ public class Database {
             PreparedStatement statementCreateTable = connection.prepareStatement(
                 "CREATE TABLE ReadingTip"
                 + "("
-                    + "id INTEGER PRIMARY KEY,"
-                    + "title TEXT,"
-                    + "url TEXT,"
-                    + "description TEXT,"
+                    + "id INTEGER PRIMARY KEY, "
+                    + "title TEXT, "
+                    + "url TEXT, "
+                    + "description TEXT, "
                     + "read BOOLEAN"
                 + ")"
             );
@@ -55,7 +55,7 @@ public class Database {
             statementCreateTable = connection.prepareStatement(
                 "CREATE TABLE Tag"
                 + "("
-                    + "id INTEGER PRIMARY KEY,"
+                    + "id INTEGER PRIMARY KEY, "
                     + "tagDescription TEXT UNIQUE"
                 + ")"
             );
@@ -64,9 +64,9 @@ public class Database {
             statementCreateTable = connection.prepareStatement(
                 "CREATE TABLE ReadingTipTag"
                 + "("
-                    + "readingtip_id INTEGER,"
-                    + "tag_id INTEGER,"
-                    + "FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id),"
+                    + "readingtip_id INTEGER, "
+                    + "tag_id INTEGER, "
+                    + "FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id), "
                     + "FOREIGN KEY(tag_id) REFERENCES Tag(id)"
                 + ")"
             );
@@ -75,9 +75,9 @@ public class Database {
             statementCreateTable = connection.prepareStatement(
                 "CREATE TABLE Comment"
                 + "("
-                    + "id INTEGER PRIMARY KEY,"
-                    + "description TEXT,"
-                    + "readingtip_id INTEGER,"
+                    + "id INTEGER PRIMARY KEY, "
+                    + "description TEXT, "
+                    + "readingtip_id INTEGER, "
                     + "FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id)"
                 + ")"
             );

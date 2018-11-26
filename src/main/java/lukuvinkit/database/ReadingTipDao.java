@@ -56,13 +56,13 @@ public class ReadingTipDao {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
             "SELECT"
-                + "ReadingTip.id,"
-                + "ReadingTip.title,"
-                + "ReadingTip.url,"
-                + "ReadingTip.description,"
-                + "ReadingTip.read"
-            + "FROM ReadingTip, ReadingTipTag"
-            + "WHERE ReadingTipTag.tag_id = ?"
+                + "ReadingTip.id, "
+                + "ReadingTip.title, " 
+                + "ReadingTip.url, "
+                + "ReadingTip.description, "
+                + "ReadingTip.read "
+            + "FROM ReadingTip, ReadingTipTag "
+            + "WHERE ReadingTipTag.tag_id = ? "
             + "AND ReadingTipTag.readingtip_id = ReadingTip.id"
         );
         statement.setInt(1, tagId);
