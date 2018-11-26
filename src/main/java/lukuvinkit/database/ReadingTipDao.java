@@ -62,7 +62,8 @@ public class ReadingTipDao {
                 + "ReadingTip.description,"
                 + "ReadingTip.read"
             + "FROM ReadingTip, ReadingTipTag"
-            + "WHERE ReadingTipTag.tag_id = ? AND ReadingTipTag.readingtip_id = ReadingTip.id"
+            + "WHERE ReadingTipTag.tag_id = ?"
+            + "AND ReadingTipTag.readingtip_id = ReadingTip.id"
         );
         statement.setInt(1, tagId);
 

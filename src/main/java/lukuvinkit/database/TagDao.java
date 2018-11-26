@@ -46,8 +46,10 @@ public class TagDao {
     public ArrayList<Tag> findAllForReadingTip(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
-            "SELECT Tag.id, Tag.tagDescription FROM ReadingTipTag, Tag "
-            + "WHERE ReadingTipTag.readingtip_id = ? AND ReadingTipTag.tag_id = Tag.id"
+            "SELECT Tag.id, Tag.tagDescription"
+            + "FROM ReadingTipTag, Tag"
+            + "WHERE ReadingTipTag.readingtip_id = ?"
+            + "AND ReadingTipTag.tag_id = Tag.id"
         );
         statement.setInt(1, readingTipId);
 
