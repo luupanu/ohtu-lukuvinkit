@@ -8,13 +8,13 @@
 </head>
 
 <body>
-    <div class="page_container">
+    <div class="container">
 
-        <div class="h1_container">
+        <div class="heading">
             <h1>Reading tips</h1>
         </div>
 
-        <div class="article_container">
+        <div class="readingtips">
             <article th:each="listingUnit : ${list}">
                 <h3>
                     <a th:href="@{__${listingUnit.readingTip.url}__}" th:text="${listingUnit.readingTip.title}"/>
@@ -32,39 +32,39 @@
             </article>
         </div>
 
-        <div class="h2_container">
+        <div class="heading">
             <h2>Add a new reading tip</h2>
         </div>
 
-        <div class="form_container">
+        <div class="create-readingtip">
             <form th:action="@{/}" th:object="${readingTip}" method="POST">
                 <table>
                     <tr>
-                        <td>Title: </td>
+                        <td><label for="title">Title:</label></td>
                         <td><input type="text" th:field="*{title}" name="title" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></td>
+                        <td class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
                     </tr>
 
                     <tr>
-                        <td>Description: </td>
-                        <td><input type="text" th:field="*{description}" name="description" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></td>
+                        <td><label for="description">Description:</label></td>
+                        <td><input type="text" th:field="*{description}" name="description"  /></td>
+                        <td class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" />
                     </tr>
 
                     <tr>
-                        <td>URL: </td>
+                        <td><label for="url">URL:</label></td>
                         <td><input type="text" th:field="*{url}" name="url" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('url')}" th:errors="*{url}"></td>
+                        <td class="error" th:if="${#fields.hasErrors('url')}" th:errors="*{url}" />
                     </tr>
 
                     <tr th:object="${tag}">
-                        <td>Tags (seperate with a comma): </td>
+                        <td><label for="tags">Tags (separate with a comma):</label></td>
                         <td><input type="text" th:field="*{tagDescription}" name="tagDescription" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('tagDescription')}" th:errors="*{tagDescription}"></td>
+                        <td class="error" th:if="${#fields.hasErrors('tagDescription')}" th:errors="*{tagDescription}" />
                     </tr>
 
                     <tr>
-                        <td><input name="submit_form" type="submit"></input></td>
+                        <td><input name="submit_form" type="submit" /></td>
                     </tr>
                 </table>
             </form>

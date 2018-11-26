@@ -1,12 +1,3 @@
-.error {
-    color: red;
-}
-
-a {
-    display: inline;
-    color: #0000d9;
-}
-
 body {
     background-image: url(../images/lukuvinkit_bg.jpg);
     margin: 0;
@@ -14,16 +5,44 @@ body {
     height: 100%
 }
 
-.page_container {
+/* containers */
+
+.container {
     margin: 0 auto;
     height: 100%;
     width: 800px;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.h1_container {
+.heading {
     padding-top: 50px;
     text-align: center;
+}
+
+.readingtips {
+    width: 500px;
+    margin: 40px auto 0;
+}
+
+.create-readingtip {
+    width: 400px;
+    margin: 25px auto;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #999;
+}
+
+/* individual elements */
+
+a {
+    display: inline;
+    color: #0000d9;
+}
+
+article {
+    background-color: #999;
+    margin: 10px 0;
+    padding: 10px;
 }
 
 h1 {
@@ -34,12 +53,6 @@ h1 {
     color: #76f9bf;
 }
 
-.h2_container {
-    padding-top: 50px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
 h2 {
     padding: 10px;
     border-radius: 10px;
@@ -48,45 +61,39 @@ h2 {
     color: #76f9bf;
 }
 
-table {
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #999;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.article_container {
-    width: 350px;
-    margin: 40px auto 0;
-}
-
-article {
-    background-color: #999;
-    margin: 10px 0;
-    padding: 10px;
-}
-
-article h3 {
+h3 {
     font-size: 24px;
     margin: 5px 0;
 }
 
-.description {
-    color: #76f9bf;
+input[type=text] {
+    font-size: 16px;
+    padding: 10px;
+    margin: 2px 0;
+    width: 350px;
 }
 
-.tag {
-    display: inline-block;
-    color: black;
-    background-color: pink;
-    padding: 4px;
-    margin: 3px 1px;
+input[type=submit] {
+    font-size: 12px;
+    font-weight: bold;
+    width: 200px;
+    margin: 15px 0;
+    color: white;
+    border: 0;
+    background-color: #22f;
+    padding: 10px;
 }
 
-.comments {
- margin: 10px 0 0;
+input[type=submit]:hover {
+    background-color: #00f;
 }
+
+td {
+    margin: 0 10px;
+    display: block;
+}
+
+/* other custom classes */
 
 .comment {
     display: none;
@@ -97,6 +104,22 @@ article h3 {
     content: "- "
 }
 
-.form_container {
-    margin-bottom: 50px;
+.comments {
+ margin: 10px 0 0;
+}
+
+.description {
+    color: #76f9bf;
+}
+
+.error {
+    color: red;
+}
+
+.tag {
+    display: inline-block;
+    color: black;
+    background-color: pink;
+    padding: 4px;
+    margin: 3px 1px;
 }
