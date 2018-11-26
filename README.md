@@ -3,7 +3,17 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/47e9c44c64954e628fa54e620912e9eb)](https://www.codacy.com/app/Koppari/ohtu-lukuvinkit?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=luupanu/ohtu-lukuvinkit&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/luupanu/ohtu-lukuvinkit.svg?branch=master)](https://travis-ci.org/luupanu/ohtu-lukuvinkit)
 
-**Reading tips is a web app that at it's core lets the user save down reading tips, their descriptions and links to them. Other features include tagging, adding comments and keeping track of what you've already read.**
+**Reading tips is a web app that at its core lets the user save down reading tips, their descriptions and links to them. Other features include tagging, adding comments and keeping track of what you've already read.**
+
+## Installation
+
+A (modernish) browser running JavaScript is required for this app to work properly.
+
+To run the app locally:
+
+1. Clone this repository.
+2. Install [gradle](https://gradle.org/).
+3. Run `gradle run` in the project folder. A local server will be created to `localhost:8080`
 
 ## Links
 
