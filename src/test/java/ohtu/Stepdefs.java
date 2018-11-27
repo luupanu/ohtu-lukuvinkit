@@ -71,9 +71,7 @@ public class Stepdefs {
         driver.findElement(By.linkText(arg1)).click();
     }
     
-    
-
-    @Then("^\"([^\"]*)\" comment is shown$")
+    @Then("^\"([^\"]*)\" is shown$")
     public void isShown(String arg1) throws Throwable {
         assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
     }
@@ -106,7 +104,6 @@ public class Stepdefs {
         element = driver.findElement(By.name("create-comment"));
         element.submit();
     }
-    
 
     private void submitNewTip(String title, String description, String url) {
         assertTrue(driver.getPageSource().contains("Add a new reading tip"));
@@ -119,8 +116,6 @@ public class Stepdefs {
         element = driver.findElement(By.name("create-readingtip"));
         element.submit();
     }
-    
-
 
     private void submitNewTipWithTags(String title, String description, String url, String tags) {
         assertTrue(driver.getPageSource().contains("Add a new reading tip"));
