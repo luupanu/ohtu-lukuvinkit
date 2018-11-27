@@ -5,6 +5,10 @@
 
 **Reading tips is a web app that at its core lets the user save down reading tips, their descriptions and links to them. Other features include tagging, adding comments and keeping track of what you've already read.**
 
+### WIP features (should be ready after Sprint 3)**
+* Add a type for a reading tip: a book, a website or an article
+* Add more info for the reading tip: ISBN for a book, author for an article
+
 ## Installation
 
 A (modernish) browser running JavaScript is required for this app to work properly.
