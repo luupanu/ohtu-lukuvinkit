@@ -65,8 +65,15 @@ public class Stepdefs {
     public void anElementIsClicked(String arg1) throws Throwable {
         clickElementByName(arg1);
     }
+    
+    @When("^^\"([^\"]*)\" link is clicked$")
+    public void LinktIsClicked(String arg1) throws Throwable {
+        driver.findElement(By.linkText(arg1)).click();
+    }
+    
+    
 
-    @Then("^\"([^\"]*)\" is shown$")
+    @Then("^\"([^\"]*)\" comment is shown$")
     public void isShown(String arg1) throws Throwable {
         assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
     }
