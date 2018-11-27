@@ -154,21 +154,18 @@ public class ReadingTipDao {
         }
         
         Connection connection = database.getConnection();
-        PreparedStatement statement;
-        
-        int i = 0;
-        do {
-            Tag tag = tags.get(i);
+        PreparedStatement statement = null;
+
+        for (Tag tag : tags) {
             statement = connection.prepareStatement(
                 "INSERT INTO ReadingTipTag(readingtip_id, tag_id) values (?, ?)"
             );
             statement.setInt(1, tip.getId());
             statement.setInt(2, tag.getId());
             statement.executeUpdate();
-            ++i;
-        } while (i < tags.size());
+            statement.close();
+        }
 
-        statement.close();
         connection.close();
     }
     
