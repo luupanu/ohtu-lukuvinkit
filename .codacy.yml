@@ -1,3 +1,4 @@
 exclude_paths:
   - README.md
   - jacococoverage/**
+  - src/main/resources/static/js/site.js
