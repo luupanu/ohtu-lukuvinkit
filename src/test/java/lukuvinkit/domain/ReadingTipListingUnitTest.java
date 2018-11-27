@@ -23,18 +23,6 @@ public class ReadingTipListingUnitTest {
     private ReadingTip readingTipRead;
     private ReadingTip readingTipNotRead;
     
-    public ReadingTipListingUnitTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         comment1 = new Comment(1, "comment1", 2);
@@ -52,15 +40,6 @@ public class ReadingTipListingUnitTest {
         readingTipRead = new ReadingTip(1, "Tip 1 for tesing", "https://yle.fi/", "Just testing here", true);
         readingTipNotRead = new ReadingTip(1, "Tip 2 for tesing", "https://hs.fi/", "Test test", false);
         
-    }
-    
-    @After
-    public void tearDown() {
-    }
-    
-    @Test
-    public void constructorWorks() {
-        ReadingTipListingUnit unit = new ReadingTipListingUnit(readingTipRead, comments, tags);
     }
 
     @Test

@@ -13,25 +13,10 @@ public class CommentTest {
     private Comment commentConstructor1;
     private Comment commentConstructor2;
     
-    public CommentTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         commentConstructor1 = new Comment("comment1", 1);
         commentConstructor2 = new Comment(2, "comment2", 2);
-    }
-    
-    @After
-    public void tearDown() {
     }
 
     @Test

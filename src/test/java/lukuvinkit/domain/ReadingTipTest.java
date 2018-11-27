@@ -24,27 +24,10 @@ public class ReadingTipTest {
     private ReadingTip readingTipTestConstructor1;
     private ReadingTip readingTipTestConstructor2;
     
-    public ReadingTipTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() throws SQLException {
-        // Database setUp tänne
-    }
-    
-   @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         readingTipTestConstructor1 = new ReadingTip(1, "Tip 1 for testing", "https://yle.fi/", "Just testing here", false);
         readingTipTestConstructor2 = new ReadingTip("Tip 2 for tesing", "https://hs.fi/", "Test test", true);
-    }
-    
-    
-    @After
-    public void tearDown() {
     }
     
     
