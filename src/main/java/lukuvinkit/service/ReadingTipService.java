@@ -65,7 +65,9 @@ public class ReadingTipService {
 
         ArrayList<Tag> tags = new ArrayList<Tag>();
         for (String t : noDuplicateTags) {
-            tags.add(new Tag(t));
+            if (t != null && !t.isEmpty()) {
+                tags.add(new Tag(t));
+            }
         }
         
         // Save all tags into database that are not yet there,
