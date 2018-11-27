@@ -15,6 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Stepdefs {
 
+    final static int PORT_NUMBER = 8080;
     private WebDriver driver;
 
     public Stepdefs() {
@@ -31,8 +32,6 @@ public class Stepdefs {
 
         this.driver = new ChromeDriver();
     }
-    
-    /*
 
     @After
     public void tearDown() {
@@ -41,12 +40,7 @@ public class Stepdefs {
 
     @Given("^user is at the main page$")
     public void userIsAtTheMainPage() throws Throwable {
-        driver.get("http://localhost:" + 8080 + "/");
-    }
-
-    @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" and is submitted$")
-    public void formIsFilledAndSubmitted(String title, String description, String url) throws Throwable {
-        submitNewTip(title, description, url);
+        driver.get("http://localhost:" + PORT_NUMBER + "/");
     }
 
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" tags \"([^\"]*)\" and is submitted$")
@@ -82,7 +76,12 @@ public class Stepdefs {
 
     @Then("^error \"([^\"]*)\" is shown$")
     public void errorIsShown(String arg1) throws Throwable {
+        try {
         assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
+        } catch (Exception e) {
+            Thread.sleep(4000);
+            System.out.println(e.getStackTrace());
+        }
     }
 
     private void submitNewTip(String title, String description, String url) {
@@ -119,6 +118,6 @@ public class Stepdefs {
             System.out.println(e.getStackTrace());
         }
 
-    }*/
+    }
 
 }

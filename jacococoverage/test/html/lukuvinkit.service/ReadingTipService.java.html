@@ -37,61 +37,63 @@ public class ReadingTipService {
 
     public ArrayList&lt;ReadingTipListingUnit&gt; generateReadingTipListing() throws SQLException {
 
-<span class="nc" id="L40">        ArrayList&lt;ReadingTipListingUnit&gt; readingTipListing = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L40">        ArrayList&lt;ReadingTipListingUnit&gt; readingTipListing = new ArrayList&lt;&gt;();</span>
 
-<span class="nc" id="L42">        ArrayList&lt;ReadingTip&gt; allReadingTips = readingTipDao.findAll();</span>
+<span class="fc" id="L42">        ArrayList&lt;ReadingTip&gt; allReadingTips = readingTipDao.findAll();</span>
 
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        for (ReadingTip tip : allReadingTips) {</span>
-<span class="nc" id="L45">            ArrayList&lt;Comment&gt; commentsOfTip = commentDao.findAllForReadingTip(tip.getId());</span>
-<span class="nc" id="L46">            ArrayList&lt;Tag&gt; tagsOfTip = tagDao.findAllForReadingTip(tip.getId());</span>
-<span class="nc" id="L47">            ReadingTipListingUnit listingUnit = new ReadingTipListingUnit(</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        for (ReadingTip tip : allReadingTips) {</span>
+<span class="fc" id="L45">            ArrayList&lt;Comment&gt; commentsOfTip = commentDao.findAllForReadingTip(tip.getId());</span>
+<span class="fc" id="L46">            ArrayList&lt;Tag&gt; tagsOfTip = tagDao.findAllForReadingTip(tip.getId());</span>
+<span class="fc" id="L47">            ReadingTipListingUnit listingUnit = new ReadingTipListingUnit(</span>
                 tip,
                 commentsOfTip,
                 tagsOfTip
             );
-<span class="nc" id="L52">            readingTipListing.add(listingUnit);</span>
-<span class="nc" id="L53">        }</span>
+<span class="fc" id="L52">            readingTipListing.add(listingUnit);</span>
+<span class="fc" id="L53">        }</span>
 
-<span class="nc" id="L55">        return readingTipListing;</span>
+<span class="fc" id="L55">        return readingTipListing;</span>
     }
 
     public void saveNewReadingTip(ReadingTip newTip, Tag allTagsTogether) throws SQLException {
         // Separate tags into individual Tag-instances.
-<span class="nc" id="L60">        List&lt;String&gt; tagsAsString = new ArrayList&lt;String&gt;(</span>
-<span class="nc" id="L61">            Arrays.asList((allTagsTogether.getTagDescription()).split(&quot;\\s*,\\s*&quot;)));</span>
-<span class="nc" id="L62">        List&lt;String&gt; noDuplicateTags =  tagsAsString.stream()</span>
-<span class="nc" id="L63">                                                    .distinct()</span>
-<span class="nc" id="L64">                                                    .collect(Collectors.toList());</span>
+<span class="fc" id="L60">        List&lt;String&gt; tagsAsString = new ArrayList&lt;String&gt;(</span>
+<span class="fc" id="L61">            Arrays.asList((allTagsTogether.getTagDescription()).split(&quot;\\s*,\\s*&quot;)));</span>
+<span class="fc" id="L62">        List&lt;String&gt; noDuplicateTags =  tagsAsString.stream()</span>
+<span class="fc" id="L63">                                                    .distinct()</span>
+<span class="fc" id="L64">                                                    .collect(Collectors.toList());</span>
 
-<span class="nc" id="L66">        ArrayList&lt;Tag&gt; tags = new ArrayList&lt;Tag&gt;();</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        for (String t : noDuplicateTags) {</span>
-<span class="nc" id="L68">            tags.add(new Tag(t));</span>
-<span class="nc" id="L69">        }</span>
+<span class="fc" id="L66">        ArrayList&lt;Tag&gt; tags = new ArrayList&lt;Tag&gt;();</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        for (String t : noDuplicateTags) {</span>
+<span class="pc bpc" id="L68" title="2 of 4 branches missed.">            if (t != null &amp;&amp; !t.isEmpty()) {</span>
+<span class="fc" id="L69">                tags.add(new Tag(t));</span>
+            }
+<span class="fc" id="L71">        }</span>
         
         // Save all tags into database that are not yet there,
         // fetch IDs for all tags at the same time.
-<span class="nc" id="L73">        int i = 0;</span>
-<span class="nc bnc" id="L74" title="All 2 branches missed.">        while (i &lt; tags.size()) {</span>
-<span class="nc" id="L75">            Tag tag = tags.get(i);</span>
-<span class="nc" id="L76">            tag = tagDao.save(tag);</span>
-<span class="nc" id="L77">            ++i;</span>
-<span class="nc" id="L78">        }</span>
+<span class="fc" id="L75">        int i = 0;</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        while (i &lt; tags.size()) {</span>
+<span class="fc" id="L77">            Tag tag = tags.get(i);</span>
+<span class="fc" id="L78">            tag = tagDao.save(tag);</span>
+<span class="fc" id="L79">            ++i;</span>
+<span class="fc" id="L80">        }</span>
         
         // Save the new reading tip.
-<span class="nc" id="L81">        newTip = readingTipDao.save(newTip);</span>
+<span class="fc" id="L83">        newTip = readingTipDao.save(newTip);</span>
         
         // Bind all tags to the new reading tip.
-<span class="nc" id="L84">        readingTipDao.bindTagsToReadingTip(newTip, tags);</span>
-<span class="nc" id="L85">    }</span>
+<span class="fc" id="L86">        readingTipDao.bindTagsToReadingTip(newTip, tags);</span>
+<span class="fc" id="L87">    }</span>
     
     public void saveNewComment(Comment newComment, int readingTipId) throws SQLException {
-<span class="nc" id="L88">        newComment.setReadingTipId(readingTipId);</span>
-<span class="nc" id="L89">        commentDao.save(newComment);</span>
-<span class="nc" id="L90">    }</span>
+<span class="nc" id="L90">        newComment.setReadingTipId(readingTipId);</span>
+<span class="nc" id="L91">        commentDao.save(newComment);</span>
+<span class="nc" id="L92">    }</span>
     
     public void toggleReadingTipRead(int readingTipId) throws SQLException {
-<span class="nc" id="L93">        readingTipDao.toggleRead(readingTipId);</span>
-<span class="nc" id="L94">    }</span>
+<span class="fc" id="L95">        readingTipDao.toggleRead(readingTipId);</span>
+<span class="fc" id="L96">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

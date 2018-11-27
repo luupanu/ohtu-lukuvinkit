@@ -49,14 +49,14 @@ public class Controllers {
 
     @GetMapping(&quot;*&quot;)
     public String home(Model model) throws SQLException {
-<span class="nc" id="L52">        ArrayList&lt;ReadingTipListingUnit&gt; tipListing = service.generateReadingTipListing();</span>
-<span class="nc" id="L53">        Collections.sort(tipListing);</span>
+<span class="fc" id="L52">        ArrayList&lt;ReadingTipListingUnit&gt; tipListing = service.generateReadingTipListing();</span>
+<span class="fc" id="L53">        Collections.sort(tipListing);</span>
 
-<span class="nc" id="L55">        model.addAttribute(&quot;list&quot;, tipListing);</span>
-<span class="nc" id="L56">        model.addAttribute(&quot;comment&quot;, new Comment());</span>
-<span class="nc" id="L57">        model.addAttribute(&quot;readingTip&quot;, new ReadingTip());</span>
-<span class="nc" id="L58">        model.addAttribute(&quot;tag&quot;, new Tag());</span>
-<span class="nc" id="L59">        return &quot;index&quot;;</span>
+<span class="fc" id="L55">        model.addAttribute(&quot;list&quot;, tipListing);</span>
+<span class="fc" id="L56">        model.addAttribute(&quot;comment&quot;, new Comment());</span>
+<span class="fc" id="L57">        model.addAttribute(&quot;readingTip&quot;, new ReadingTip());</span>
+<span class="fc" id="L58">        model.addAttribute(&quot;tag&quot;, new Tag());</span>
+<span class="fc" id="L59">        return &quot;index&quot;;</span>
     }
 
     @PostMapping(&quot;/comment&quot;)
@@ -70,20 +70,20 @@ public class Controllers {
     public String createReadingTip(@Valid
             @ModelAttribute ReadingTip readingTip, BindingResult bindingResultTip,
             @ModelAttribute Tag tag, BindingResult bindingResultTag) throws SQLException {
-<span class="nc bnc" id="L73" title="All 4 branches missed.">        if (bindingResultTip.hasErrors() || bindingResultTag.hasErrors()) {</span>
-<span class="nc" id="L74">            return &quot;index&quot;;</span>
+<span class="pc bpc" id="L73" title="1 of 4 branches missed.">        if (bindingResultTip.hasErrors() || bindingResultTag.hasErrors()) {</span>
+<span class="fc" id="L74">            return &quot;index&quot;;</span>
         }
 
-<span class="nc" id="L77">        service.saveNewReadingTip(readingTip, tag);</span>
+<span class="fc" id="L77">        service.saveNewReadingTip(readingTip, tag);</span>
 
-<span class="nc" id="L79">        return &quot;redirect:/&quot;;</span>
+<span class="fc" id="L79">        return &quot;redirect:/&quot;;</span>
     }
 
     @PatchMapping(&quot;/&quot;)
     public String toggleRead(@RequestParam Integer id) throws SQLException {
-<span class="nc" id="L84">        System.out.println(id);</span>
-<span class="nc" id="L85">        service.toggleReadingTipRead(id);</span>
-<span class="nc" id="L86">        return &quot;redirect:/&quot;;</span>
+<span class="fc" id="L84">        System.out.println(id);</span>
+<span class="fc" id="L85">        service.toggleReadingTipRead(id);</span>
+<span class="fc" id="L86">        return &quot;redirect:/&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>
