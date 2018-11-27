@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReadingTipDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-cucumber</a> &gt; <a href="index.source.html" class="el_package">lukuvinkit.database</a> &gt; <span class="el_source">ReadingTipDao.java</span></div><h1>ReadingTipDao.java</h1><pre class="source lang-java linenums">package lukuvinkit.database;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import java.util.ArrayList;
+
+import lukuvinkit.domain.ReadingTip;
+import lukuvinkit.domain.Tag;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class ReadingTipDao {
+    
+    private Database database;
+    
+<span class="fc" id="L20">    public ReadingTipDao() {</span>
+        // default constructor for Spring
+<span class="fc" id="L22">    }</span>
+    
+<span class="fc" id="L24">    public ReadingTipDao(Database database) {</span>
+<span class="fc" id="L25">        this.database = database;</span>
+<span class="fc" id="L26">    }</span>
+    
+    public ArrayList&lt;ReadingTip&gt; findAll() throws SQLException {
+<span class="fc" id="L29">        Connection connection = database.getConnection();</span>
+<span class="fc" id="L30">        PreparedStatement statement = connection.prepareStatement(</span>
+            &quot;SELECT * FROM ReadingTip&quot;
+        );
+
+<span class="fc" id="L34">        ResultSet result = statement.executeQuery();</span>
+
+<span class="fc" id="L36">        ArrayList&lt;ReadingTip&gt; allReadingTips = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        while (result.next()) {</span>
+<span class="fc" id="L39">            allReadingTips.add(new ReadingTip(</span>
+<span class="fc" id="L40">                result.getInt(&quot;id&quot;),</span>
+<span class="fc" id="L41">                result.getString(&quot;title&quot;),</span>
+<span class="fc" id="L42">                result.getString(&quot;url&quot;),</span>
+<span class="fc" id="L43">                result.getString(&quot;description&quot;),</span>
+<span class="fc" id="L44">                result.getBoolean(&quot;read&quot;)</span>
+            ));
+        }
+
+<span class="fc" id="L48">        result.close();</span>
+<span class="fc" id="L49">        statement.close();</span>
+<span class="fc" id="L50">        connection.close();</span>
+
+<span class="fc" id="L52">        return allReadingTips;</span>
+    }
+    
+    public ArrayList&lt;ReadingTip&gt; findAllForTag(int tagId) throws SQLException {
+<span class="nc" id="L56">        Connection connection = database.getConnection();</span>
+<span class="nc" id="L57">        PreparedStatement statement = connection.prepareStatement(</span>
+            &quot;SELECT&quot;
+                + &quot;ReadingTip.id, &quot;
+                + &quot;ReadingTip.title, &quot; 
+                + &quot;ReadingTip.url, &quot;
+                + &quot;ReadingTip.description, &quot;
+                + &quot;ReadingTip.read &quot;
+            + &quot;FROM ReadingTip, ReadingTipTag &quot;
+            + &quot;WHERE ReadingTipTag.tag_id = ? &quot;
+            + &quot;AND ReadingTipTag.readingtip_id = ReadingTip.id&quot;
+        );
+<span class="nc" id="L68">        statement.setInt(1, tagId);</span>
+
+<span class="nc" id="L70">        ResultSet result = statement.executeQuery();</span>
+
+<span class="nc" id="L72">        ArrayList&lt;ReadingTip&gt; allReadingTipsForTag = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        while (result.next()) {</span>
+<span class="nc" id="L75">            allReadingTipsForTag.add(new ReadingTip(</span>
+<span class="nc" id="L76">                result.getInt(&quot;id&quot;),</span>
+<span class="nc" id="L77">                result.getString(&quot;title&quot;),</span>
+<span class="nc" id="L78">                result.getString(&quot;url&quot;),</span>
+<span class="nc" id="L79">                result.getString(&quot;description&quot;),</span>
+<span class="nc" id="L80">                result.getBoolean(&quot;read&quot;)</span>
+            ));
+        }
+
+<span class="nc" id="L84">        result.close();</span>
+<span class="nc" id="L85">        statement.close();</span>
+<span class="nc" id="L86">        connection.close();</span>
+
+<span class="nc" id="L88">        return allReadingTipsForTag;</span>
+    }
+    
+    public ReadingTip save(ReadingTip tip) throws SQLException {
+<span class="fc" id="L92">        Connection connection = database.getConnection();</span>
+        PreparedStatement statement;
+        
+<span class="fc" id="L95">        statement = connection.prepareStatement(</span>
+            &quot;INSERT INTO ReadingTip(title, url, description, read) values (?, ?, ?, ?)&quot;
+        );
+<span class="fc" id="L98">        statement.setString(1, tip.getTitle());</span>
+<span class="fc" id="L99">        statement.setString(2, tip.getUrl());</span>
+<span class="fc" id="L100">        statement.setString(3, tip.getDescription());</span>
+<span class="fc" id="L101">        statement.setBoolean(4, tip.isRead());</span>
+<span class="fc" id="L102">        statement.executeUpdate();</span>
+        
+<span class="fc" id="L104">        statement = connection.prepareStatement(&quot;select last_insert_rowid()&quot;);</span>
+<span class="fc" id="L105">        ResultSet result = statement.executeQuery();</span>
+<span class="fc" id="L106">        result.next();</span>
+
+<span class="fc" id="L108">        int id = result.getInt(1);</span>
+<span class="fc" id="L109">        tip.setId(id);</span>
+
+<span class="fc" id="L111">        result.close();</span>
+<span class="fc" id="L112">        statement.close();</span>
+<span class="fc" id="L113">        connection.close();</span>
+        
+<span class="fc" id="L115">        return tip;</span>
+    }
+    
+    // Not yet needed, possibly not needed never?
+    // DO NOT WASTE TIME TESTING THIS. Maybe comment out before end of sprint.
+    public void update(ReadingTip tip) throws SQLException {
+<span class="nc" id="L121">        Connection connection = database.getConnection();</span>
+<span class="nc" id="L122">        PreparedStatement statement = connection.prepareStatement(</span>
+            &quot;UPDATE ReadingTip SET title = ?, url = ?, description = ?, read = ? WHERE id = ?&quot;
+        );
+        
+<span class="nc" id="L126">        statement.setString(1, tip.getTitle());</span>
+<span class="nc" id="L127">        statement.setString(2, tip.getUrl());</span>
+<span class="nc" id="L128">        statement.setString(3, tip.getDescription());</span>
+<span class="nc" id="L129">        statement.setBoolean(4, tip.isRead());</span>
+        
+<span class="nc" id="L131">        statement.executeUpdate();</span>
+
+<span class="nc" id="L133">        statement.close();</span>
+<span class="nc" id="L134">        connection.close();</span>
+<span class="nc" id="L135">    }</span>
+    
+    public void toggleRead(int readingTipId) throws SQLException {
+<span class="fc" id="L138">        Connection connection = database.getConnection();</span>
+<span class="fc" id="L139">        PreparedStatement statement = connection.prepareStatement(</span>
+            &quot;UPDATE ReadingTip SET read=CASE read WHEN true THEN false ELSE true END WHERE id=?&quot;
+        );
+        
+<span class="fc" id="L143">        statement.setInt(1, readingTipId);</span>
+        
+<span class="fc" id="L145">        statement.executeUpdate();</span>
+
+<span class="fc" id="L147">        statement.close();</span>
+<span class="fc" id="L148">        connection.close();</span>
+<span class="fc" id="L149">    }</span>
+    
+    public void bindTagsToReadingTip(ReadingTip tip, ArrayList&lt;Tag&gt; tags) throws SQLException {
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">        if (tags.isEmpty()) {</span>
+<span class="nc" id="L153">            return;</span>
+        }
+        
+<span class="fc" id="L156">        Connection connection = database.getConnection();</span>
+        PreparedStatement statement;
+        
+<span class="fc" id="L159">        int i = 0;</span>
+        do {
+<span class="fc" id="L161">            Tag tag = tags.get(i);</span>
+<span class="fc" id="L162">            statement = connection.prepareStatement(</span>
+                &quot;INSERT INTO ReadingTipTag(readingtip_id, tag_id) values (?, ?)&quot;
+            );
+<span class="fc" id="L165">            statement.setInt(1, tip.getId());</span>
+<span class="fc" id="L166">            statement.setInt(2, tag.getId());</span>
+<span class="fc" id="L167">            statement.executeUpdate();</span>
+<span class="fc" id="L168">            ++i;</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">        } while (i &lt; tags.size());</span>
+
+<span class="fc" id="L171">        statement.close();</span>
+<span class="fc" id="L172">        connection.close();</span>
+<span class="fc" id="L173">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

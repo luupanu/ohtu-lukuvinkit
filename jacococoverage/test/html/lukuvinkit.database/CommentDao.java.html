@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommentDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-cucumber</a> &gt; <a href="index.source.html" class="el_package">lukuvinkit.database</a> &gt; <span class="el_source">CommentDao.java</span></div><h1>CommentDao.java</h1><pre class="source lang-java linenums">package lukuvinkit.database;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import java.util.ArrayList;
+
+import lukuvinkit.domain.Comment;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class CommentDao {
+    
+    private Database database;
+    
+<span class="fc" id="L19">    public CommentDao() {</span>
+        // default constructor for Spring
+<span class="fc" id="L21">    }</span>
+    
+<span class="fc" id="L23">    public CommentDao(Database database) {</span>
+<span class="fc" id="L24">        this.database = database;</span>
+<span class="fc" id="L25">    }</span>
+    
+    public ArrayList&lt;Comment&gt; findAllForReadingTip(int readingTipId) throws SQLException {
+<span class="fc" id="L28">        Connection connection = database.getConnection();</span>
+<span class="fc" id="L29">        PreparedStatement statement = connection.prepareStatement(</span>
+            &quot;SELECT * FROM Comment WHERE readingtip_id = ?&quot;
+        );
+<span class="fc" id="L32">        statement.setInt(1, readingTipId);</span>
+
+<span class="fc" id="L34">        ResultSet result = statement.executeQuery();</span>
+
+<span class="fc" id="L36">        ArrayList&lt;Comment&gt; allCommentsForReadingTip = new ArrayList&lt;&gt;();</span>
+
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        while (result.next()) {</span>
+<span class="nc" id="L39">            allCommentsForReadingTip.add(new Comment(</span>
+<span class="nc" id="L40">                result.getInt(&quot;id&quot;),</span>
+<span class="nc" id="L41">                result.getString(&quot;description&quot;),</span>
+<span class="nc" id="L42">                result.getInt(&quot;readingtip_id&quot;)</span>
+            ));
+        }
+
+<span class="fc" id="L46">        result.close();</span>
+<span class="fc" id="L47">        statement.close();</span>
+<span class="fc" id="L48">        connection.close();</span>
+
+<span class="fc" id="L50">        return allCommentsForReadingTip;</span>
+    }
+    
+    public void save(Comment comment) throws SQLException {
+<span class="nc" id="L54">        Connection connection = database.getConnection();</span>
+<span class="nc" id="L55">        PreparedStatement statement = connection.prepareStatement(</span>
+            &quot;INSERT INTO Comment(description, readingtip_id) values (?, ?)&quot;
+        );
+
+<span class="nc" id="L59">        statement.setString(1, comment.getCommentDescription());</span>
+<span class="nc" id="L60">        statement.setInt(2, comment.getReadingTipId());</span>
+
+<span class="nc" id="L62">        statement.executeUpdate();</span>
+
+<span class="nc" id="L64">        statement.close();</span>
+<span class="nc" id="L65">        connection.close();</span>
+<span class="nc" id="L66">    }    </span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>
