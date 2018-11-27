@@ -14,7 +14,6 @@ public class ReadingTipListingUnitTest {
     private Comment comment3;
     private Tag tag1;
     private Tag tag2;
-    private ReadingTip tip;
     private ArrayList<Comment> comments;
     private ArrayList<Tag> tags;
     private ReadingTip readingTipRead;
