@@ -1,25 +1,27 @@
 package lukuvinkit.domain;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import java.util.ArrayList;
 
 public class ReadingTipListingUnitTest {
     
-    Comment comment1;
-    Comment comment2;
-    Comment comment3;
-    Tag tag1;
-    Tag tag2;
-    ReadingTip tip;
-    ArrayList<Comment> comments;
-    ArrayList<Tag> tags;
-    ReadingTip readingTipRead;
-    ReadingTip readingTipNotRead;
+    private Comment comment1;
+    private Comment comment2;
+    private Comment comment3;
+    private Tag tag1;
+    private Tag tag2;
+    private ReadingTip tip;
+    private ArrayList<Comment> comments;
+    private ArrayList<Tag> tags;
+    private ReadingTip readingTipRead;
+    private ReadingTip readingTipNotRead;
     
     public ReadingTipListingUnitTest() {
     }

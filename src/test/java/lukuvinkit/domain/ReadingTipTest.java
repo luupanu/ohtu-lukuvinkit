@@ -11,18 +11,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import lukuvinkit.controllers.Controllers;
+import lukuvinkit.domain.ReadingTip;
 
 import org.junit.After;
 import org.junit.AfterClass;
-import lukuvinkit.domain.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ReadingTipTest {
     
-    ReadingTip readingTipTestConstructor1;
-    ReadingTip readingTipTestConstructor2;
+    private ReadingTip readingTipTestConstructor1;
+    private ReadingTip readingTipTestConstructor2;
     
     public ReadingTipTest() {
     }

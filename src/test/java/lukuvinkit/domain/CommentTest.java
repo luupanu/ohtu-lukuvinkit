@@ -1,16 +1,17 @@
 package lukuvinkit.domain;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class CommentTest {
     
-    Comment commentConstructor1;
-    Comment commentConstructor2;
+    private Comment commentConstructor1;
+    private Comment commentConstructor2;
     
     public CommentTest() {
     }
