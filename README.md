@@ -11,13 +11,14 @@ A (modernish) browser running JavaScript is required for this app to work proper
 
 To run the app locally:
 
-1. Clone this repository.
-2. Install [gradle](https://gradle.org/).
+1. Clone this repository
+2. Install [gradle](https://gradle.org/)
 3. Run `gradle run` in the project folder. A local server will be created to `localhost:8080`
 
 ## Links
 
 * [Heroku](https://lukuvinkit.herokuapp.com/)
+* [Test coverage report](...)
 * [Product Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU)
 * [Sprint 1 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=0)
 * [Sprint 2 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=1294251749)
@@ -26,9 +27,9 @@ To run the app locally:
 
 A user story can be seen as done when all of the following requirements are fulfilled:
 
-* The acceptance criteria of the user story are fulfilled.
+* The acceptance criteria of the user story are fulfilled
 * All tests pass successfully
-* The line coverage for all tests is at least 80%.
+* The line coverage for all tests is at least 80%
 * The code is documented at a general level (The usage cases for classes)
 * Travis CI build is successful
 * Heroku build is successful and runs
