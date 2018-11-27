@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Database.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-cucumber</a> &gt; <a href="index.source.html" class="el_package">lukuvinkit.database</a> &gt; <span class="el_source">Database.java</span></div><h1>Database.java</h1><pre class="source lang-java linenums">
+package lukuvinkit.database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Database {
+    
+    private String address;
+    
+<span class="fc" id="L16">    public Database() {</span>
+        // default constructor for Spring
+<span class="fc" id="L18">    }</span>
+    
+<span class="fc" id="L20">    public Database(String address) {</span>
+<span class="fc" id="L21">        this.address = address;</span>
+<span class="fc" id="L22">    }</span>
+    
+    public Connection getConnection() throws SQLException {
+<span class="fc" id="L25">        return DriverManager.getConnection(this.address);</span>
+    }
+    
+    public void initializeDatabase() throws SQLException {
+<span class="fc" id="L29">        Connection connection = this.getConnection();</span>
+        
+        // Check if database table is already created.
+<span class="fc" id="L32">        PreparedStatement statementTableCheck = connection.prepareStatement(</span>
+            &quot;select count(*) from sqlite_master&quot;
+        );
+<span class="fc" id="L35">        ResultSet result = statementTableCheck.executeQuery();</span>
+<span class="fc" id="L36">        result.next();</span>
+<span class="fc" id="L37">        int tableExists = result.getInt(1);</span>
+<span class="fc" id="L38">        result.close();</span>
+<span class="fc" id="L39">        statementTableCheck.close();</span>
+
+        // Create database tables if it is not yet created.
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (tableExists == 0) {</span>
+<span class="fc" id="L43">            PreparedStatement statementCreateTable = connection.prepareStatement(</span>
+                &quot;CREATE TABLE ReadingTip&quot;
+                + &quot;(&quot;
+                    + &quot;id INTEGER PRIMARY KEY, &quot;
+                    + &quot;title TEXT, &quot;
+                    + &quot;url TEXT, &quot;
+                    + &quot;description TEXT, &quot;
+                    + &quot;read BOOLEAN&quot;
+                + &quot;)&quot;
+            );
+<span class="fc" id="L53">            statementCreateTable.executeUpdate();</span>
+            
+<span class="fc" id="L55">            statementCreateTable = connection.prepareStatement(</span>
+                &quot;CREATE TABLE Tag&quot;
+                + &quot;(&quot;
+                    + &quot;id INTEGER PRIMARY KEY, &quot;
+                    + &quot;tagDescription TEXT UNIQUE&quot;
+                + &quot;)&quot;
+            );
+<span class="fc" id="L62">            statementCreateTable.executeUpdate();</span>
+            
+<span class="fc" id="L64">            statementCreateTable = connection.prepareStatement(</span>
+                &quot;CREATE TABLE ReadingTipTag&quot;
+                + &quot;(&quot;
+                    + &quot;readingtip_id INTEGER, &quot;
+                    + &quot;tag_id INTEGER, &quot;
+                    + &quot;FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id), &quot;
+                    + &quot;FOREIGN KEY(tag_id) REFERENCES Tag(id)&quot;
+                + &quot;)&quot;
+            );
+<span class="fc" id="L73">            statementCreateTable.executeUpdate();</span>
+            
+<span class="fc" id="L75">            statementCreateTable = connection.prepareStatement(</span>
+                &quot;CREATE TABLE Comment&quot;
+                + &quot;(&quot;
+                    + &quot;id INTEGER PRIMARY KEY, &quot;
+                    + &quot;description TEXT, &quot;
+                    + &quot;readingtip_id INTEGER, &quot;
+                    + &quot;FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id)&quot;
+                + &quot;)&quot;
+            );
+<span class="fc" id="L84">            statementCreateTable.executeUpdate();</span>
+            
+<span class="fc" id="L86">            statementCreateTable.close();</span>
+        }
+
+<span class="fc" id="L89">        connection.close();</span>
+<span class="fc" id="L90">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

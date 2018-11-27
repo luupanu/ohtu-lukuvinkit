@@ -76,6 +76,10 @@ checkstyle {
     toolVersion = "8.14"
 }
 
+jacoco {
+    reportsDir = file("./jacococoverage")
+}
+
 jacocoTestReport {
     reports {
         xml.enabled true
@@ -87,4 +91,5 @@ jacocoTestReport {
                     exclude: ['lukuvinkit/Main.*'])
         })
     }
+    
 }
