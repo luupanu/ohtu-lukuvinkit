@@ -9,7 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 class ServerRule extends ExternalResource {
 
     private final int port;
-    ConfigurableApplicationContext app;
+    private ConfigurableApplicationContext app;
 
     public ServerRule(int port) {
         this.port = port;
