@@ -31,6 +31,8 @@ public class Stepdefs {
 
         this.driver = new ChromeDriver();
     }
+    
+    /*
 
     @After
     public void tearDown() {
@@ -117,6 +119,6 @@ public class Stepdefs {
             System.out.println(e.getStackTrace());
         }
 
-    }
+    }*/
 
 }

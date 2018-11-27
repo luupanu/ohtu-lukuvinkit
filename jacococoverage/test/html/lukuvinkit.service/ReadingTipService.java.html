@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReadingTipService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-cucumber</a> &gt; <a href="index.source.html" class="el_package">lukuvinkit.service</a> &gt; <span class="el_source">ReadingTipService.java</span></div><h1>ReadingTipService.java</h1><pre class="source lang-java linenums">package lukuvinkit.service;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fi"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReadingTipService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lukuvinkit</a> &gt; <a href="index.source.html" class="el_package">lukuvinkit.service</a> &gt; <span class="el_source">ReadingTipService.java</span></div><h1>ReadingTipService.java</h1><pre class="source lang-java linenums">package lukuvinkit.service;
 
 import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import lukuvinkit.database.CommentDao;
 import lukuvinkit.database.ReadingTipDao;
@@ -23,69 +25,73 @@ public class ReadingTipService {
     private CommentDao commentDao;
     private TagDao tagDao;
 
-<span class="fc" id="L26">    public ReadingTipService() {</span>
+<span class="fc" id="L28">    public ReadingTipService() {</span>
         // default constructor for Spring
-<span class="fc" id="L28">    }</span>
+<span class="fc" id="L30">    }</span>
 
-<span class="fc" id="L30">    public ReadingTipService(ReadingTipDao readingTipDao, CommentDao commentDao, TagDao tagDao) {</span>
-<span class="fc" id="L31">        this.readingTipDao = readingTipDao;</span>
-<span class="fc" id="L32">        this.commentDao = commentDao;</span>
-<span class="fc" id="L33">        this.tagDao = tagDao;</span>
-<span class="fc" id="L34">    }</span>
+<span class="fc" id="L32">    public ReadingTipService(ReadingTipDao readingTipDao, CommentDao commentDao, TagDao tagDao) {</span>
+<span class="fc" id="L33">        this.readingTipDao = readingTipDao;</span>
+<span class="fc" id="L34">        this.commentDao = commentDao;</span>
+<span class="fc" id="L35">        this.tagDao = tagDao;</span>
+<span class="fc" id="L36">    }</span>
 
     public ArrayList&lt;ReadingTipListingUnit&gt; generateReadingTipListing() throws SQLException {
 
-<span class="fc" id="L38">        ArrayList&lt;ReadingTipListingUnit&gt; readingTipListing = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L40">        ArrayList&lt;ReadingTipListingUnit&gt; readingTipListing = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L40">        ArrayList&lt;ReadingTip&gt; allReadingTips = readingTipDao.findAll();</span>
+<span class="nc" id="L42">        ArrayList&lt;ReadingTip&gt; allReadingTips = readingTipDao.findAll();</span>
 
-<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (ReadingTip tip : allReadingTips) {</span>
-<span class="fc" id="L43">            ArrayList&lt;Comment&gt; commentsOfTip = commentDao.findAllForReadingTip(tip.getId());</span>
-<span class="fc" id="L44">            ArrayList&lt;Tag&gt; tagsOfTip = tagDao.findAllForReadingTip(tip.getId());</span>
-<span class="fc" id="L45">            ReadingTipListingUnit listingUnit = new ReadingTipListingUnit(</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        for (ReadingTip tip : allReadingTips) {</span>
+<span class="nc" id="L45">            ArrayList&lt;Comment&gt; commentsOfTip = commentDao.findAllForReadingTip(tip.getId());</span>
+<span class="nc" id="L46">            ArrayList&lt;Tag&gt; tagsOfTip = tagDao.findAllForReadingTip(tip.getId());</span>
+<span class="nc" id="L47">            ReadingTipListingUnit listingUnit = new ReadingTipListingUnit(</span>
                 tip,
                 commentsOfTip,
                 tagsOfTip
             );
-<span class="fc" id="L50">            readingTipListing.add(listingUnit);</span>
-<span class="fc" id="L51">        }</span>
+<span class="nc" id="L52">            readingTipListing.add(listingUnit);</span>
+<span class="nc" id="L53">        }</span>
 
-<span class="fc" id="L53">        return readingTipListing;</span>
+<span class="nc" id="L55">        return readingTipListing;</span>
     }
 
     public void saveNewReadingTip(ReadingTip newTip, Tag allTagsTogether) throws SQLException {
         // Separate tags into individual Tag-instances.
-<span class="fc" id="L58">        ArrayList&lt;Tag&gt; tags = new ArrayList&lt;Tag&gt;();</span>
-<span class="fc" id="L59">        ArrayList&lt;String&gt; tagsAsString = new ArrayList&lt;String&gt;(</span>
-<span class="fc" id="L60">                Arrays.asList((allTagsTogether.getTagDescription()).split(&quot;\\s*,\\s*&quot;)));</span>
-<span class="fc bfc" id="L61" title="All 2 branches covered.">        for (String t : tagsAsString) {</span>
-<span class="fc" id="L62">            tags.add(new Tag(t));</span>
-<span class="fc" id="L63">        }</span>
+<span class="nc" id="L60">        List&lt;String&gt; tagsAsString = new ArrayList&lt;String&gt;(</span>
+<span class="nc" id="L61">            Arrays.asList((allTagsTogether.getTagDescription()).split(&quot;\\s*,\\s*&quot;)));</span>
+<span class="nc" id="L62">        List&lt;String&gt; noDuplicateTags =  tagsAsString.stream()</span>
+<span class="nc" id="L63">                                                    .distinct()</span>
+<span class="nc" id="L64">                                                    .collect(Collectors.toList());</span>
+
+<span class="nc" id="L66">        ArrayList&lt;Tag&gt; tags = new ArrayList&lt;Tag&gt;();</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        for (String t : noDuplicateTags) {</span>
+<span class="nc" id="L68">            tags.add(new Tag(t));</span>
+<span class="nc" id="L69">        }</span>
         
         // Save all tags into database that are not yet there,
         // fetch IDs for all tags at the same time.
-<span class="fc" id="L67">        int i = 0;</span>
-<span class="fc bfc" id="L68" title="All 2 branches covered.">        while (i &lt; tags.size()) {</span>
-<span class="fc" id="L69">            Tag tag = tags.get(i);</span>
-<span class="fc" id="L70">            tag = tagDao.save(tag);</span>
-<span class="fc" id="L71">            ++i;</span>
-<span class="fc" id="L72">        }</span>
+<span class="nc" id="L73">        int i = 0;</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        while (i &lt; tags.size()) {</span>
+<span class="nc" id="L75">            Tag tag = tags.get(i);</span>
+<span class="nc" id="L76">            tag = tagDao.save(tag);</span>
+<span class="nc" id="L77">            ++i;</span>
+<span class="nc" id="L78">        }</span>
         
         // Save the new reading tip.
-<span class="fc" id="L75">        newTip = readingTipDao.save(newTip);</span>
+<span class="nc" id="L81">        newTip = readingTipDao.save(newTip);</span>
         
         // Bind all tags to the new reading tip.
-<span class="fc" id="L78">        readingTipDao.bindTagsToReadingTip(newTip, tags);</span>
-<span class="fc" id="L79">    }</span>
+<span class="nc" id="L84">        readingTipDao.bindTagsToReadingTip(newTip, tags);</span>
+<span class="nc" id="L85">    }</span>
     
     public void saveNewComment(Comment newComment, int readingTipId) throws SQLException {
-<span class="nc" id="L82">        newComment.setReadingTipId(readingTipId);</span>
-<span class="nc" id="L83">        commentDao.save(newComment);</span>
-<span class="nc" id="L84">    }</span>
+<span class="nc" id="L88">        newComment.setReadingTipId(readingTipId);</span>
+<span class="nc" id="L89">        commentDao.save(newComment);</span>
+<span class="nc" id="L90">    }</span>
     
     public void toggleReadingTipRead(int readingTipId) throws SQLException {
-<span class="fc" id="L87">        readingTipDao.toggleRead(readingTipId);</span>
-<span class="fc" id="L88">    }</span>
+<span class="nc" id="L93">        readingTipDao.toggleRead(readingTipId);</span>
+<span class="nc" id="L94">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>
