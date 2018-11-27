@@ -1,37 +1,23 @@
 package lukuvinkit.domain;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
+
+import org.junit.Before;
+import org.junit.Test;
 
 public class ReadingTipListingUnitTest {
     
-    Comment comment1;
-    Comment comment2;
-    Comment comment3;
-    Tag tag1;
-    Tag tag2;
-    ReadingTip tip;
-    ArrayList<Comment> comments;
-    ArrayList<Tag> tags;
-    ReadingTip readingTipRead;
-    ReadingTip readingTipNotRead;
-    
-    public ReadingTipListingUnitTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
+    private Comment comment1;
+    private Comment comment2;
+    private Comment comment3;
+    private Tag tag1;
+    private Tag tag2;
+    private ArrayList<Comment> comments;
+    private ArrayList<Tag> tags;
+    private ReadingTip readingTipRead;
+    private ReadingTip readingTipNotRead;
     
     @Before
     public void setUp() {
@@ -50,15 +36,6 @@ public class ReadingTipListingUnitTest {
         readingTipRead = new ReadingTip(1, "Tip 1 for tesing", "https://yle.fi/", "Just testing here", true);
         readingTipNotRead = new ReadingTip(1, "Tip 2 for tesing", "https://hs.fi/", "Test test", false);
         
-    }
-    
-    @After
-    public void tearDown() {
-    }
-    
-    @Test
-    public void constructorWorks() {
-        ReadingTipListingUnit unit = new ReadingTipListingUnit(readingTipRead, comments, tags);
     }
 
     @Test

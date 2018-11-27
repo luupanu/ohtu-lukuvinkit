@@ -1,36 +1,19 @@
 package lukuvinkit.domain;
 
-import org.junit.After;
-import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class CommentTest {
     
-    Comment commentConstructor1;
-    Comment commentConstructor2;
-    
-    public CommentTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
+    private Comment commentConstructor1;
+    private Comment commentConstructor2;
     
     @Before
     public void setUp() {
         commentConstructor1 = new Comment("comment1", 1);
         commentConstructor2 = new Comment(2, "comment2", 2);
-    }
-    
-    @After
-    public void tearDown() {
     }
 
     @Test

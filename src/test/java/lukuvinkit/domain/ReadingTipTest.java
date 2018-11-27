@@ -2,49 +2,20 @@ package lukuvinkit.domain;
 
 import static org.junit.Assert.assertEquals;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import lukuvinkit.domain.ReadingTip;
 
-import java.util.ArrayList;
-
-import lukuvinkit.controllers.Controllers;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import lukuvinkit.domain.*;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ReadingTipTest {
     
-    ReadingTip readingTipTestConstructor1;
-    ReadingTip readingTipTestConstructor2;
-    
-    public ReadingTipTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() throws SQLException {
-        // Database setUp tänne
-    }
-    
-   @AfterClass
-    public static void tearDownClass() {
-    }
+    private ReadingTip readingTipTestConstructor1;
+    private ReadingTip readingTipTestConstructor2;
     
     @Before
     public void setUp() {
         readingTipTestConstructor1 = new ReadingTip(1, "Tip 1 for testing", "https://yle.fi/", "Just testing here", false);
         readingTipTestConstructor2 = new ReadingTip("Tip 2 for tesing", "https://hs.fi/", "Test test", true);
-    }
-    
-    
-    @After
-    public void tearDown() {
     }
     
     
