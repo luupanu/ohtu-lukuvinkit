@@ -24,7 +24,7 @@ public class TagDao {
         this.database = database;
     }
 
-    public ArrayList<Tag> findAll() throws SQLException {
+    /*public ArrayList<Tag> findAll() throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Tag");
 
@@ -41,7 +41,7 @@ public class TagDao {
         connection.close();
 
         return allTags;
-    }
+    }*/
 
     public ArrayList<Tag> findAllForReadingTip(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();

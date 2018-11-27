@@ -52,7 +52,7 @@ public class ReadingTipDao {
         return allReadingTips;
     }
     
-    public ArrayList<ReadingTip> findAllForTag(int tagId) throws SQLException {
+    /*public ArrayList<ReadingTip> findAllForTag(int tagId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
             "SELECT"
@@ -86,7 +86,7 @@ public class ReadingTipDao {
         connection.close();
 
         return allReadingTipsForTag;
-    }
+    }*/
     
     public ReadingTip save(ReadingTip tip) throws SQLException {
         Connection connection = database.getConnection();
@@ -115,9 +115,7 @@ public class ReadingTipDao {
         return tip;
     }
     
-    // Not yet needed, possibly not needed never?
-    // DO NOT WASTE TIME TESTING THIS. Maybe comment out before end of sprint.
-    public void update(ReadingTip tip) throws SQLException {
+    /*public void update(ReadingTip tip) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
             "UPDATE ReadingTip SET title = ?, url = ?, description = ?, read = ? WHERE id = ?"
@@ -132,7 +130,7 @@ public class ReadingTipDao {
 
         statement.close();
         connection.close();
-    }
+    }*/
     
     public void toggleRead(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
