@@ -15,7 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Stepdefs {
 
-    WebDriver driver;
+    private WebDriver driver;
 
     public Stepdefs() {
         File file;
