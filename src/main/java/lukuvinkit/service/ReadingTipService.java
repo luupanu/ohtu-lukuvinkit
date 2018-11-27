@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import lukuvinkit.database.CommentDao;
 import lukuvinkit.database.ReadingTipDao;
@@ -55,10 +57,14 @@ public class ReadingTipService {
 
     public void saveNewReadingTip(ReadingTip newTip, Tag allTagsTogether) throws SQLException {
         // Separate tags into individual Tag-instances.
+        List<String> tagsAsString = new ArrayList<String>(
+            Arrays.asList((allTagsTogether.getTagDescription()).split("\\s*,\\s*")));
+        List<String> noDuplicateTags =  tagsAsString.stream()
+                                                    .distinct()
+                                                    .collect(Collectors.toList());
+
         ArrayList<Tag> tags = new ArrayList<Tag>();
-        ArrayList<String> tagsAsString = new ArrayList<String>(
-                Arrays.asList((allTagsTogether.getTagDescription()).split("\\s*,\\s*")));
-        for (String t : tagsAsString) {
+        for (String t : noDuplicateTags) {
             tags.add(new Tag(t));
         }
         
