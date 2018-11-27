@@ -83,6 +83,21 @@ public class Stepdefs {
             System.out.println(e.getStackTrace());
         }
     }
+    
+    @When("^page contains \"([^\"]*)\" field$")
+    public void pageContainsField(String arg1){
+        assertTrue(driver.getPageSource().contains(arg1));
+    }
+        
+    @Then("^comment \"([^\"]*)\" is submitted$")
+    public void submitNewComment(String comment) throws InterruptedException {
+        driver.findElement(By.linkText("0 comment(s)")).click();
+        WebElement element = driver.findElement(By.name("commentDescription"));
+        element.sendKeys(comment);
+        element = driver.findElement(By.name("create-comment"));
+        element.submit();
+    }
+    
 
     private void submitNewTip(String title, String description, String url) {
         assertTrue(driver.getPageSource().contains("Add a new reading tip"));
@@ -95,6 +110,8 @@ public class Stepdefs {
         element = driver.findElement(By.name("create-readingtip"));
         element.submit();
     }
+    
+
 
     private void submitNewTipWithTags(String title, String description, String url, String tags) {
         assertTrue(driver.getPageSource().contains("Add a new reading tip"));
