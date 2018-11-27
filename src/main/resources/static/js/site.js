@@ -1,5 +1,5 @@
 const submitForm = (checkbox) => {
-  const form = checkbox.parentNode;
+  const form = checkbox.parentNode
   form.submit()
 };
 
@@ -8,9 +8,9 @@ const toggleComments = (link) => {
 
   comments.forEach(comment => {
     if (comment.style.display === 'block') {
-      comment.style.display = 'none';
+      comment.style.display = 'none'
     } else {
-      comment.style.display = 'block';
+      comment.style.display = 'block'
     }
   })
-};
+}
