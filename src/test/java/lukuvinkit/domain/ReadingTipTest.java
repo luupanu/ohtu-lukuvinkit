@@ -2,21 +2,9 @@ package lukuvinkit.domain;
 
 import static org.junit.Assert.assertEquals;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import java.util.ArrayList;
-
-import lukuvinkit.controllers.Controllers;
 import lukuvinkit.domain.ReadingTip;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ReadingTipTest {
