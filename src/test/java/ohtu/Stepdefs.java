@@ -66,9 +66,19 @@ public class Stepdefs {
         clickElementByName(arg1);
     }
     
-    @When("^^\"([^\"]*)\" link is clicked$")
-    public void LinktIsClicked(String arg1) throws Throwable {
+    @When("^link \"([^\"]*)\" is clicked$")
+    public void linkIsClicked(String arg1) throws Throwable {
         driver.findElement(By.linkText(arg1)).click();
+    }
+    
+    @When("^page contains \"([^\"]*)\" field$")
+    public void pageContainsField(String arg1){
+        assertTrue(driver.getPageSource().contains(arg1));
+    }
+        
+    @Then("^link \"([^\"]*)\" is shown$")
+    public void linkIsShown(String linkText){
+        assertTrue(driver.findElement(By.linkText(linkText)).getText().contains(linkText));
     }
     
     @Then("^\"([^\"]*)\" is shown$")
@@ -90,17 +100,12 @@ public class Stepdefs {
             System.out.println(e.getStackTrace());
         }
     }
-    
-    @When("^page contains \"([^\"]*)\" field$")
-    public void pageContainsField(String arg1){
-        assertTrue(driver.getPageSource().contains(arg1));
-    }
         
     @Then("^comment \"([^\"]*)\" is submitted$")
-    public void submitNewComment(String comment) throws InterruptedException {
-        driver.findElement(By.linkText("0 comment(s)")).click();
+    public void submitNewComment(String comment) throws Throwable {
         WebElement element = driver.findElement(By.name("commentDescription"));
         element.sendKeys(comment);
+        //Thread.sleep(1000000000);
         element = driver.findElement(By.name("create-comment"));
         element.submit();
     }
