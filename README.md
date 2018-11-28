@@ -7,7 +7,7 @@
 
 ### WIP features (should be ready after Sprint 3)
 * Add a type for a reading tip: a book, a website or an article
-* Add more info for the reading tip: ISBN for a book, author for an article
+* Add more info for a reading tip: ISBN for a book, author for an article
 
 ## Installation
 
