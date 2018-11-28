@@ -3,15 +3,19 @@
 
 <head>
     <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <link th:href="@{https://fonts.googleapis.com/css?family=Noto+Sans+SC}" rel="stylesheet" />
     <script type="text/javascript" th:src="@{/js/site.js}"></script>
-    <title>Lukuvinkit</title>
+    <title>Reading tips</title>
 </head>
 
 <body>
     <div class="container">
 
-        <div class="heading">
-            <h1>Reading tips</h1>
+        <div class="topnav">
+            <span class="header">
+                <h1>Reading tips</h1>
+            </span>
+            <input type="text" placeholder="Search..." />
         </div>
 
         <div class="readingtips">
@@ -48,7 +52,8 @@
                             <form th:action="@{/comment}" th:object="${comment}" method="POST">
                                 <input type="hidden" name="readingTipId" th:value="${listingUnit.readingTip.id}" />
                                 <label for="comment">Add a new comment:</label>
-                                <input type="text" name="commentDescription" placeholder="Type your new comment here..." required="true" />
+                                <input type="text" name="commentDescription" placeholder="Type your new comment here..."
+                                    required="true" />
                                 <input name="create-comment" type="submit" />
                             </form>
                         </div>
@@ -57,11 +62,10 @@
             </article>
         </div>
 
-        <div class="heading">
-            <h2>Add a new reading tip</h2>
-        </div>
-
         <div class="create-readingtip">
+            <div class="heading">
+                <h2>Add a new reading tip</h2>
+            </div>
             <form th:action="@{/readingtip}" th:object="${readingTip}" method="POST">
                 <table>
                     <tr>

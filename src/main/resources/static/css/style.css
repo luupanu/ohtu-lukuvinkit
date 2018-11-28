@@ -1,5 +1,6 @@
 body {
     background-image: url(../images/lukuvinkit_bg.jpg);
+    font-family: 'Noto Sans SC', sans-serif;
     margin: 0;
     padding: 0;
     height: 100%
@@ -10,37 +11,46 @@ body {
 .container {
     margin: 0 auto;
     height: 100%;
-    width: 800px;
+    width: 1024px;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.topnav {
+    background-color: #ad62cf;
+    overflow: hidden;    
+}
+
 .heading {
-    padding-top: 50px;
+    padding-top: 10px;
+    padding-bottom: 20px;
     text-align: center;
 }
 
 .readingtips {
-    width: 500px;
+    border-radius: 10px;
+    padding-bottom: 10px;
+    width: 600px;
     margin: 30px auto 0;
 }
 
 .create-readingtip {
     width: 400px;
-    margin: 30px auto 100px auto;
+    margin: 10px auto 100px auto;
     padding: 10px;
     border-radius: 10px;
-    background-color: #999;
+    background-color: #ad62cf;
 }
 
 /* individual elements */
 
 a {
     display: inline;
-    color: #0000d9;
+    color: #64e1e7;
 }
 
 article {
-    background-color: #999;
+    border-radius: 10px;
+    background-color: #ad62cf;
     margin: 10px 0;
     padding: 10px;
 }
@@ -49,8 +59,8 @@ h1, h2 {
     padding: 10px;
     border-radius: 10px;
     display:inline;
-    background-color: #999;
-    color: #76f9bf;
+    background-color: #ad62cf;
+    color: #64e1e7;
 }
 
 h3 {
@@ -78,14 +88,18 @@ input[type=submit] {
     font-weight: bold;
     width: 200px;
     margin: 15px 0;
-    color: white;
+    color: black;
     border: 0;
-    background-color: #22f;
+    background-color: #64e1e7;
     padding: 10px;
 }
 
 input[type=submit]:hover {
-    background-color: #00f;
+    background-color: #52c8ce;
+}
+
+.topnav input {
+    float: right;
 }
 
 td {
@@ -112,7 +126,7 @@ td {
 }
 
 .newcomment {
-    border-top: 2px solid #777;
+    border-top: 2px solid #64e1e7;
     padding: 20px 0 0 0;
     margin-top: 30px;
 }
@@ -124,12 +138,16 @@ td {
     margin-left: 5px;
 }
 
+.readingTips-title {
+    border-bottom: 2px solid #777;
+}
+
 .readingtips-comments {
- margin: 10px 0 0;
+    margin: 10px 0 0;
 }
 
 .readingtips-description {
-    color: #76f9bf;
+    color: #64e1e7;
 }
 
 .readingtips-read {
@@ -139,7 +157,7 @@ td {
 .tag {
     display: inline-block;
     color: black;
-    background-color: pink;
+    background-color: white;
     padding: 4px;
     margin: 3px 1px;
 }
