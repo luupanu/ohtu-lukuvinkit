@@ -7,10 +7,6 @@ import java.util.Collections;
 
 import javax.validation.Valid;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import lukuvinkit.database.CommentDao;
 import lukuvinkit.database.Database;
 import lukuvinkit.database.ReadingTipDao;
@@ -55,10 +51,8 @@ public class Controllers {
     public String home(Model model) throws SQLException {
         ArrayList<ReadingTipListingUnit> tipListing = service.generateReadingTipListing();
         Collections.sort(tipListing);
-        String tipListingJson = new Gson().toJson(tipListing); // for being able to access list in javascript
 
         model.addAttribute("list", tipListing);
-        model.addAttribute("listAsJson", tipListingJson);
         model.addAttribute("comment", new Comment());
         model.addAttribute("readingTip", new ReadingTip());
         model.addAttribute("tag", new Tag());
@@ -69,13 +63,6 @@ public class Controllers {
     public String createComment(@RequestParam Integer readingTipId, @ModelAttribute Comment comment)
             throws SQLException {
         service.saveNewComment(comment, readingTipId);
-        return "redirect:/";
-    }
-
-    @PostMapping("/search")
-    public String search(@RequestParam ArrayList<ReadingTipListingUnit> list, @ModelAttribute Comment searchedList)
-            throws SQLException {
-        System.out.println(list);
         return "redirect:/";
     }
 
