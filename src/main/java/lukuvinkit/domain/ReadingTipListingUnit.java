@@ -26,5 +26,5 @@ public class ReadingTipListingUnit implements Comparable<ReadingTipListingUnit> 
     public int compareTo(ReadingTipListingUnit other) {
         return this.readingTip.isRead() ? 1 : -1;
     }
-
+    
 }

@@ -15,12 +15,11 @@
             <span class="header">
                 <h1>Reading tips</h1>
             </span>
-            <input type="text" placeholder="Search..." />
+            <input type="text" id="search" placeholder="Search by tags..." onkeyup="searchInput()" />
         </div>
 
-        <div class="readingtips">
+        <div id="list" class="readingtips">
             <article th:each="listingUnit : ${list}">
-
                 <div class="readingtips-read">
                     <form th:action="@{/}" th:object="${listingUnit.readingTip}" th:method="PATCH">
                         <input type="hidden" name="id" th:value="${listingUnit.readingTip.id}" />
@@ -54,7 +53,7 @@
                                 <label for="comment">Add a new comment:</label>
                                 <input type="text" name="commentDescription" placeholder="Type your new comment here..."
                                     required="true" />
-                                <input name="create-comment" type="submit" />
+                                <input name="create-comment" value="Submit" type="submit" />
                             </form>
                         </div>
                     </div>
@@ -93,7 +92,7 @@
                     </tr>
 
                     <tr>
-                        <td style="text-align: center"><input name="create-readingtip" type="submit" /></td>
+                        <td style="text-align: center"><input name="create-readingtip" value="Submit" type="submit" /></td>
                     </tr>
                 </table>
             </form>
