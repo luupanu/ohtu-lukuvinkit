@@ -67,8 +67,9 @@ public class Controllers {
     }
 
     @PostMapping("/readingtip")
-    public String createReadingTip(@Valid @ModelAttribute ReadingTip readingTip, BindingResult bindingResultTip,
-            @ModelAttribute Tag tag, BindingResult bindingResultTag) throws SQLException {
+    public String createReadingTip(@Valid @ModelAttribute ReadingTip readingTip, 
+            BindingResult bindingResultTip, @ModelAttribute Tag tag, 
+            BindingResult bindingResultTag) throws SQLException {
         if (bindingResultTip.hasErrors() || bindingResultTag.hasErrors()) {
             return "index";
         }

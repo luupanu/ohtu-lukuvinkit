@@ -18,6 +18,11 @@
             <input type="text" id="search" placeholder="Search by tags..." onkeyup="searchInput()" />
         </div>
 
+        <div class="readFilter">
+            <b style="color:#64e1e7">Hide read</b>
+            <input type="checkbox" onclick="filterRead()" />
+        </div>
+
         <div id="list" class="readingtips">
             <article th:each="listingUnit : ${list}">
                 <div class="readingtips-read">

@@ -138,6 +138,11 @@ td {
     margin-left: 5px;
 }
 
+.readFilter {
+    float: right
+
+}
+
 .readingtips-comments {
     margin: 10px 0 0;
 }
@@ -149,6 +154,7 @@ td {
 .readingtips-read {
     float: right;
 }
+
 
 .tag {
     display: inline-block;
