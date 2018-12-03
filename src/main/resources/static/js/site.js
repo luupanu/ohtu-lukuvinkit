@@ -67,7 +67,7 @@ const tipIsRead = (tip) => tip.className === "tip-read"
 const hideReadIsChecked = () => document.getElementById("filter-read").checked
 
 // Gets all tips in the document.
-const getTips = () => document.querySelectorAll("article")
+const getTips = () => document.getElementById("readingTipsList").querySelectorAll("article")
 
 // Gets the value of the search box in the document.
 const getFilter = () => convertToSearchString(document.getElementById("search").value)
