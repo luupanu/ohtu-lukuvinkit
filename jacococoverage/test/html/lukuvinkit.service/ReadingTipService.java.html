@@ -65,7 +65,7 @@ public class ReadingTipService {
 
 <span class="fc" id="L66">        ArrayList&lt;Tag&gt; tags = new ArrayList&lt;Tag&gt;();</span>
 <span class="fc bfc" id="L67" title="All 2 branches covered.">        for (String t : noDuplicateTags) {</span>
-<span class="pc bpc" id="L68" title="1 of 4 branches missed.">            if (t != null &amp;&amp; !t.isEmpty()) {</span>
+<span class="pc bpc" id="L68" title="2 of 4 branches missed.">            if (t != null &amp;&amp; !t.isEmpty()) {</span>
 <span class="fc" id="L69">                tags.add(new Tag(t));</span>
             }
 <span class="fc" id="L71">        }</span>
@@ -87,9 +87,9 @@ public class ReadingTipService {
 <span class="fc" id="L87">    }</span>
     
     public void saveNewComment(Comment newComment, int readingTipId) throws SQLException {
-<span class="nc" id="L90">        newComment.setReadingTipId(readingTipId);</span>
-<span class="nc" id="L91">        commentDao.save(newComment);</span>
-<span class="nc" id="L92">    }</span>
+<span class="fc" id="L90">        newComment.setReadingTipId(readingTipId);</span>
+<span class="fc" id="L91">        commentDao.save(newComment);</span>
+<span class="fc" id="L92">    }</span>
     
     public void toggleReadingTipRead(int readingTipId) throws SQLException {
 <span class="fc" id="L95">        readingTipDao.toggleRead(readingTipId);</span>

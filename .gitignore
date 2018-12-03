@@ -21,3 +21,4 @@ jacococoverage/test/html/jacoco-sessions.html
 
 # Ignore codacy coverage builder
 codacy-coverage-reporter-4.0.5-assembly.jar
+codacy-coverage.json
