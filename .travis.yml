@@ -5,13 +5,13 @@ dist: trusty
 addons:
   chrome: stable
 before_install:
-  - wget -O ~/codacy-coverage-reporter-assembly-latest.jar https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.5/codacy-coverage-reporter-4.0.5-assembly.jar
+- wget -O ~/codacy-coverage-reporter-assembly-latest.jar https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.5/codacy-coverage-reporter-4.0.5-assembly.jar
 before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - sleep 3
 after_success:
-  - java -jar ~/codacy-coverage-reporter-assembly-latest.jar report -l Java -r build/reports/jacoco/test/jacocoTestReport.xml
+- java -jar ~/codacy-coverage-reporter-assembly-latest.jar report -l Java -r build/reports/jacoco/test/jacocoTestReport.xml
 deploy:
   provider: heroku
   api_key:
@@ -19,3 +19,6 @@ deploy:
   app: lukuvinkit
   on:
     repo: luupanu/ohtu-lukuvinkit
+env:
+  matrix:
+    secure: bIhsF6qZ0Uw2RnISCZ8qkyPOToso835UnZ3jWpiTpiIsB5nY/8Vu6PfPqp8N/mpfF76ffII57XdMVEKEIGJcHJRMTfyu347Mo7sRY3SHF2D7nVa07V7Ng2e9wqAaCEJUMs3HjY9cKL6HHWMHmmrhYjbUX7Px7ufMeuFWgEFJsFwbudxNR5FBcYVwbU9OFfN6mnC3QQ1VnDLEzbalhz7ROu9UHHc02LpiGCFD9EhEC4+PS3tVqBJjLmKu+2+Xw7I6C0oS429bqGI+JhH/XBZ9Ha/cCsYSgygWhZImIusfUDb0Q5VNHCcUlFTNvnf38H+bCKCc07K58Cz6KJNGSFc2PuIl5w8aiA/6qjSVz9b5KyjQv4NVoAkMWChu9kMtlZRRd9pA9U2FbFnsGiGt2MnwYnXqAKXySKj/jz+W7tyjtYta6I862osYIJQHgvVFwVvNMIUd0wZHQCAHonqUgzWWpGoE9bV+2ezjXfmS9G2tbGamD0QfmM7AA8j9cYvDNyUuRQrLDBy3mT99cVwsiiOkbesbS8RpoC1J1vlnm5gK0PVUdmAV9Foi2zpu0Y3Yuz9200+6J/85IkpZ/rpctwj/K+R4fiN6jt/Gg8+nx/Jeql1qrvsZBPM24BF11O8A/DQF2XuGfKHSilKefuB/MG1aK8+kK4Fv4VDLiCHvjVrdQYo=
