@@ -60,3 +60,20 @@ const searchInput = () => {
     }
   }
 }
+
+function newReadingTipFormRefresh() {
+    var typeField = document.getElementById("typeField");
+    if (typeField.value == "Link") {
+        document.getElementById("urlField").style.display = "block";
+        document.getElementById("authorField").style.display = "none";
+        document.getElementById("isbnField").style.display = "none";
+    } else if (typeField.value == "Article") {
+        document.getElementById("urlField").style.display = "none";
+        document.getElementById("authorField").style.display = "block";
+        document.getElementById("isbnField").style.display = "none";
+    } else if (typeField.value == "Book") {
+        document.getElementById("urlField").style.display = "none";
+        document.getElementById("authorField").style.display = "none";
+        document.getElementById("isbnField").style.display = "block";
+    }  
+}
