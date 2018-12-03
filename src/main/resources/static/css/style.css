@@ -43,8 +43,7 @@ body {
 
 /* individual elements */
 
-a {
-    display: inline;
+a, #hideCheck {
     color: #64e1e7;
 }
 
@@ -108,6 +107,10 @@ td {
 }
 
 /* other custom classes */
+
+.center {
+    text-align: center;
+}
 
 .error {
     color: red;
