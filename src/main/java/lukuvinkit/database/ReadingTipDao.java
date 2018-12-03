@@ -55,42 +55,6 @@ public class ReadingTipDao {
         return allReadingTips;
     }
     
-    /*public ArrayList<ReadingTip> findAllForTag(int tagId) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
-            "SELECT"
-                + "ReadingTip.id, "
-                + "ReadingTip.title, " 
-                + "ReadingTip.url, "
-                + "ReadingTip.description, "
-                + "ReadingTip.read "
-            + "FROM ReadingTip, ReadingTipTag "
-            + "WHERE ReadingTipTag.tag_id = ? "
-            + "AND ReadingTipTag.readingtip_id = ReadingTip.id"
-        );
-        statement.setInt(1, tagId);
-
-        ResultSet result = statement.executeQuery();
-
-        ArrayList<ReadingTip> allReadingTipsForTag = new ArrayList<>();
-
-        while (result.next()) {
-            allReadingTipsForTag.add(new ReadingTip(
-                result.getInt("id"),
-                result.getString("title"),
-                result.getString("url"),
-                result.getString("description"),
-                result.getBoolean("read")
-            ));
-        }
-
-        result.close();
-        statement.close();
-        connection.close();
-
-        return allReadingTipsForTag;
-    }*/
-    
     public ReadingTip save(ReadingTip tip) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement;
@@ -120,23 +84,6 @@ public class ReadingTipDao {
         
         return tip;
     }
-    
-    /*public void update(ReadingTip tip) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
-            "UPDATE ReadingTip SET title = ?, url = ?, description = ?, read = ? WHERE id = ?"
-        );
-        
-        statement.setString(1, tip.getTitle());
-        statement.setString(2, tip.getUrl());
-        statement.setString(3, tip.getDescription());
-        statement.setBoolean(4, tip.isRead());
-        
-        statement.executeUpdate();
-
-        statement.close();
-        connection.close();
-    }*/
     
     public void toggleRead(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
