@@ -25,8 +25,6 @@ const toggleComments = (element) => {
 const filterTips = () => {
   const tips = getTips()
 
-  console.log(getFilter())
-
   tips.forEach(tip => {
     if (someTagIncludesFilter(tip, getFilter())
       && !(hideReadIsChecked() && tipIsRead(tip))) {
