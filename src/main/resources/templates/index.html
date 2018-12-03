@@ -20,11 +20,11 @@
 
         <div class="readFilter">
             <b id="hideCheck" style="color:#64e1e7">Hide read</b>
-            <input name="searchbar" type="checkbox" onclick="filterRead()" />
+            <input name="searchbar" id="filter-read" type="checkbox" onclick="filterRead()" />
         </div>
 
         <div id="readingTipsList" class="readingtips">
-            <article data-marked="false" th:each="listingUnit : ${list}">
+            <article th:class="${listingUnit.readingTip.read} ? 'tip-read' : 'tip-unread'" th:each="listingUnit : ${list}">
                 <div class="readingtips-read">
                     <form th:action="@{/}" th:object="${listingUnit.readingTip}" th:method="PATCH">
                         <input type="hidden" name="id" th:value="${listingUnit.readingTip.id}" />
