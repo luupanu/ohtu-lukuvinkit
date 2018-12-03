@@ -24,25 +24,6 @@ public class TagDao {
         this.database = database;
     }
 
-    /*public ArrayList<Tag> findAll() throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Tag");
-
-        ResultSet result = statement.executeQuery();
-
-        ArrayList<Tag> allTags = new ArrayList<>();
-
-        while (result.next()) {
-            allTags.add(new Tag(result.getInt("id"), result.getString("tagDescription")));
-        }
-
-        result.close();
-        statement.close();
-        connection.close();
-
-        return allTags;
-    }*/
-
     public ArrayList<Tag> findAllForReadingTip(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
