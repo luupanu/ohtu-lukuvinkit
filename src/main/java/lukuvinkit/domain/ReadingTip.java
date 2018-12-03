@@ -12,15 +12,14 @@ public class ReadingTip {
 
     @NotEmpty
     private String title;
-    
-    
+
     private String type;
 
     @URL
     private String url;
-    
+
     private String author;
-    
+
     private String isbn;
 
     @NotEmpty
@@ -32,7 +31,8 @@ public class ReadingTip {
         // default constructor for Spring
     }
 
-    public ReadingTip(String title, String type, String url, String author, String isbn, String description, boolean read) {
+    public ReadingTip(String title, String type, String url, String author, String isbn, String description,
+            boolean read) {
         this.title = title;
         this.type = type;
         this.url = url;
@@ -42,7 +42,8 @@ public class ReadingTip {
         this.read = read;
     }
 
-    public ReadingTip(int id, String title, String type, String url, String author, String isbn, String description, boolean read) {
+    public ReadingTip(int id, String title, String type, String url, String author, String isbn, String description,
+            boolean read) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -68,7 +69,7 @@ public class ReadingTip {
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     public String getType() {
         return type;
     }
@@ -84,7 +85,7 @@ public class ReadingTip {
     public void setUrl(String url) {
         this.url = url;
     }
-    
+
     public String getAuthor() {
         return author;
     }
