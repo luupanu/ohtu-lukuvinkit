@@ -72,20 +72,19 @@ checkstyle {
     toolVersion = "8.14"
 }
 
-jacoco {
-    reportsDir = file("./jacococoverage")
-}
+task codeCoverageReport(type: JacocoReport) {
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
 
-jacocoTestReport {
     reports {
         xml.enabled true
-        html.enabled true
+        html.enabled false
+        csv.enabled false
     }
+
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
             fileTree(dir: it,
-                    exclude: ['lukuvinkit/Main.*'])
+                exclude: ['lukuvinkit/Main.*'])
         })
     }
-    
 }
