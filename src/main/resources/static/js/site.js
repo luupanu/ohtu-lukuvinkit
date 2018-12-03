@@ -53,7 +53,7 @@ const newReadingTipFormRefresh = () => {
     isbnField.style.display = "none";
   } else if (typeField.value == "Book") {
     urlField.style.display = "none";
-    authorField.style.display = "none";
+    authorField.style.display = "block";
     isbnField.style.display = "block";
   }
 }
