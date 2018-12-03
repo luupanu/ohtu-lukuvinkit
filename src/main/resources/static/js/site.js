@@ -60,7 +60,7 @@ const newReadingTipFormRefresh = () => {
 
 // HELPER FUNCTIONS
 
-// Checks if tip is unread.
+// Checks if tip is read.
 const tipIsRead = (tip) => tip.className === "tip-read"
 
 // Check if the 'Hide read' checkbox is checked.
@@ -72,7 +72,7 @@ const getTips = () => document.querySelectorAll("article")
 // Gets the value of the search box in the document.
 const getFilter = () => convertToSearchString(document.getElementById("search").value)
 
-// Do some string manipulations to be able to compare two strings.
+// Does some string manipulations to be able to compare strings.
 const convertToSearchString = _ => _.trim().toUpperCase()
 
 // Returns true if some tag in the tip includes the filter phrase.
