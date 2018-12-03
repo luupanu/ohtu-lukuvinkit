@@ -47,7 +47,7 @@ public class Stepdefs {
 
     @When("^\"([^\"]*)\" is typed in$")
     public void isTypedIn(String searchterm) throws Throwable {
-        WebElement element = driver.findElement(By.name("searchbar"));
+        WebElement element = driver.findElement(By.id("search"));
         element.sendKeys(searchterm);
         Thread.sleep(5000);
     }
