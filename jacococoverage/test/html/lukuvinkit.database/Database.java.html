@@ -39,29 +39,32 @@ public class Database {
 <span class="fc" id="L39">        statementTableCheck.close();</span>
 
         // Create database tables if it is not yet created.
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">        if (tableExists == 0) {</span>
-<span class="nc" id="L43">            PreparedStatement statementCreateTable = connection.prepareStatement(</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (tableExists == 0) {</span>
+<span class="fc" id="L43">            PreparedStatement statementCreateTable = connection.prepareStatement(</span>
                 &quot;CREATE TABLE ReadingTip&quot;
                 + &quot;(&quot;
                     + &quot;id INTEGER PRIMARY KEY, &quot;
                     + &quot;title TEXT, &quot;
+                    + &quot;type TEXT, &quot;
                     + &quot;url TEXT, &quot;
+                    + &quot;author TEXT, &quot;
+                    + &quot;isbn TEXT, &quot;
                     + &quot;description TEXT, &quot;
                     + &quot;read BOOLEAN&quot;
                 + &quot;)&quot;
             );
-<span class="nc" id="L53">            statementCreateTable.executeUpdate();</span>
+<span class="fc" id="L56">            statementCreateTable.executeUpdate();</span>
             
-<span class="nc" id="L55">            statementCreateTable = connection.prepareStatement(</span>
+<span class="fc" id="L58">            statementCreateTable = connection.prepareStatement(</span>
                 &quot;CREATE TABLE Tag&quot;
                 + &quot;(&quot;
                     + &quot;id INTEGER PRIMARY KEY, &quot;
                     + &quot;tagDescription TEXT UNIQUE&quot;
                 + &quot;)&quot;
             );
-<span class="nc" id="L62">            statementCreateTable.executeUpdate();</span>
+<span class="fc" id="L65">            statementCreateTable.executeUpdate();</span>
             
-<span class="nc" id="L64">            statementCreateTable = connection.prepareStatement(</span>
+<span class="fc" id="L67">            statementCreateTable = connection.prepareStatement(</span>
                 &quot;CREATE TABLE ReadingTipTag&quot;
                 + &quot;(&quot;
                     + &quot;readingtip_id INTEGER, &quot;
@@ -70,9 +73,9 @@ public class Database {
                     + &quot;FOREIGN KEY(tag_id) REFERENCES Tag(id)&quot;
                 + &quot;)&quot;
             );
-<span class="nc" id="L73">            statementCreateTable.executeUpdate();</span>
+<span class="fc" id="L76">            statementCreateTable.executeUpdate();</span>
             
-<span class="nc" id="L75">            statementCreateTable = connection.prepareStatement(</span>
+<span class="fc" id="L78">            statementCreateTable = connection.prepareStatement(</span>
                 &quot;CREATE TABLE Comment&quot;
                 + &quot;(&quot;
                     + &quot;id INTEGER PRIMARY KEY, &quot;
@@ -81,13 +84,13 @@ public class Database {
                     + &quot;FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id)&quot;
                 + &quot;)&quot;
             );
-<span class="nc" id="L84">            statementCreateTable.executeUpdate();</span>
+<span class="fc" id="L87">            statementCreateTable.executeUpdate();</span>
             
-<span class="nc" id="L86">            statementCreateTable.close();</span>
+<span class="fc" id="L89">            statementCreateTable.close();</span>
         }
 
-<span class="fc" id="L89">        connection.close();</span>
-<span class="fc" id="L90">    }</span>
+<span class="fc" id="L92">        connection.close();</span>
+<span class="fc" id="L93">    }</span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

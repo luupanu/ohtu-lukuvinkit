@@ -51,19 +51,19 @@ public class CommentDao {
     }
     
     public void save(Comment comment) throws SQLException {
-<span class="nc" id="L54">        Connection connection = database.getConnection();</span>
-<span class="nc" id="L55">        PreparedStatement statement = connection.prepareStatement(</span>
+<span class="fc" id="L54">        Connection connection = database.getConnection();</span>
+<span class="fc" id="L55">        PreparedStatement statement = connection.prepareStatement(</span>
             &quot;INSERT INTO Comment(description, readingtip_id) values (?, ?)&quot;
         );
 
-<span class="nc" id="L59">        statement.setString(1, comment.getCommentDescription());</span>
-<span class="nc" id="L60">        statement.setInt(2, comment.getReadingTipId());</span>
+<span class="fc" id="L59">        statement.setString(1, comment.getCommentDescription());</span>
+<span class="fc" id="L60">        statement.setInt(2, comment.getReadingTipId());</span>
 
-<span class="nc" id="L62">        statement.executeUpdate();</span>
+<span class="fc" id="L62">        statement.executeUpdate();</span>
 
-<span class="nc" id="L64">        statement.close();</span>
-<span class="nc" id="L65">        connection.close();</span>
-<span class="nc" id="L66">    }    </span>
+<span class="fc" id="L64">        statement.close();</span>
+<span class="fc" id="L65">        connection.close();</span>
+<span class="fc" id="L66">    }    </span>
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

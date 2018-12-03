@@ -60,16 +60,16 @@ public class Controllers {
     }
 
     @PostMapping(&quot;/comment&quot;)
-    public String createComment(@RequestParam Integer readingTipId,
-            @ModelAttribute Comment comment) throws SQLException {
-<span class="nc" id="L65">        service.saveNewComment(comment, readingTipId);</span>
-<span class="nc" id="L66">        return &quot;redirect:/&quot;;</span>
+    public String createComment(@RequestParam Integer readingTipId, @ModelAttribute Comment comment)
+            throws SQLException {
+<span class="fc" id="L65">        service.saveNewComment(comment, readingTipId);</span>
+<span class="fc" id="L66">        return &quot;redirect:/&quot;;</span>
     }
 
     @PostMapping(&quot;/readingtip&quot;)
-    public String createReadingTip(@Valid
-            @ModelAttribute ReadingTip readingTip, BindingResult bindingResultTip,
-            @ModelAttribute Tag tag, BindingResult bindingResultTag) throws SQLException {
+    public String createReadingTip(@Valid @ModelAttribute ReadingTip readingTip, 
+            BindingResult bindingResultTip, @ModelAttribute Tag tag, 
+            BindingResult bindingResultTag) throws SQLException {
 <span class="pc bpc" id="L73" title="1 of 4 branches missed.">        if (bindingResultTip.hasErrors() || bindingResultTag.hasErrors()) {</span>
 <span class="fc" id="L74">            return &quot;index&quot;;</span>
         }

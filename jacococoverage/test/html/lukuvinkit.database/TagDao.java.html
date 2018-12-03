@@ -24,83 +24,64 @@ public class TagDao {
 <span class="fc" id="L24">        this.database = database;</span>
 <span class="fc" id="L25">    }</span>
 
-    /*public ArrayList&lt;Tag&gt; findAll() throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement(&quot;SELECT * FROM Tag&quot;);
-
-        ResultSet result = statement.executeQuery();
-
-        ArrayList&lt;Tag&gt; allTags = new ArrayList&lt;&gt;();
-
-        while (result.next()) {
-            allTags.add(new Tag(result.getInt(&quot;id&quot;), result.getString(&quot;tagDescription&quot;)));
-        }
-
-        result.close();
-        statement.close();
-        connection.close();
-
-        return allTags;
-    }*/
-
     public ArrayList&lt;Tag&gt; findAllForReadingTip(int readingTipId) throws SQLException {
-<span class="fc" id="L47">        Connection connection = database.getConnection();</span>
-<span class="fc" id="L48">        PreparedStatement statement = connection.prepareStatement(</span>
+<span class="fc" id="L28">        Connection connection = database.getConnection();</span>
+<span class="fc" id="L29">        PreparedStatement statement = connection.prepareStatement(</span>
             &quot;SELECT Tag.id, Tag.tagDescription &quot;
             + &quot;FROM ReadingTipTag, Tag &quot;
             + &quot;WHERE ReadingTipTag.readingtip_id = ? &quot;
             + &quot;AND ReadingTipTag.tag_id = Tag.id&quot;
         );
-<span class="fc" id="L54">        statement.setInt(1, readingTipId);</span>
+<span class="fc" id="L35">        statement.setInt(1, readingTipId);</span>
 
-<span class="fc" id="L56">        ResultSet result = statement.executeQuery();</span>
+<span class="fc" id="L37">        ResultSet result = statement.executeQuery();</span>
 
-<span class="fc" id="L58">        ArrayList&lt;Tag&gt; allTagsForReadingTip = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L39">        ArrayList&lt;Tag&gt; allTagsForReadingTip = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L60" title="All 2 branches covered.">        while (result.next()) {</span>
-<span class="fc" id="L61">            allTagsForReadingTip.add(new Tag(</span>
-<span class="fc" id="L62">                result.getInt(&quot;id&quot;),</span>
-<span class="fc" id="L63">                result.getString(&quot;tagDescription&quot;)</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        while (result.next()) {</span>
+<span class="fc" id="L42">            allTagsForReadingTip.add(new Tag(</span>
+<span class="fc" id="L43">                result.getInt(&quot;id&quot;),</span>
+<span class="fc" id="L44">                result.getString(&quot;tagDescription&quot;)</span>
             ));
         }
 
-<span class="fc" id="L67">        result.close();</span>
-<span class="fc" id="L68">        statement.close();</span>
-<span class="fc" id="L69">        connection.close();</span>
+<span class="fc" id="L48">        result.close();</span>
+<span class="fc" id="L49">        statement.close();</span>
+<span class="fc" id="L50">        connection.close();</span>
 
-<span class="fc" id="L71">        return allTagsForReadingTip;</span>
+<span class="fc" id="L52">        return allTagsForReadingTip;</span>
     }
 
     public Tag save(Tag tag) throws SQLException {
-<span class="fc" id="L75">        Connection connection = database.getConnection();</span>
+<span class="fc" id="L56">        Connection connection = database.getConnection();</span>
         PreparedStatement statement;
         
-<span class="fc" id="L78">        statement = connection.prepareStatement(</span>
+<span class="fc" id="L59">        statement = connection.prepareStatement(</span>
             &quot;INSERT INTO Tag(tagDescription) values (?) ON CONFLICT (tagDescription) DO NOTHING&quot;
         );
-<span class="fc" id="L81">        statement.setString(1, tag.getTagDescription());</span>
-<span class="fc" id="L82">        int rowsInserted = statement.executeUpdate();</span>
+<span class="fc" id="L62">        statement.setString(1, tag.getTagDescription());</span>
+<span class="fc" id="L63">        int rowsInserted = statement.executeUpdate();</span>
         
         int id;
         ResultSet result;
-<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if (rowsInserted == 0) {  // If the tag was already in the database</span>
-<span class="fc" id="L87">            statement = connection.prepareStatement(&quot;SELECT id FROM Tag WHERE tagDescription = ?&quot;);</span>
-<span class="fc" id="L88">            statement.setString(1, tag.getTagDescription());</span>
-<span class="fc" id="L89">            result = statement.executeQuery();</span>
-<span class="fc" id="L90">            id = result.getInt(1);</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (rowsInserted == 0) {  // If the tag was already in the database</span>
+<span class="fc" id="L68">            statement = connection.prepareStatement(&quot;SELECT id FROM Tag WHERE tagDescription = ?&quot;);</span>
+<span class="fc" id="L69">            statement.setString(1, tag.getTagDescription());</span>
+<span class="fc" id="L70">            result = statement.executeQuery();</span>
+<span class="fc" id="L71">            id = result.getInt(1);</span>
         } else {  // If new tag was inserted
-<span class="nc" id="L92">            statement = connection.prepareStatement(&quot;select last_insert_rowid()&quot;);</span>
-<span class="nc" id="L93">            result = statement.executeQuery();</span>
-<span class="nc" id="L94">            result.next();</span>
-<span class="nc" id="L95">            id = result.getInt(1);           </span>
+<span class="fc" id="L73">            statement = connection.prepareStatement(&quot;select last_insert_rowid()&quot;);</span>
+<span class="fc" id="L74">            result = statement.executeQuery();</span>
+<span class="fc" id="L75">            result.next();</span>
+<span class="fc" id="L76">            id = result.getInt(1);           </span>
         }
         
-<span class="fc" id="L98">        result.close(); </span>
-<span class="fc" id="L99">        statement.close();</span>
-<span class="fc" id="L100">        connection.close();</span>
+<span class="fc" id="L79">        result.close(); </span>
+<span class="fc" id="L80">        statement.close();</span>
+<span class="fc" id="L81">        connection.close();</span>
         
-<span class="fc" id="L102">        tag.setId(id);</span>
-<span class="fc" id="L103">        return tag;</span>
+<span class="fc" id="L83">        tag.setId(id);</span>
+<span class="fc" id="L84">        return tag;</span>
     }
 
 }
