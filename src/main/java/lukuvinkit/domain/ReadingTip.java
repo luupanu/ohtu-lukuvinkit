@@ -3,6 +3,7 @@ package lukuvinkit.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
+import javax.validation.constraints.AssertTrue;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -116,6 +117,73 @@ public class ReadingTip {
 
     public void setRead(boolean read) {
         this.read = read;
+    }
+    
+    
+    // Multi-field validators:
+    
+    @AssertTrue
+    public boolean isLinkUrlOK() {
+        if (this.type == null) {
+            return false;
+        }
+        
+        if (!this.type.equals("Link")) {
+            return true;
+        }
+        
+        if (!this.url.equals("") && this.author.equals("") && this.isbn.equals("")) {
+            return true;
+        }
+        return false;
+    }
+    
+    @AssertTrue
+    public boolean isArticleAuthorOK() {
+        if (this.type == null) {
+            return false;
+        }
+        
+        if (!this.type.equals("Article")) {
+            return true;
+        }
+        
+        if (this.url.equals("") && !this.author.equals("") && this.isbn.equals("")) {
+            return true;
+        }
+        return false;
+    }
+    
+    @AssertTrue
+    public boolean isBookAuthorOK() {
+        if (this.type == null) {
+            return false;
+        }
+        
+        if (!this.type.equals("Book")) {
+            return true;
+        }
+        
+        if (this.url.equals("") && !this.author.equals("")) {
+            return true;
+        }
+        return false;
+    }
+    
+    @AssertTrue
+    public boolean isBookIsbnOK() {
+        if (this.type == null) {
+            return false;
+        }
+        
+        if (!this.type.equals("Book")) {
+            return true;
+        }
+        
+        if (this.url.equals("") && !this.isbn.equals("")) {
+            return true;
+        }
+        return false;
     }
 
 }
