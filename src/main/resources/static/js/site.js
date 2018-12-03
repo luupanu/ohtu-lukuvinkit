@@ -21,7 +21,7 @@ const toggleComments = (element) => {
   })
 }
 
-// Toggles the visibility of read tips.
+// Toggles the visibility of tips.
 const filterTips = () => {
   const tips = getTips()
 
@@ -69,7 +69,7 @@ const hideReadIsChecked = () => document.getElementById("filter-read").checked
 // Gets all tips in the document.
 const getTips = () => document.querySelectorAll("article")
 
-// Gets the search box value in the document.
+// Gets the value of the search box in the document.
 const getFilter = () => convertToSearchString(document.getElementById("search").value)
 
 // Do some string manipulations to be able to compare two strings.
