@@ -1,5 +1,4 @@
-let readingTipsList,
-  individualTips
+// MAIN FUNCTIONS
 
 // Submits the parent form of given element.
 const submitForm = (element) => {
@@ -11,52 +10,56 @@ const submitForm = (element) => {
 const toggleComments = (element) => {
   const comments = element
     .parentNode
-    .querySelectorAll('.commentarea')
+    .querySelectorAll(".commentarea")
 
   comments.forEach(comment => {
-    if (comment.style.display === 'block') {
-      comment.style.display = 'none'
+    if (comment.style.display === "block") {
+      comment.style.display = "none"
     } else {
-      comment.style.display = 'block'
+      comment.style.display = "block"
     }
   })
 }
 
-// Toggles the visibility of read tips.
-const filterRead = () => {
-  const hideRead = document.getElementById("filter-read")
-  const readTips = [...document.getElementsByClassName("tip-read")]
+// // Toggles the visibility of read tips.
+const filterTips = () => {
+  const tips = getTips()
 
-  readTips.forEach(tip => {
-    if (hideRead.checked) {
-      tip.style.display = "none" 
-    } else {
-      tip.style.display = "block"
-    }
-   })
+  console.log(getFilter())
+
+  tips.forEach(tip => {
+    if (someTagIncludesFilter(tip, getFilter())
+      && !(hideReadIsChecked() && tipIsRead(tip))) {
+        tip.style.display = "block"
+      } else {
+        tip.style.display = "none"
+      }
+  })
 }
 
-const searchInput = () => {
-  let input,
-    filter,
-    i,
-    tags
+// HELPER FUNCTIONS
 
-  input = document.getElementById("search")
-  filter = input
-    .value
-    .toUpperCase()
+// Checks if tip is unread.
+const tipIsRead = (tip) => tip.className === "tip-read"
 
-  readingTipsList = document.getElementById("readingTipsList")
-  individualTips = readingTipsList.getElementsByTagName("article")
+// Check if the 'Hide read' checkbox is checked.
+const hideReadIsChecked = () => document.getElementById("filter-read").checked
 
-  // Goes through all tips and sees if they match search input. If not, hide them.
-  for (i = 0; i < individualTips.length; i++) {
-    tags = individualTips[i].getElementsByClassName("readingtips-tags")
-    if ((tags.item(0).textContent.trim().toUpperCase().indexOf(filter) > -1) && (individualTips[i].dataset.marked == "false")) {
-      individualTips[i].style.display = ""
-    } else {
-      individualTips[i].style.display = "none"
-    }
-  }
+// Gets all tips in the document.
+const getTips = () => document.querySelectorAll("article")
+
+// Gets the search box value in the document.
+const getFilter = () => convertToSearchString(document.getElementById("search").value)
+
+// Do some string manipulations to be able to compare two strings.
+const convertToSearchString = _ => _.trim().toUpperCase()
+
+// Returns true if some tag in the tip includes the filter phrase.
+const someTagIncludesFilter = (tip, filter) => {
+  const tags = [...tip.querySelectorAll(".tag")]
+
+  return tags.some(tag => {
+    const tagValue = convertToSearchString(tag.innerText)
+    return tagValue.includes(filter)
+  })
 }
