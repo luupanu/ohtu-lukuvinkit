@@ -15,12 +15,12 @@
             <span class="header">
                 <h1>Reading tips</h1>
             </span>
-            <input type="text" name="searchbar" id="search" placeholder="Search by tags..." onkeyup="filterTips()" />
+            <input id="search" type="text" name="searchbar" placeholder="Search by tags..." onkeyup="filterTips()" />
         </div>
 
         <div class="readFilter">
             <b id="hideCheck" style="color:#64e1e7">Hide read</b>
-            <input id="filter-read" type="checkbox" onclick="filterTips()" />
+            <input id="filter-read" type="checkbox" name="hideBox" onclick="filterTips()" />
         </div>
 
         <div id="readingTipsList" class="readingtips">

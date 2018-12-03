@@ -49,7 +49,6 @@ public class Stepdefs {
     public void isTypedIn(String searchterm) throws Throwable {
         WebElement element = driver.findElement(By.id("search"));
         element.sendKeys(searchterm);
-        Thread.sleep(5000);
     }
 
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" tags \"([^\"]*)\" and is submitted$")
