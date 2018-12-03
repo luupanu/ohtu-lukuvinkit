@@ -46,9 +46,10 @@ public class Stepdefs {
     }
 
     @When("^\"([^\"]*)\" is typed in$")
-    public void isTypedIn(String arg1) throws Throwable {
-        WebElement element = driver.findElement(By.name("searchbar"));
-        element.sendKeys(arg1);
+    public void isTypedIn(String searchterm) throws Throwable {
+        WebElement element = driver.findElement(By.name("searchBar"));
+        element.sendKeys(searchterm);
+        Thread.sleep(5000);
     }
 
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" tags \"([^\"]*)\" and is submitted$")

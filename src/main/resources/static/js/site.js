@@ -32,8 +32,9 @@ let filterRead = () => {
   /*Bug: 1. read tips are hidden 2. another tip is marked as read
   3. tips hidden by this function are shown again in the view
   this is because POST-call to index and page refresh?*/
-  // fix: make READ hide function call on page load? Goes through all tips and
-  // checks if they've been read. If so, hide them.
+  // fix: make READ hide function call on page load? 
+  
+  // Goes through all tips and checks if they've been read. If so, hide them.
   for (i = 0; i < individualTips.length; i++) {
     read = individualTips[i].getElementsByClassName("readingtips-read")
     if (read.item(0).textContent.trim().indexOf("Mark as unread") > -1) {
