@@ -39,7 +39,10 @@ public class ReadingTipDao {
             allReadingTips.add(new ReadingTip(
                 result.getInt("id"),
                 result.getString("title"),
+                result.getString("type"),
                 result.getString("url"),
+                result.getString("author"),
+                result.getString("isbn"),
                 result.getString("description"),
                 result.getBoolean("read")
             ));
@@ -93,12 +96,15 @@ public class ReadingTipDao {
         PreparedStatement statement;
         
         statement = connection.prepareStatement(
-            "INSERT INTO ReadingTip(title, url, description, read) values (?, ?, ?, ?)"
+            "INSERT INTO ReadingTip(title, type, url, author, isbn, description, read) values (?, ?, ?, ?, ?, ?, ?)"
         );
         statement.setString(1, tip.getTitle());
-        statement.setString(2, tip.getUrl());
-        statement.setString(3, tip.getDescription());
-        statement.setBoolean(4, tip.isRead());
+        statement.setString(2, tip.getType());
+        statement.setString(3, tip.getUrl());
+        statement.setString(4, tip.getAuthor());
+        statement.setString(5, tip.getIsbn());
+        statement.setString(6, tip.getDescription());
+        statement.setBoolean(7, tip.isRead());
         statement.executeUpdate();
         
         statement = connection.prepareStatement("select last_insert_rowid()");

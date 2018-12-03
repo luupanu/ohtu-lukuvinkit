@@ -12,10 +12,16 @@ public class ReadingTip {
 
     @NotEmpty
     private String title;
+    
+    
+    private String type;
 
-    @NotEmpty
     @URL
     private String url;
+    
+    private String author;
+    
+    private String isbn;
 
     @NotEmpty
     private String description;
@@ -26,17 +32,23 @@ public class ReadingTip {
         // default constructor for Spring
     }
 
-    public ReadingTip(String title, String url, String description, boolean read) {
+    public ReadingTip(String title, String type, String url, String author, String isbn, String description, boolean read) {
         this.title = title;
+        this.type = type;
         this.url = url;
+        this.author = author;
+        this.isbn = isbn;
         this.description = description;
         this.read = read;
     }
 
-    public ReadingTip(int id, String title, String url, String description, boolean read) {
+    public ReadingTip(int id, String title, String type, String url, String author, String isbn, String description, boolean read) {
         this.id = id;
         this.title = title;
+        this.type = type;
         this.url = url;
+        this.author = author;
+        this.isbn = isbn;
         this.description = description;
         this.read = read;
     }
@@ -56,6 +68,14 @@ public class ReadingTip {
     public void setTitle(String title) {
         this.title = title;
     }
+    
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getUrl() {
         return url;
@@ -63,6 +83,22 @@ public class ReadingTip {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+    
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getDescription() {
