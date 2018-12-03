@@ -43,7 +43,7 @@ body {
 
 /* individual elements */
 
-a, #hideCheck {
+a, #hideCheck, .title {
     color: #64e1e7;
 }
 
@@ -157,7 +157,6 @@ td {
 .readingtips-read {
     float: right;
 }
-
 
 .tag {
     display: inline-block;

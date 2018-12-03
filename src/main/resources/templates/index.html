@@ -36,8 +36,8 @@
                 <div class="readingtips-title">
                     <h3>
                         <span th:text="${listingUnit.readingTip.type}"></span>
-                        <span th:if="${listingUnit.readingTip.url == ''}" th:text="${listingUnit.readingTip.title}"></span>
-                        <a th:if="${listingUnit.readingTip.url != ''}" th:href="@{__${listingUnit.readingTip.url}__}" th:text="${listingUnit.readingTip.title}" />
+                        <span class="title" th:if="${listingUnit.readingTip.url == ''}" th:text="${listingUnit.readingTip.title}"></span>
+                        <a class="title" th:if="${listingUnit.readingTip.url != ''}" th:href="@{__${listingUnit.readingTip.url}__}" th:text="${listingUnit.readingTip.title}" />
                     </h3>
                     <span class="read-tag" th:if="${listingUnit.readingTip.read}">READ</span>
                 </div>
