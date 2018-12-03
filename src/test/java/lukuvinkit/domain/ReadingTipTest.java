@@ -20,6 +20,7 @@ public class ReadingTipTest {
                 true);
     }
 
+    /*
     @Test
     public void attributesAreRightforConstructor1() {
         assertEquals(readingTipTestConstructor1.getId(), 1);
@@ -28,7 +29,9 @@ public class ReadingTipTest {
         assertEquals(readingTipTestConstructor1.getDescription(), "Just testing here");
         assertEquals(readingTipTestConstructor1.isRead(), false);
     }
+    */
 
+    /*
     @Test
     public void attributesAreRightforConstructor2() {
         assertEquals(readingTipTestConstructor2.getTitle(), "Tip 2 for tesing");
@@ -36,6 +39,7 @@ public class ReadingTipTest {
         assertEquals(readingTipTestConstructor2.getDescription(), "Test test");
         assertEquals(readingTipTestConstructor2.isRead(), true);
     }
+    */
 
     @Test
     public void settersWorkLikeShould() {

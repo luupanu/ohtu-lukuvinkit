@@ -21,7 +21,7 @@ const toggleComments = (element) => {
   })
 }
 
-// // Toggles the visibility of read tips.
+// Toggles the visibility of read tips.
 const filterTips = () => {
   const tips = getTips()
 
@@ -35,6 +35,29 @@ const filterTips = () => {
         tip.style.display = "none"
       }
   })
+}
+
+// Toggles the visibility of form elements based on type.
+const newReadingTipFormRefresh = () => {
+  const typeField = document.getElementById("typeField")
+
+  const urlField = document.getElementById("urlField")
+  const authorField = document.getElementById("authorField")
+  const isbnField = document.getElementById("isbnField")
+
+  if (typeField.value == "Link") {
+    urlField.style.display = "block";
+    authorField.style.display = "none";
+    isbnField.style.display = "none";
+  } else if (typeField.value == "Article") {
+    urlField.style.display = "none";
+    authorField.style.display = "block";
+    isbnField.style.display = "none";
+  } else if (typeField.value == "Book") {
+    urlField.style.display = "none";
+    authorField.style.display = "none";
+    isbnField.style.display = "block";
+  }
 }
 
 // HELPER FUNCTIONS
