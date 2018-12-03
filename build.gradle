@@ -68,6 +68,8 @@ test {
     systemProperties System.getProperties()
 }
 
+check.dependsOn jacocoTestReport
+
 checkstyle {
     toolVersion = "8.14"
 }
