@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ReadingTipListingUnitTest {
-    
+
     private Comment comment1;
     private Comment comment2;
     private Comment comment3;
@@ -18,7 +18,7 @@ public class ReadingTipListingUnitTest {
     private ArrayList<Tag> tags;
     private ReadingTip readingTipRead;
     private ReadingTip readingTipNotRead;
-    
+
     @Before
     public void setUp() {
         comment1 = new Comment(1, "comment1", 2);
@@ -33,9 +33,10 @@ public class ReadingTipListingUnitTest {
         tags = new ArrayList();
         tags.add(tag1);
         tags.add(tag2);
-        readingTipRead = new ReadingTip(1, "Tip 1 for tesing", "https://yle.fi/", "Just testing here", true);
-        readingTipNotRead = new ReadingTip(1, "Tip 2 for tesing", "https://hs.fi/", "Test test", false);
-        
+        readingTipRead = new ReadingTip(1, "Tip 1 for tesing", "https://yle.fi/", "Just testing here", "", "", "",
+                true);
+        readingTipNotRead = new ReadingTip(1, "Tip 2 for tesing", "https://hs.fi/", "Test test", "", "", "", false);
+
     }
 
     @Test
@@ -47,5 +48,5 @@ public class ReadingTipListingUnitTest {
         assertEquals(result1, 1);
         assertEquals(result2, -1);
     }
-            
+
 }

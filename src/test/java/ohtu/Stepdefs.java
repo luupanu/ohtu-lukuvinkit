@@ -45,6 +45,12 @@ public class Stepdefs {
         driver.get("http://localhost:" + PORT_NUMBER + "/");
     }
 
+    @When("^\"([^\"]*)\" is typed in$")
+    public void isTypedIn(String arg1) throws Throwable {
+        WebElement element = driver.findElement(By.name("searchbar"));
+        element.sendKeys(arg1);
+    }
+
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" tags \"([^\"]*)\" and is submitted$")
     public void formIsFilledAndSubmittedWithTags(String title, String description, String url, String tags)
             throws Throwable {
@@ -65,22 +71,22 @@ public class Stepdefs {
     public void anElementIsClicked(String arg1) throws Throwable {
         clickElementByName(arg1);
     }
-    
+
     @When("^link \"([^\"]*)\" is clicked$")
     public void linkIsClicked(String arg1) throws Throwable {
         driver.findElement(By.linkText(arg1)).click();
     }
-    
+
     @When("^page contains \"([^\"]*)\" field$")
-    public void pageContainsField(String arg1){
+    public void pageContainsField(String arg1) {
         assertTrue(driver.getPageSource().contains(arg1));
     }
-        
+
     @Then("^link \"([^\"]*)\" is shown$")
-    public void linkIsShown(String linkText){
+    public void linkIsShown(String linkText) {
         assertTrue(driver.findElement(By.linkText(linkText)).getText().contains(linkText));
     }
-    
+
     @Then("^\"([^\"]*)\" is shown$")
     public void isShown(String arg1) throws Throwable {
         assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
@@ -94,18 +100,18 @@ public class Stepdefs {
     @Then("^error \"([^\"]*)\" is shown$")
     public void errorIsShown(String arg1) throws Throwable {
         try {
-        assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
+            assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
         } catch (Exception e) {
             Thread.sleep(4000);
             System.out.println(e.getStackTrace());
         }
     }
-        
+
     @Then("^comment \"([^\"]*)\" is submitted$")
     public void submitNewComment(String comment) throws Throwable {
         WebElement element = driver.findElement(By.name("commentDescription"));
         element.sendKeys(comment);
-        //Thread.sleep(1000000000);
+        // Thread.sleep(1000000000);
         element = driver.findElement(By.name("create-comment"));
         element.submit();
     }

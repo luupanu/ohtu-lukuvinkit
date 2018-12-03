@@ -1,4 +1,4 @@
-var readingTipsList,
+let readingTipsList,
   individualTips
 
 const submitForm = (checkbox) => {
@@ -20,7 +20,7 @@ const toggleComments = (link) => {
   })
 }
 
-function filterRead() {
+let filterRead = () => {
   let i,
     read,
     hideCheck
@@ -32,9 +32,8 @@ function filterRead() {
   /*Bug: 1. read tips are hidden 2. another tip is marked as read
   3. tips hidden by this function are shown again in the view
   this is because POST-call to index and page refresh?*/
-  // fix: make READ hide function call on page load?
-
-  // Goes through all tips and checks if they've been read. If so, hide them.
+  // fix: make READ hide function call on page load? Goes through all tips and
+  // checks if they've been read. If so, hide them.
   for (i = 0; i < individualTips.length; i++) {
     read = individualTips[i].getElementsByClassName("readingtips-read")
     if (read.item(0).textContent.trim().indexOf("Mark as unread") > -1) {
@@ -51,7 +50,7 @@ function filterRead() {
   }
 }
 
-function searchInput() {
+let searchInput = () => {
   let input,
     filter,
     i,
@@ -68,8 +67,7 @@ function searchInput() {
   // Goes through all tips and sees if they match search input. If not, hide them.
   for (i = 0; i < individualTips.length; i++) {
     tags = individualTips[i].getElementsByClassName("readingtips-tags")
-    if ((tags.item(0).textContent.trim().toUpperCase().indexOf(filter) > -1) 
-    && (individualTips[i].dataset.marked == "false")) {
+    if ((tags.item(0).textContent.trim().toUpperCase().indexOf(filter) > -1) && (individualTips[i].dataset.marked == "false")) {
       individualTips[i].style.display = ""
     } else {
       individualTips[i].style.display = "none"
