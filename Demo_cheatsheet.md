@@ -47,12 +47,14 @@ Tags: AI,Algorithms
 
 **Linkkejä:**
 
-* https://yle.fi/uutiset/3-10254656   Tags: Salary,Job
-*https://github.com/mluukkai/ohjelmistotuotanto2018 Tags: School,Software
+* https://yle.fi/uutiset/3-10254656      
+Tags: Salary,Job
+*https://github.com/mluukkai/ohjelmistotuotanto2018    
+Tags: School,Software
 
 **Artikkeleita:**
 
-* https://www.cs.cmu.edu/~luluo/Courses/17939Report.pdf 
+* https://www.cs.cmu.edu/~luluo/Courses/17939Report.pdf    
 Tags: Software,Testing
 Author: Lu Luo
 * https://arxiv.org/abs/1512.03547   
