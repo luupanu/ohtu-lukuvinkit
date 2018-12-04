@@ -12,3 +12,9 @@ Feature: User can add tags
     And new tip is submitted
     Then "tagfortest" is shown
     And "tagfortest2" is shown
+
+  Scenario: When all fields and two tags with same name are filled and submit is clicked new tip is added with only one tag
+    Given user is at the main page
+    When form is filled with title "Vinkki" description "Deskriptio" url "https://github.com/mluukkai" tags "sametag, sametag, sametag"
+    And new tip is submitted
+    Then only one "sametag" is shown

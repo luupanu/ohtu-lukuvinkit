@@ -1,5 +1,6 @@
 package ohtu;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -132,6 +133,24 @@ public class Stepdefs {
         element.sendKeys(comment);
         element = driver.findElement(By.name("create-comment"));
         element.submit();
+    }
+
+    @Then("^only one \"([^\"]*)\" is shown$")
+    public void onlyOneIsShown(String arg1) throws Throwable {
+        String body = driver.findElement(By.tagName("body")).getText();
+
+        int counter = 0;
+        int index = 0;
+
+        while (index != -1) {
+            index = body.indexOf(arg1, index);
+
+            if (index != -1) {
+                counter++;
+                index++;
+            }
+        }
+        assertEquals(1, counter);
     }
 
     /*
