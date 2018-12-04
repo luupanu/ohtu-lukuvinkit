@@ -96,21 +96,21 @@
 
                     <tr id="urlField">
                         <td><label for="url">URL:</label></td>
-                        <td><input type="text" th:field="*{url}" name="url" /></td>
+                        <td><input type="text" th:field="*{url}" name="url" id="urlInput" /></td>
                         <td class="error" th:if="${#fields.hasErrors('url')}" th:errors="*{url}" />
                         <td class="error" th:if="${#fields.hasErrors('linkUrlOK')}">URL must not be empty!</td>
                     </tr>
 
                     <tr id="authorField">
                         <td><label for="author">Author:</label></td>
-                        <td><input type="text" th:field="*{author}" name="author" /></td>
+                        <td><input type="text" th:field="*{author}" name="author" id="authorInput" /></td>
                         <td class="error" th:if="${#fields.hasErrors('articleAuthorOK')}">Author must not be empty!</td>
                         <td class="error" th:if="${#fields.hasErrors('bookAuthorOK')}">Author must not be empty!</td>
                     </tr>
 
                     <tr id="isbnField">
                         <td><label for="isbn">ISBN:</label></td>
-                        <td><input type="text" th:field="*{isbn}" name="isbn" /></td>
+                        <td><input type="text" th:field="*{isbn}" name="isbn" id="isbnInput" /></td>
                         <td class="error" th:if="${#fields.hasErrors('bookIsbnOK')}">ISBN must not be empty!</td>
                     </tr>
 
