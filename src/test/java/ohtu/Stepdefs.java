@@ -94,6 +94,11 @@ public class Stepdefs {
         submitNewArticleTipWithTags(title, description, author, tags);
     }
 
+    @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" author \"([^\"]*)\" isbn \"([^\"]*)\" tags \"([^\"]*)\" and is submitted$")
+    public void formIsFilledWithTitleDescriptionAuthorIsbnTagsAndIsSubmitted(String title, String description, String author, String isbn, String tags) throws Throwable {
+        submitNewBookTipWithTags(title, description, author, isbn, tags);
+    }
+
 
     @Then("^link \"([^\"]*)\" is shown$")
     public void linkIsShown(String linkText) {
@@ -162,6 +167,22 @@ public class Stepdefs {
         element.sendKeys(description);
         element = driver.findElement(By.name("author"));
         element.sendKeys(author);
+        element = driver.findElement(By.name("tagDescription"));
+        element.sendKeys(tags);
+        element = driver.findElement(By.name("create-readingtip"));
+        element.submit();
+    }
+
+    private void submitNewBookTipWithTags(String title, String description, String author, String isbn, String tags) {
+        assertTrue(driver.getPageSource().contains("Add a new reading tip"));
+        WebElement element = driver.findElement(By.name("title"));
+        element.sendKeys(title);
+        element = driver.findElement(By.name("description"));
+        element.sendKeys(description);
+        element = driver.findElement(By.name("author"));
+        element.sendKeys(author);
+        element = driver.findElement(By.name("isbn"));
+        element.sendKeys(isbn);
         element = driver.findElement(By.name("tagDescription"));
         element.sendKeys(tags);
         element = driver.findElement(By.name("create-readingtip"));

@@ -1,6 +1,6 @@
 Feature: User can add a new reading tip (Link)
 
-  Scenario: When all fields but tags are filled and submit is clicked new tip is added
+  Scenario: When all fields are filled and submit is clicked a new Link tip is added
     Given user is at the main page
     When form is filled with title "New link tip" description "Nice tip here" url "https://github.com/mluukkai" tags "Testtag" and is submitted
     Then "New link tip" is shown
