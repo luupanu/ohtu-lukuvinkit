@@ -5,7 +5,7 @@
 1. Asiakas voi lisätä lukuvinkin
 2. Asiakas voi selata lukuvinkkejä
 3. Asiakas voi merkitä lukuvinkin luetuksi
-4 .Asiakas voi lisätä lukuvinkkeihin kommentteja
+4. Asiakas voi lisätä lukuvinkkeihin kommentteja
 5. Asiakas voi lisätä lukuvinkkeihin tageja
 6. Asiakas voi lisätä kirjan lukuvinkkeihin
 7. Asiakas voi lisätä artikkelin lukuvinkkeihin
