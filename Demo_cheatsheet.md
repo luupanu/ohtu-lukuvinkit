@@ -12,7 +12,6 @@
 8. Asiakas voi hakea lukuvinkkejä tagien perusteella
 9. Asiakas voi filtteröidä jo luetut lukuvinkit pois
 
-
 ## DEMO
 
 ### Step 1 (Storyt 1, 2, 5, 6, 7)
