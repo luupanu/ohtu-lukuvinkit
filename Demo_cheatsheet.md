@@ -55,10 +55,10 @@ Tags: School,Software
 **Artikkeleita:**
 
 * https://www.cs.cmu.edu/~luluo/Courses/17939Report.pdf    
-Tags: Software,Testing
+Tags: Software,Testing    
 Author: Lu Luo
 * https://arxiv.org/abs/1512.03547   
-Tags: Quasipolynomial,GraphIsomorphism  
-Author: Laszlo, Babai
+Tags: Quasipolynomial,GraphIsomorphism    
+Author: Laszlo, Babai  
 
  
