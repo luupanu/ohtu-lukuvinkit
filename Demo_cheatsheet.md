@@ -49,7 +49,7 @@ Tags: AI,Algorithms
 
 * https://yle.fi/uutiset/3-10254656      
 Tags: Salary,Job
-*https://github.com/mluukkai/ohjelmistotuotanto2018    
+* https://github.com/mluukkai/ohjelmistotuotanto2018    
 Tags: School,Software
 
 **Artikkeleita:**
