@@ -1,9 +1,9 @@
-
 package lukuvinkit.domain;
+
+import javax.validation.constraints.AssertTrue;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
-import javax.validation.constraints.AssertTrue;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -123,7 +123,7 @@ public class ReadingTip {
     // Multi-field validators:
     
     @AssertTrue
-    public boolean isLinkUrlOK() {
+    public boolean isLinkUrlOk() {
         if (this.type == null) {
             return false;
         }
@@ -132,14 +132,11 @@ public class ReadingTip {
             return true;
         }
         
-        if (!this.url.equals("") && this.author.equals("") && this.isbn.equals("")) {
-            return true;
-        }
-        return false;
+        return !this.url.equals("") && this.author.equals("") && this.isbn.equals("");
     }
     
     @AssertTrue
-    public boolean isArticleAuthorOK() {
+    public boolean isArticleAuthorOk() {
         if (this.type == null) {
             return false;
         }
@@ -148,14 +145,11 @@ public class ReadingTip {
             return true;
         }
         
-        if (this.url.equals("") && !this.author.equals("") && this.isbn.equals("")) {
-            return true;
-        }
-        return false;
+        return this.url.equals("") && !this.author.equals("") && this.isbn.equals("");
     }
     
     @AssertTrue
-    public boolean isBookAuthorOK() {
+    public boolean isBookAuthorOk() {
         if (this.type == null) {
             return false;
         }
@@ -164,14 +158,11 @@ public class ReadingTip {
             return true;
         }
         
-        if (this.url.equals("") && !this.author.equals("")) {
-            return true;
-        }
-        return false;
+        return this.url.equals("") && !this.author.equals("");
     }
     
     @AssertTrue
-    public boolean isBookIsbnOK() {
+    public boolean isBookIsbnOk() {
         if (this.type == null) {
             return false;
         }
@@ -180,10 +171,7 @@ public class ReadingTip {
             return true;
         }
         
-        if (this.url.equals("") && !this.isbn.equals("")) {
-            return true;
-        }
-        return false;
+        return this.url.equals("") && !this.isbn.equals("");
     }
 
 }
