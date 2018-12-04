@@ -1,7 +1,6 @@
-# Demo (Sprint 3)
+# Demo cheat sheet (Sprint 3)
 
 ## Valmiit user storyt (Sprint 3):
-
 
 1. Asiakas voi lisätä lukuvinkin
 2. Asiakas voi selata lukuvinkkejä
@@ -12,6 +11,7 @@
 7. Asiakas voi lisätä artikkelin lukuvinkkeihin
 8. Asiakas voi hakea lukuvinkkejä tagien perusteella
 9. Asiakas voi filtteröidä jo luetut lukuvinkit pois
+
 
 ## DEMO
 
