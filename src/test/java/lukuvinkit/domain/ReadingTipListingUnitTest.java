@@ -9,9 +9,6 @@ import org.junit.Test;
 
 public class ReadingTipListingUnitTest {
 
-    private Comment comment1;
-    private Comment comment2;
-    private Comment comment3;
     private Tag tag1;
     private Tag tag2;
     private ArrayList<Comment> comments;
@@ -21,18 +18,20 @@ public class ReadingTipListingUnitTest {
 
     @Before
     public void setUp() {
-        comment1 = new Comment(1, "comment1", 2);
-        comment2 = new Comment(2, "comment2", 1);
-        comment3 = new Comment(2, "comment3", 1);
+        Comment comment1 = new Comment(1, "comment1", 2);
+        Comment comment2 = new Comment(2, "comment2", 1);
+        Comment comment3 = new Comment(2, "comment3", 1);
         comments = new ArrayList();
         comments.add(comment1);
         comments.add(comment2);
         comments.add(comment3);
+
         tag1 = new Tag(1, "Tag1");
-        tag1 = new Tag(2, "Tag2");
+        tag2 = new Tag(2, "Tag2");
         tags = new ArrayList();
         tags.add(tag1);
         tags.add(tag2);
+
         readingTipRead = new ReadingTip(1, "Tip 1 for tesing", "https://yle.fi/", "Just testing here", "", "", "",
                 true);
         readingTipNotRead = new ReadingTip(1, "Tip 2 for tesing", "https://hs.fi/", "Test test", "", "", "", false);
