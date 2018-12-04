@@ -6,10 +6,6 @@
 
 **Reading tips is a web app that at its core lets the user save down reading tips, their descriptions and links to them. Other features include tagging, adding comments and keeping track of what you've already read.**
 
-### WIP features (should be ready after Sprint 3)
-* Add a type for a reading tip: a book, a website or an article
-* Add more info for a reading tip: ISBN for a book, author for an article
-
 ## Installation
 
 A (modernish) browser running JavaScript is required for this app to work properly.
@@ -29,7 +25,6 @@ To run the app locally:
 * [Sprint 1 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=0)
 * [Sprint 2 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=1294251749)
 * [Sprint 3 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=774886918)
-
 
 ## Definition of Done
 
