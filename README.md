@@ -24,6 +24,7 @@ To run the app locally:
 
 * [Heroku](https://lukuvinkit.herokuapp.com/)
 * [Test coverage report](https://htmlpreview.github.io/?https://github.com/luupanu/ohtu-lukuvinkit/blob/master/jacococoverage/test/html/index.html)
+* [Documentation](https://docs.google.com/document/d/1O4CmI0dEY2C_Ug7-gUTDmSD48oMHeIVG8lrNBHUmthI)
 * [Product Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU)
 * [Sprint 1 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=0)
 * [Sprint 2 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=1294251749)
