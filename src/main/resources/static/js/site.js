@@ -42,16 +42,25 @@ const newReadingTipFormRefresh = () => {
   const urlField = document.getElementById("urlField")
   const authorField = document.getElementById("authorField")
   const isbnField = document.getElementById("isbnField")
+  
+  const url = document.getElementById("urlInput")
+  const author = document.getElementById("authorInput")
+  const isbn = document.getElementById("isbnInput")
 
   if (typeField.value == "Link") {
+    author.value = "";
+    isbn.value = "";
     urlField.style.display = "block";
     authorField.style.display = "none";
     isbnField.style.display = "none";
   } else if (typeField.value == "Article") {
+    url.value = "";
+    isbn.value = "";
     urlField.style.display = "none";
     authorField.style.display = "block";
     isbnField.style.display = "none";
   } else if (typeField.value == "Book") {
+    url.value = "";
     urlField.style.display = "none";
     authorField.style.display = "block";
     isbnField.style.display = "block";

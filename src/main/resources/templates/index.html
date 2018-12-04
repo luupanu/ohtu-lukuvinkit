@@ -43,8 +43,13 @@
                 </div>
 
                 <div class="readingtips-description">
-                    <p th:if="${listingUnit.readingTip.author != ''}" th:text="${listingUnit.readingTip.author}"></p>
-                    <p th:if="${listingUnit.readingTip.isbn != ''}" th:text="${listingUnit.readingTip.isbn}"></p>
+                    <div class="readingtips-author" th:if="${listingUnit.readingTip.author != ''}">
+                        <span>Author:</span> <p th:text="${listingUnit.readingTip.author}" />
+                    </div>
+                    <div class="readingtips-isbn" th:if="${listingUnit.readingTip.isbn != ''}">
+                        <span>ISBN:</span> <p th:text="${listingUnit.readingTip.isbn}" />
+                    </div>
+                    <p th:text="${listingUnit.readingTip.description}" />
                 </div>
 
                 <div class="readingtips-tags">
@@ -80,13 +85,12 @@
                     <tr>
                         <td><label for="type">Type:</label></td>
                         <td>
-                            <select th:field="*{type}" name="type" id="typeField" required="true" oninput="newReadingTipFormRefresh()">
+                            <select th:field="*{type}" name="type" id="typeField" required="true" onchange="newReadingTipFormRefresh()">
                                 <option value="Link" selected="selected">Link</option>
                                 <option value="Article">Article</option>
                                 <option value="Book">Book</option>
                             </select>
                         </td>
-                        <td></td>
                     </tr>
 
                     <tr>
@@ -97,20 +101,22 @@
 
                     <tr id="urlField">
                         <td><label for="url">URL:</label></td>
-                        <td><input type="text" th:field="*{url}" name="url" /></td>
+                        <td><input type="text" th:field="*{url}" name="url" id="urlInput" /></td>
                         <td class="error" th:if="${#fields.hasErrors('url')}" th:errors="*{url}" />
+                        <td class="error" th:if="${#fields.hasErrors('linkUrlOk')}">URL must not be empty!</td>
                     </tr>
 
                     <tr id="authorField">
                         <td><label for="author">Author:</label></td>
-                        <td><input type="text" th:field="*{author}" name="author" /></td>
-                        <td></td>
+                        <td><input type="text" th:field="*{author}" name="author" id="authorInput" /></td>
+                        <td class="error" th:if="${#fields.hasErrors('articleAuthorOk')}">Author must not be empty!</td>
+                        <td class="error" th:if="${#fields.hasErrors('bookAuthorOk')}">Author must not be empty!</td>
                     </tr>
 
                     <tr id="isbnField">
                         <td><label for="isbn">ISBN:</label></td>
-                        <td><input type="text" th:field="*{isbn}" name="isbn" /></td>
-                        <td></td>
+                        <td><input type="text" th:field="*{isbn}" name="isbn" id="isbnInput" /></td>
+                        <td class="error" th:if="${#fields.hasErrors('bookIsbnOk')}">ISBN must not be empty!</td>
                     </tr>
 
                     <tr>

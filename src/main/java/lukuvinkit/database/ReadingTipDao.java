@@ -60,7 +60,8 @@ public class ReadingTipDao {
         PreparedStatement statement;
         
         statement = connection.prepareStatement(
-            "INSERT INTO ReadingTip(title, type, url, author, isbn, description, read) values (?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO ReadingTip(title, type, url, author, isbn, description, read) " 
+            + "values (?, ?, ?, ?, ?, ?, ?)"
         );
         statement.setString(1, tip.getTitle());
         statement.setString(2, tip.getType());

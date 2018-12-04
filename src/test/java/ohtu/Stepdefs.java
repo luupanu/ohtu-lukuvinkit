@@ -1,5 +1,6 @@
 package ohtu;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -11,9 +12,10 @@ import cucumber.api.java.en.When;
 import java.io.File;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Stepdefs {
 
@@ -51,20 +53,21 @@ public class Stepdefs {
         element.sendKeys(searchterm);
     }
 
-    @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" tags \"([^\"]*)\" and is submitted$")
-    public void formIsFilledAndSubmittedWithTags(String title, String description, String url, String tags)
+    @When("^new tip is submitted$")
+    public void formIsSubmitted() throws Throwable {
+        WebElement element = driver.findElement(By.name("create-readingtip"));
+        element.submit();
+    }
+
+    @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" tags \"([^\"]*)\"$")
+    public void formIsFilledWithNewLinkTipWithTags(String title, String description, String url, String tags)
             throws Throwable {
-        submitNewTipWithTags(title, description, url, tags);
+        fillNewLinkTipWithTags(title, description, url, tags);
     }
 
-    @When("^form is filled with tags \"([^\"]*)\" and is submitted$")
-    public void formIsFilledAndSubmittedWithTags(String tags) throws Throwable {
-        submitNewTipWithTags("", "", "", tags);
-    }
-
-    @When("^form is not filled and is submitted$")
-    public void formIsNotFilledAndSubmitted() throws Throwable {
-        submitNewTip("", "", "");
+    @When("^form is filled with tags \"([^\"]*)\"$")
+    public void formIsFilledWithOnlyTags(String tags) throws Throwable {
+        fillNewLinkTipWithTags("", "", "", tags);
     }
 
     @When("^^\"([^\"]*)\" is clicked$")
@@ -81,6 +84,23 @@ public class Stepdefs {
     public void pageContainsField(String arg1) {
         assertTrue(driver.getPageSource().contains(arg1));
     }
+
+    @When("^type \"([^\"]*)\" is selected in the form$")
+    public void typeIsSelectedInTheForm(String type) throws Throwable {
+        Select dropdown = new Select(driver.findElement(By.id("typeField")));
+        dropdown.selectByVisibleText(type);
+    }
+
+    @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" author \"([^\"]*)\" tags \"([^\"]*)\"$")
+    public void formIsFilledWithTitleDescriptionAuthorTagsAndIsSubmitted(String title, String description, String author, String tags) throws Throwable {
+        fillNewArticleTipWithTags(title, description, author, tags);
+    }
+
+    @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" author \"([^\"]*)\" isbn \"([^\"]*)\" tags \"([^\"]*)\"$")
+    public void formIsFilledWithTitleDescriptionAuthorIsbnTagsAndIsSubmitted(String title, String description, String author, String isbn, String tags) throws Throwable {
+        fillNewBookTipWithTags(title, description, author, isbn, tags);
+    }
+
 
     @Then("^link \"([^\"]*)\" is shown$")
     public void linkIsShown(String linkText) {
@@ -111,35 +131,72 @@ public class Stepdefs {
     public void submitNewComment(String comment) throws Throwable {
         WebElement element = driver.findElement(By.name("commentDescription"));
         element.sendKeys(comment);
-        // Thread.sleep(1000000000);
         element = driver.findElement(By.name("create-comment"));
         element.submit();
     }
 
-    private void submitNewTip(String title, String description, String url) {
-        assertTrue(driver.getPageSource().contains("Add a new reading tip"));
-        WebElement element = driver.findElement(By.name("title"));
-        element.sendKeys(title);
-        element = driver.findElement(By.name("description"));
-        element.sendKeys(description);
-        element = driver.findElement(By.name("url"));
-        element.sendKeys(url);
-        element = driver.findElement(By.name("create-readingtip"));
-        element.submit();
+    @Then("^only one \"([^\"]*)\" is shown$")
+    public void onlyOneIsShown(String arg1) throws Throwable {
+        String body = driver.findElement(By.tagName("body")).getText();
+
+        int counter = 0;
+        int index = 0;
+
+        while (index != -1) {
+            index = body.indexOf(arg1, index);
+
+            if (index != -1) {
+                counter++;
+                index++;
+            }
+        }
+        assertEquals(1, counter);
     }
 
-    private void submitNewTipWithTags(String title, String description, String url, String tags) {
+    /*
+        Call this method always with the right order of arguments
+        -> title, description, url, author, isbn, tagDescription
+    */
+    private void fillNewGenericTip(String... arguments) {
         assertTrue(driver.getPageSource().contains("Add a new reading tip"));
-        WebElement element = driver.findElement(By.name("title"));
-        element.sendKeys(title);
-        element = driver.findElement(By.name("description"));
-        element.sendKeys(description);
-        element = driver.findElement(By.name("url"));
-        element.sendKeys(url);
-        element = driver.findElement(By.name("tagDescription"));
-        element.sendKeys(tags);
-        element = driver.findElement(By.name("create-readingtip"));
-        element.submit();
+
+        int i = 0;
+        for (String value : arguments) {
+            if (value != null && value != "") {
+                fillField(i, value);
+            }
+            i++;
+        }
+    }
+
+    private void fillField(int fieldNumber, String value) {
+        final String[] elements = {
+            "title",
+            "description",
+            "url",
+            "author",
+            "isbn",
+            "tagDescription"
+        };
+
+        WebElement element = driver.findElement(By.name(elements[fieldNumber]));
+        element.sendKeys(value);
+    }
+
+    private void fillNewLinkTip(String title, String description, String url) {
+        fillNewGenericTip(title, description, url);
+    }
+
+    private void fillNewLinkTipWithTags(String title, String description, String url, String tags) {
+        fillNewGenericTip(title, description, url, null, null, tags);
+    }
+
+    private void fillNewArticleTipWithTags(String title, String description, String author, String tags) {
+        fillNewGenericTip(title, description, null, author, null, tags);
+    }
+
+    private void fillNewBookTipWithTags(String title, String description, String author, String isbn, String tags) {
+        fillNewGenericTip(title, description, null, author, isbn, tags);
     }
 
     private void clickElementByName(String text) {

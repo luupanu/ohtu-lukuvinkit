@@ -1,5 +1,6 @@
-
 package lukuvinkit.domain;
+
+import javax.validation.constraints.AssertTrue;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
@@ -31,8 +32,8 @@ public class ReadingTip {
         // default constructor for Spring
     }
 
-    public ReadingTip(String title, String type, String url, String author, String isbn, String description,
-            boolean read) {
+    public ReadingTip(String title, String type, String url, String author, 
+        String isbn, String description, boolean read) {
         this.title = title;
         this.type = type;
         this.url = url;
@@ -42,8 +43,8 @@ public class ReadingTip {
         this.read = read;
     }
 
-    public ReadingTip(int id, String title, String type, String url, String author, String isbn, String description,
-            boolean read) {
+    public ReadingTip(int id, String title, String type, String url, String author, 
+        String isbn, String description, boolean read) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -116,6 +117,61 @@ public class ReadingTip {
 
     public void setRead(boolean read) {
         this.read = read;
+    }
+    
+    
+    // Multi-field validators:
+    
+    @AssertTrue
+    public boolean isLinkUrlOk() {
+        if (this.type == null) {
+            return false;
+        }
+        
+        if (!this.type.equals("Link")) {
+            return true;
+        }
+        
+        return !this.url.equals("") && this.author.equals("") && this.isbn.equals("");
+    }
+    
+    @AssertTrue
+    public boolean isArticleAuthorOk() {
+        if (this.type == null) {
+            return false;
+        }
+        
+        if (!this.type.equals("Article")) {
+            return true;
+        }
+        
+        return this.url.equals("") && !this.author.equals("") && this.isbn.equals("");
+    }
+    
+    @AssertTrue
+    public boolean isBookAuthorOk() {
+        if (this.type == null) {
+            return false;
+        }
+        
+        if (!this.type.equals("Book")) {
+            return true;
+        }
+        
+        return this.url.equals("") && !this.author.equals("");
+    }
+    
+    @AssertTrue
+    public boolean isBookIsbnOk() {
+        if (this.type == null) {
+            return false;
+        }
+        
+        if (!this.type.equals("Book")) {
+            return true;
+        }
+        
+        return this.url.equals("") && !this.isbn.equals("");
     }
 
 }
