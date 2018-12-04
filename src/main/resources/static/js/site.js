@@ -60,7 +60,7 @@ const newReadingTipFormRefresh = () => {
     authorField.style.display = "block";
     isbnField.style.display = "none";
   } else if (typeField.value == "Book") {
-    url.value
+    url.value = "";
     urlField.style.display = "none";
     authorField.style.display = "block";
     isbnField.style.display = "block";
