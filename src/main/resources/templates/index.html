@@ -43,8 +43,13 @@
                 </div>
 
                 <div class="readingtips-description">
-                    <p th:if="${listingUnit.readingTip.author != ''}" th:text="${listingUnit.readingTip.author}"></p>
-                    <p th:if="${listingUnit.readingTip.isbn != ''}" th:text="${listingUnit.readingTip.isbn}"></p>
+                    <div class="readingtips-author" th:if="${listingUnit.readingTip.author != ''}">
+                        <span>Author:</span> <p th:text="${listingUnit.readingTip.author}" />
+                    </div>
+                    <div class="readingtips-isbn" th:if="${listingUnit.readingTip.isbn != ''}">
+                        <span>ISBN:</span> <p th:text="${listingUnit.readingTip.isbn}" />
+                    </div>
+                    <p th:text="${listingUnit.readingTip.description}" />
                 </div>
 
                 <div class="readingtips-tags">

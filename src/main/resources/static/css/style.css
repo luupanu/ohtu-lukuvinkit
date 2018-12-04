@@ -146,6 +146,16 @@ td {
 
 }
 
+.readingtips-author p,
+.readingtips-isbn p {
+    display: inline;
+}
+
+.readingtips-author span,
+.readingtips-isbn span {
+    color: black;
+}
+
 .readingtips-comments {
     margin: 10px 0 0;
 }
