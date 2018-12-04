@@ -30,7 +30,7 @@
 
 * Lukuvinkin kommentoiminen
 
-### Step 4 (Story )
+### Step 4 (Story 8)
 
 * Lukuvienkkin haku tagien perusteella
 * Haku tageilla: AI sekä Software
@@ -40,9 +40,9 @@
 
 **Kirjoja:**
 
-* https://www.amazon.com/Introduction-Theory-Computation-Michael-Sipser/dp/113318779X 
+* https://www.amazon.com/Introduction-Theory-Computation-Michael-Sipser/dp/113318779X        
 Tags: ComputationTheory,AI
-* https://www.amazon.com/Introduction-Artificial-Intelligence-Enlarged-Mathematics/dp/048624864X
+* https://www.amazon.com/Introduction-Artificial-Intelligence-Enlarged-Mathematics/dp/048624864X         
 Tags: AI,Algorithms
 
 **Linkkejä:**
