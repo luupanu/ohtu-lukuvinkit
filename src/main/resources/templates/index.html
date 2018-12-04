@@ -80,7 +80,7 @@
                     <tr>
                         <td><label for="type">Type:</label></td>
                         <td>
-                            <select th:field="*{type}" name="type" id="typeField" required="true" oninput="newReadingTipFormRefresh()">
+                            <select th:field="*{type}" name="type" id="typeField" required="true" onchange="newReadingTipFormRefresh()">
                                 <option value="Link" selected="selected">Link</option>
                                 <option value="Article">Article</option>
                                 <option value="Book">Book</option>
