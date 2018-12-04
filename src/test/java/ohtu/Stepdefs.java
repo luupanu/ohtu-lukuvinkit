@@ -11,9 +11,10 @@ import cucumber.api.java.en.When;
 import java.io.File;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Stepdefs {
 
@@ -54,17 +55,17 @@ public class Stepdefs {
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" tags \"([^\"]*)\" and is submitted$")
     public void formIsFilledAndSubmittedWithTags(String title, String description, String url, String tags)
             throws Throwable {
-        submitNewTipWithTags(title, description, url, tags);
+        submitNewLinkTipWithTags(title, description, url, tags);
     }
 
     @When("^form is filled with tags \"([^\"]*)\" and is submitted$")
     public void formIsFilledAndSubmittedWithTags(String tags) throws Throwable {
-        submitNewTipWithTags("", "", "", tags);
+        submitNewLinkTipWithTags("", "", "", tags);
     }
 
     @When("^form is not filled and is submitted$")
     public void formIsNotFilledAndSubmitted() throws Throwable {
-        submitNewTip("", "", "");
+        submitNewLinkTip("", "", "");
     }
 
     @When("^^\"([^\"]*)\" is clicked$")
@@ -81,6 +82,18 @@ public class Stepdefs {
     public void pageContainsField(String arg1) {
         assertTrue(driver.getPageSource().contains(arg1));
     }
+
+    @When("^type \"([^\"]*)\" is selected in the form$")
+    public void typeIsSelectedInTheForm(String type) throws Throwable {
+        Select dropdown = new Select(driver.findElement(By.id("typeField")));
+        dropdown.selectByVisibleText(type);
+    }
+
+    @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" author \"([^\"]*)\" tags \"([^\"]*)\" and is submitted$")
+    public void formIsFilledWithTitleDescriptionAuthorTagsAndIsSubmitted(String title, String description, String author, String tags) throws Throwable {
+        submitNewArticleTipWithTags(title, description, author, tags);
+    }
+
 
     @Then("^link \"([^\"]*)\" is shown$")
     public void linkIsShown(String linkText) {
@@ -111,12 +124,11 @@ public class Stepdefs {
     public void submitNewComment(String comment) throws Throwable {
         WebElement element = driver.findElement(By.name("commentDescription"));
         element.sendKeys(comment);
-        // Thread.sleep(1000000000);
         element = driver.findElement(By.name("create-comment"));
         element.submit();
     }
 
-    private void submitNewTip(String title, String description, String url) {
+    private void submitNewLinkTip(String title, String description, String url) {
         assertTrue(driver.getPageSource().contains("Add a new reading tip"));
         WebElement element = driver.findElement(By.name("title"));
         element.sendKeys(title);
@@ -128,7 +140,7 @@ public class Stepdefs {
         element.submit();
     }
 
-    private void submitNewTipWithTags(String title, String description, String url, String tags) {
+    private void submitNewLinkTipWithTags(String title, String description, String url, String tags) {
         assertTrue(driver.getPageSource().contains("Add a new reading tip"));
         WebElement element = driver.findElement(By.name("title"));
         element.sendKeys(title);
@@ -136,6 +148,20 @@ public class Stepdefs {
         element.sendKeys(description);
         element = driver.findElement(By.name("url"));
         element.sendKeys(url);
+        element = driver.findElement(By.name("tagDescription"));
+        element.sendKeys(tags);
+        element = driver.findElement(By.name("create-readingtip"));
+        element.submit();
+    }
+
+    private void submitNewArticleTipWithTags(String title, String description, String author, String tags) {
+        assertTrue(driver.getPageSource().contains("Add a new reading tip"));
+        WebElement element = driver.findElement(By.name("title"));
+        element.sendKeys(title);
+        element = driver.findElement(By.name("description"));
+        element.sendKeys(description);
+        element = driver.findElement(By.name("author"));
+        element.sendKeys(author);
         element = driver.findElement(By.name("tagDescription"));
         element.sendKeys(tags);
         element = driver.findElement(By.name("create-readingtip"));
