@@ -50,7 +50,9 @@ public class Database {
                     + "author TEXT, "
                     + "isbn TEXT, "
                     + "description TEXT, "
-                    + "read BOOLEAN"
+                    + "read BOOLEAN, "
+                    + "priority_read INTEGER, "
+                    + "priority_unread INTEGER"
                 + ")"
             );
             statementCreateTable.executeUpdate();

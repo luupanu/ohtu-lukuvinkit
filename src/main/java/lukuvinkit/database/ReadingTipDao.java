@@ -121,4 +121,73 @@ public class ReadingTipDao {
         connection.close();
     }
     
+    public ReadingTip findOne(int readingTipId) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+            "SELECT * FROM ReadingTip WHERE id=" + readingTipId
+        );
+
+        ResultSet result = statement.executeQuery();
+
+        ReadingTip tip =new ReadingTip(
+            result.getInt("id"),
+            result.getString("title"),
+            result.getString("type"),
+            result.getString("url"),
+            result.getString("author"),
+            result.getString("isbn"),
+            result.getString("description"),
+            result.getBoolean("read"),
+            result.getInt("priority_read"),
+            result.getInt("priority_unread")
+            );        
+
+        result.close();
+        statement.close();
+        connection.close();
+
+        return tip;
+    }
+    
+    // To update String
+    public void updateValue(int readingTipId, String fieldName, String newValue) throws SQLException  {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+            "UPDATE ReadingTip SET " + fieldName + "=" + newValue + " WHERE id=" + readingTipId
+        );
+        
+        statement.executeUpdate();
+        
+        statement.close();
+        connection.close();
+    }
+    
+    // To update int
+    public void updateValue(int readingTipId, String fieldName, int newValue) throws SQLException  {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+            "UPDATE ReadingTip SET " + fieldName + "=" + newValue + " WHERE id=" + readingTipId
+        );
+        
+        statement.executeUpdate();
+        
+        statement.close();
+        connection.close();
+        
+    }
+    
+    // To update 
+    public void updateValue(int readingTipId, String fieldName, boolean newValue) throws SQLException  {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+            "UPDATE ReadingTip SET " + fieldName + "=" + newValue + " WHERE id=" + readingTipId
+        );  
+        
+        statement.executeUpdate();
+        
+        statement.close();
+        connection.close();
+               
+    }
+    
 }
