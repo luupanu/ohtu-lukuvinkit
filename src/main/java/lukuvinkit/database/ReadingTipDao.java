@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import lukuvinkit.domain.ReadingTip;
 import lukuvinkit.domain.Tag;
@@ -176,8 +177,8 @@ public class ReadingTipDao {
         
     }
     
-    // To update 
-    public void updateValue(int readingTipId, String fieldName, boolean newValue) throws SQLException  {
+    // To update boolean
+    public void updateValue(int readingTipId, String fieldName, boolean newValue) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
             "UPDATE ReadingTip SET " + fieldName + "=" + newValue + " WHERE id=" + readingTipId
@@ -190,4 +191,64 @@ public class ReadingTipDao {
                
     }
     
+    // Find max read_priority value and return it's id (if not found return -1)
+    public int findMaxReadPriority() throws SQLException {        
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+            "SELECT * FROM ReadingTip"
+        );
+
+        ResultSet result = statement.executeQuery();
+        
+        ArrayList<ReadingTip> allReadingTips = new ArrayList<>();
+
+        while (result.next()) {
+            allReadingTips.add(new ReadingTip(
+                result.getInt("id"),
+                result.getString("title"),
+                result.getString("type"),
+                result.getString("url"),
+                result.getString("author"),
+                result.getString("isbn"),
+                result.getString("description"),
+                result.getBoolean("read"),
+                result.getInt("priority_read"),
+                result.getInt("priority_unread")
+            ));
+        }
+        
+        Collections.sort(allReadingTips, ReadingTip.readComparator);    
+        return allReadingTips.get(allReadingTips.size() - 1).getId();
+    }
+    
+        // Find max read_priority value and return it's id (if not found return -1)
+    public int findUnreadPriority() throws SQLException {        
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement(
+            "SELECT * FROM ReadingTip"
+        );
+
+        ResultSet result = statement.executeQuery();
+        
+        ArrayList<ReadingTip> allReadingTips = new ArrayList<>();
+
+        while (result.next()) {
+            allReadingTips.add(new ReadingTip(
+                result.getInt("id"),
+                result.getString("title"),
+                result.getString("type"),
+                result.getString("url"),
+                result.getString("author"),
+                result.getString("isbn"),
+                result.getString("description"),
+                result.getBoolean("read"),
+                result.getInt("priority_read"),
+                result.getInt("priority_unread")
+            ));
+        }
+        
+        Collections.sort(allReadingTips, ReadingTip.unreadComparator);    
+        return allReadingTips.get(allReadingTips.size() - 1).getId();
+    }
+
 }
