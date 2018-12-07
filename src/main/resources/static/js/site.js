@@ -26,7 +26,8 @@ const filterTips = () => {
   const tips = getTips()
 
   tips.forEach(tip => {
-    if (someTagIncludesFilter(tip, getFilter())
+    if (!(tipTypeHidden(tip))
+      && someTagIncludesFilter(tip, getFilter())
       && !(hideReadIsChecked() && tipIsRead(tip))) {
         tip.style.display = "block"
       } else {
@@ -75,6 +76,15 @@ const tipIsRead = (tip) => tip.className === "tip-read"
 // Check if the 'Hide read' checkbox is checked.
 const hideReadIsChecked = () => document.getElementById("filter-read").checked
 
+// Check if the 'Hide links' checkbox is checked.
+const hideLinksIsChecked = () => document.getElementById("filter-links").checked
+
+// Check if the 'Hide articles' checkbox is checked.
+const hideArticlesIsChecked = () => document.getElementById("filter-articles").checked
+
+// Check if the 'Hide books' checkbox is checked.
+const hideBooksIsChecked = () => document.getElementById("filter-books").checked
+
 // Gets all tips in the document.
 const getTips = () => document.getElementById("readingTipsList").querySelectorAll("article")
 
@@ -93,3 +103,22 @@ const someTagIncludesFilter = (tip, filter) => {
     return tagValue.includes(filter)
   })
 }
+
+// Returns true if tip is the type that's being shown
+const tipTypeHidden = (tip) => {
+    const tipType = tip.querySelector(".tip-type").innerText
+    return isTypeHidden(tipType)
+}
+
+// Checks if a type is being hidden by the checkbox associated with it
+const isTypeHidden = (type) => {
+    if (type == "Link")
+      return hideLinksIsChecked();
+    else if (type == "Article")
+      return hideArticlesIsChecked();
+    else
+      return hideBooksIsChecked();
+}
+
+
+
