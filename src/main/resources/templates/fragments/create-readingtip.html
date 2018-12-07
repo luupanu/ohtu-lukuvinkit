@@ -1,76 +1,69 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="create-readingtip">
 
-<body>
-    <div th:fragment="create-readingtip">
-
-        <div class="create-readingtip">
-            <div class="heading">
-                <h2>Add a new reading tip</h2>
-            </div>
-            <form th:action="@{/readingtip}" th:object="${readingTip}" method="POST">
-                <table>
-                    <tr>
-                        <td><label for="type">Type:</label></td>
-                        <td>
-                            <select th:field="*{type}" name="type" id="typeField" required="true" onchange="newReadingTipFormRefresh()">
-                                <option value="Link" selected="selected">Link</option>
-                                <option value="Article">Article</option>
-                                <option value="Book">Book</option>
-                            </select>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><label for="title">Title:</label></td>
-                        <td><input type="text" th:field="*{title}" name="title" required="true" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
-                    </tr>
-
-                    <tr id="urlField">
-                        <td><label for="url">URL:</label></td>
-                        <td><input type="text" th:field="*{url}" name="url" id="urlInput" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('url')}" th:errors="*{url}" />
-                        <td class="error" th:if="${#fields.hasErrors('linkUrlOk')}">URL must not be empty!</td>
-                    </tr>
-
-                    <tr id="authorField">
-                        <td><label for="author">Author:</label></td>
-                        <td><input type="text" th:field="*{author}" name="author" id="authorInput" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('articleAuthorOk')}">Author must not be empty!</td>
-                        <td class="error" th:if="${#fields.hasErrors('bookAuthorOk')}">Author must not be empty!</td>
-                    </tr>
-
-                    <tr id="isbnField">
-                        <td><label for="isbn">ISBN:</label></td>
-                        <td><input type="text" th:field="*{isbn}" name="isbn" id="isbnInput" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('bookIsbnOk')}">ISBN must not be empty!</td>
-                    </tr>
-
-                    <tr>
-                        <td><label for="description">Description:</label></td>
-                        <td><input type="text" th:field="*{description}" name="description" required="true" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" />
-                    </tr>
-
-                    <tr th:object="${tag}">
-                        <td><label for="tags">Tags (separate with a comma):</label></td>
-                        <td><input type="text" th:field="*{tagDescription}" name="tagDescription" /></td>
-                        <td class="error" th:if="${#fields.hasErrors('tagDescription')}" th:errors="*{tagDescription}" />
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <div class="center">
-                                <input name="create-readingtip" value="Submit" type="submit" />
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </form>
+    <div class="create-readingtip">
+        <div class="heading">
+            <h2>Add a new reading tip</h2>
         </div>
+        <form th:action="@{/readingtip}" th:object="${readingTip}" method="POST">
+            <table>
+                <tr>
+                    <td><label for="type">Type:</label></td>
+                    <td>
+                        <select th:field="*{type}" name="type" id="typeField" required="true" onchange="newReadingTipFormRefresh()">
+                            <option value="Link" selected="selected">Link</option>
+                            <option value="Article">Article</option>
+                            <option value="Book">Book</option>
+                        </select>
+                    </td>
+                </tr>
 
+                <tr>
+                    <td><label for="title">Title:</label></td>
+                    <td><input type="text" th:field="*{title}" name="title" required="true" /></td>
+                    <td class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
+                </tr>
+
+                <tr id="urlField">
+                    <td><label for="url">URL:</label></td>
+                    <td><input type="text" th:field="*{url}" name="url" id="urlInput" /></td>
+                    <td class="error" th:if="${#fields.hasErrors('url')}" th:errors="*{url}" />
+                    <td class="error" th:if="${#fields.hasErrors('linkUrlOk')}">URL must not be empty!</td>
+                </tr>
+
+                <tr id="authorField">
+                    <td><label for="author">Author:</label></td>
+                    <td><input type="text" th:field="*{author}" name="author" id="authorInput" /></td>
+                    <td class="error" th:if="${#fields.hasErrors('articleAuthorOk')}">Author must not be empty!</td>
+                    <td class="error" th:if="${#fields.hasErrors('bookAuthorOk')}">Author must not be empty!</td>
+                </tr>
+
+                <tr id="isbnField">
+                    <td><label for="isbn">ISBN:</label></td>
+                    <td><input type="text" th:field="*{isbn}" name="isbn" id="isbnInput" /></td>
+                    <td class="error" th:if="${#fields.hasErrors('bookIsbnOk')}">ISBN must not be empty!</td>
+                </tr>
+
+                <tr>
+                    <td><label for="description">Description:</label></td>
+                    <td><input type="text" th:field="*{description}" name="description" required="true" /></td>
+                    <td class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}" />
+                </tr>
+
+                <tr th:object="${tag}">
+                    <td><label for="tags">Tags (separate with a comma):</label></td>
+                    <td><input type="text" th:field="*{tagDescription}" name="tagDescription" /></td>
+                    <td class="error" th:if="${#fields.hasErrors('tagDescription')}" th:errors="*{tagDescription}" />
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="center">
+                            <input name="create-readingtip" value="Submit" type="submit" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div>
-</body>
 
-</html>
+</div>

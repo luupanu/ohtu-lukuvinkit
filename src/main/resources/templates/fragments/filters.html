@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="filters">
 
-<body>
-    <div th:fragment="filters">
-
-        <div class="filters">
-            <b>Hide read</b>
-            <input id="filter-read" type="checkbox" name="hideRead" onclick="filterTips()" /><br/>
-            <b>Hide links</b>
-            <input id="filter-links" type="checkbox" name="hideLinks" onclick="filterTips()" /><br/>
-            <b>Hide articles</b>
-            <input id="filter-articles" type="checkbox" name="hideArticles" onclick="filterTips()" /><br/>  
-            <b>Hide books</b>
-            <input id="filter-books" type="checkbox" name="hideBooks" onclick="filterTips()" /><br/>          
-        </div>
-
+    <div class="filters">
+        <b>Hide read</b>
+        <input id="filter-read" type="checkbox" name="hideRead" onclick="filterTips()" /><br />
+        <b>Hide links</b>
+        <input id="filter-links" type="checkbox" name="hideLinks" onclick="filterTips()" /><br />
+        <b>Hide articles</b>
+        <input id="filter-articles" type="checkbox" name="hideArticles" onclick="filterTips()" /><br />
+        <b>Hide books</b>
+        <input id="filter-books" type="checkbox" name="hideBooks" onclick="filterTips()" /><br />
     </div>
-</body>
 
-</html>
+</div>

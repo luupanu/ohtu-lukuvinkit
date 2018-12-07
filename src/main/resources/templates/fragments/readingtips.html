@@ -1,66 +1,59 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="readingtips">
 
-<body>
-    <div th:fragment="readingtips">
+    <div id="readingTipsList" class="readingtips">
+        <article th:class="${listingUnit.readingTip.read} ? 'tip-read' : 'tip-unread'" th:each="listingUnit : ${list}">
+            <div class="readingtips-read">
+                <form th:action="@{/}" th:object="${listingUnit.readingTip}" th:method="PATCH">
+                    <input type="hidden" name="id" th:value="${listingUnit.readingTip.id}" />
+                    <label for="read" th:text="${listingUnit.readingTip.read} ? 'Mark as unread' : 'Mark as read' "></label>
+                    <input type="checkbox" name="read" onclick="submitForm(this)" />
+                </form>
+            </div>
 
-        <div id="readingTipsList" class="readingtips">
-            <article th:class="${listingUnit.readingTip.read} ? 'tip-read' : 'tip-unread'" th:each="listingUnit : ${list}">
-                <div class="readingtips-read">
-                    <form th:action="@{/}" th:object="${listingUnit.readingTip}" th:method="PATCH">
-                        <input type="hidden" name="id" th:value="${listingUnit.readingTip.id}" />
-                        <label for="read" th:text="${listingUnit.readingTip.read} ? 'Mark as unread' : 'Mark as read' "></label>
-                        <input type="checkbox" name="read" onclick="submitForm(this)" />
-                    </form>
+            <div class="readingtips-title">
+                <h3>
+                    <span class="tip-type" th:text="${listingUnit.readingTip.type}"></span>
+                    <span class="title" th:if="${listingUnit.readingTip.url == ''}" th:text="${listingUnit.readingTip.title}"></span>
+                    <a class="title" th:if="${listingUnit.readingTip.url != ''}" th:href="@{__${listingUnit.readingTip.url}__}"
+                        th:text="${listingUnit.readingTip.title}" />
+                </h3>
+                <span class="read-tag" th:if="${listingUnit.readingTip.read}">READ</span>
+            </div>
+
+            <div class="readingtips-description">
+                <div class="readingtips-author" th:if="${listingUnit.readingTip.author != ''}">
+                    <span>Author:</span>
+                    <p th:text="${listingUnit.readingTip.author}" />
                 </div>
-
-                <div class="readingtips-title">
-                    <h3>
-                        <span class="tip-type" th:text="${listingUnit.readingTip.type}"></span>
-                        <span class="title" th:if="${listingUnit.readingTip.url == ''}" th:text="${listingUnit.readingTip.title}"></span>
-                        <a class="title" th:if="${listingUnit.readingTip.url != ''}" th:href="@{__${listingUnit.readingTip.url}__}"
-                            th:text="${listingUnit.readingTip.title}" />
-                    </h3>
-                    <span class="read-tag" th:if="${listingUnit.readingTip.read}">READ</span>
+                <div class="readingtips-isbn" th:if="${listingUnit.readingTip.isbn != ''}">
+                    <span>ISBN:</span>
+                    <p th:text="${listingUnit.readingTip.isbn}" />
                 </div>
+                <p th:text="${listingUnit.readingTip.description}" />
+            </div>
 
-                <div class="readingtips-description">
-                    <div class="readingtips-author" th:if="${listingUnit.readingTip.author != ''}">
-                        <span>Author:</span>
-                        <p th:text="${listingUnit.readingTip.author}" />
-                    </div>
-                    <div class="readingtips-isbn" th:if="${listingUnit.readingTip.isbn != ''}">
-                        <span>ISBN:</span>
-                        <p th:text="${listingUnit.readingTip.isbn}" />
-                    </div>
-                    <p th:text="${listingUnit.readingTip.description}" />
-                </div>
+            <div class="readingtips-tags">
+                <span class="tag" th:each="tag : ${listingUnit.tags}" th:text="${tag.tagDescription}"></span>
+            </div>
 
-                <div class="readingtips-tags">
-                    <span class="tag" th:each="tag : ${listingUnit.tags}" th:text="${tag.tagDescription}"></span>
-                </div>
+            <div class="readingtips-comments">
+                <a href="#" onclick="toggleComments(this)" th:text="${#lists.size(listingUnit.comments)} + ' comment(s)'"></a>
 
-                <div class="readingtips-comments">
-                    <a href="#" onclick="toggleComments(this)" th:text="${#lists.size(listingUnit.comments)} + ' comment(s)'"></a>
+                <div class="commentarea">
+                    <li class="comment" th:each="comment : ${listingUnit.comments}" th:text="${comment.commentDescription}"></li>
 
-                    <div class="commentarea">
-                        <li class="comment" th:each="comment : ${listingUnit.comments}" th:text="${comment.commentDescription}"></li>
-
-                        <div class="newcomment">
-                            <form th:action="@{/comment}" th:object="${comment}" method="POST">
-                                <input type="hidden" name="readingTipId" th:value="${listingUnit.readingTip.id}" />
-                                <label for="comment">Add a new comment:</label>
-                                <input type="text" name="commentDescription" placeholder="Type your new comment here..."
-                                    required="true" />
-                                <input name="create-comment" value="Submit" type="submit" />
-                            </form>
-                        </div>
+                    <div class="newcomment">
+                        <form th:action="@{/comment}" th:object="${comment}" method="POST">
+                            <input type="hidden" name="readingTipId" th:value="${listingUnit.readingTip.id}" />
+                            <label for="comment">Add a new comment:</label>
+                            <input type="text" name="commentDescription" placeholder="Type your new comment here..."
+                                required="true" />
+                            <input name="create-comment" value="Submit" type="submit" />
+                        </form>
                     </div>
                 </div>
-            </article>
-        </div>
-
+            </div>
+        </article>
     </div>
-</body>
 
-</html>
+</div>
