@@ -104,7 +104,7 @@ const someTagIncludesFilter = (tip, filter) => {
   })
 }
 
-// Returns true if tip is the type that's being shown
+// Returns true if a tip is of a type that's being hidden by a checkbox
 const tipTypeHidden = (tip) => {
     const tipType = tip.querySelector(".tip-type").innerText
     return isTypeHidden(tipType)
