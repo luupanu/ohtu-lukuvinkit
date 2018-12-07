@@ -6,7 +6,7 @@ Scenario: When user hides read tags, none are shown
     And new tip is submitted
     And "read" is clicked
     And "Mark as unread" is shown
-    When "hideBox" is clicked
+    When "hideRead" is clicked
     Then "Mark as unread" is not shown
 
   Scenario: When user hides and then reveals read tags, they are shown again
@@ -15,7 +15,7 @@ Scenario: When user hides read tags, none are shown
     And new tip is submitted
     And "read" is clicked
     And "Mark as unread" is shown
-    When "hideBox" is clicked
+    When "hideRead" is clicked
     And "Mark as unread" is not shown
-    When "hideBox" is clicked
+    When "hideRead" is clicked
     Then "Mark as unread" is shown

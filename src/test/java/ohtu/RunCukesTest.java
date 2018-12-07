@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
   plugin = {"pretty"},
   snippets = SnippetType.CAMELCASE
-//, tags = "@only"
+  //, tags = "@only"
 )
 public class RunCukesTest {
     @ClassRule
