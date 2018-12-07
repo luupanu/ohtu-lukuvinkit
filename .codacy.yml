@@ -4,3 +4,4 @@ exclude_paths:
   - jacococoverage/**
   - src/main/resources/static/js/site.js
   - src/test/**
+  - src/main/java/lukuvinkit/Main.java
