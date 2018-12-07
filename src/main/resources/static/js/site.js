@@ -112,12 +112,13 @@ const tipTypeHidden = (tip) => {
 
 // Checks if a type is being hidden by the checkbox associated with it
 const isTypeHidden = (type) => {
-    if (type == "Link")
-      return hideLinksIsChecked();
-    else if (type == "Article")
-      return hideArticlesIsChecked();
-    else
-      return hideBooksIsChecked();
+    if (type == "Link") {
+      return hideLinksIsChecked()
+    } else if (type == "Article") {
+      return hideArticlesIsChecked()
+    } else {
+      return hideBooksIsChecked()
+    }
 }
 
 
