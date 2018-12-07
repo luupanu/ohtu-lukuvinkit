@@ -28,11 +28,11 @@ const filterTips = () => {
   tips.forEach(tip => {
     if (!(tipTypeHidden(tip))
       && someTagIncludesFilter(tip, getFilter())
-      && !(hideReadIsChecked() && tipIsRead(tip))) {
-        tip.style.display = "block"
-      } else {
-        tip.style.display = "none"
-      }
+        && !(checkBoxIsChecked("filter-read") && tipIsRead(tip))) {
+          tip.style.display = "block"
+        } else {
+          tip.style.display = "none"
+        }
   })
 }
 
@@ -73,17 +73,8 @@ const newReadingTipFormRefresh = () => {
 // Checks if tip is read.
 const tipIsRead = (tip) => tip.className === "tip-read"
 
-// Check if the 'Hide read' checkbox is checked.
-const hideReadIsChecked = () => document.getElementById("filter-read").checked
-
-// Check if the 'Hide links' checkbox is checked.
-const hideLinksIsChecked = () => document.getElementById("filter-links").checked
-
-// Check if the 'Hide articles' checkbox is checked.
-const hideArticlesIsChecked = () => document.getElementById("filter-articles").checked
-
-// Check if the 'Hide books' checkbox is checked.
-const hideBooksIsChecked = () => document.getElementById("filter-books").checked
+// Checks if checkbox is checked.
+const checkBoxIsChecked = (checkbox) => document.getElementById(checkbox).checked
 
 // Gets all tips in the document.
 const getTips = () => document.getElementById("readingTipsList").querySelectorAll("article")
@@ -104,21 +95,20 @@ const someTagIncludesFilter = (tip, filter) => {
   })
 }
 
-// Returns true if a tip is of a type that's being hidden by a checkbox
+// Returns true if a tip is of a type that's being hidden by a checkbox.
 const tipTypeHidden = (tip) => {
     const tipType = tip.querySelector(".tip-type").innerText
     return isTypeHidden(tipType)
 }
 
-// Checks if a type is being hidden by the checkbox associated with it
+// Checks if a type is being hidden by the checkbox associated with it.
 const isTypeHidden = (type) => {
     if (type == "Link") {
-      return hideLinksIsChecked()
+      return checkBoxIsChecked("filter-links")
     } else if (type == "Article") {
-      return hideArticlesIsChecked()
-    } else {
-      return hideBooksIsChecked()
+      return checkBoxIsChecked("filter-articles")
     }
+    return checkBoxIsChecked("filter-books")
 }
 
 
