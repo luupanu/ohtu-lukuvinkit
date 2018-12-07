@@ -81,7 +81,6 @@ public class Controllers {
 
     @PatchMapping("/")
     public String toggleRead(@RequestParam Integer id) throws SQLException {
-        System.out.println(id);
         service.toggleReadingTipRead(id);
         return "redirect:/";
     }

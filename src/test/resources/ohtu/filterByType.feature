@@ -36,7 +36,7 @@ Scenario: When user hides tips of all types, none are shown
     Then "Article tip for filter test" is not shown
     Then "Book tip for filter test" is not shown
 
-Scenario: When user hides and rehides tips of all types, all are shown.
+Scenario: When user hides and rehides tips of all types, all are shown
     Given user is at the main page
     When "hideArticles" is clicked
     When "hideLinks" is clicked

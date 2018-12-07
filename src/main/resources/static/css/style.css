@@ -43,7 +43,7 @@ body {
 
 /* individual elements */
 
-a, .title, .readFilter b {
+a, .title, .filters b {
     color: #64e1e7;
 }
 
@@ -101,7 +101,7 @@ input[type=submit]:hover {
     float: right;
 }
 
-.readFilter input {
+.filters input {
     position: relative;
     top: 5px;
     float: right; 
@@ -147,7 +147,7 @@ td {
     margin-left: 5px;
 }
 
-.readFilter {
+.filters {
     float: right;
 }
 
