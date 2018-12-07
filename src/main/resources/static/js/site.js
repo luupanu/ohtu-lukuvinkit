@@ -48,22 +48,22 @@ const newReadingTipFormRefresh = () => {
   const isbn = document.getElementById("isbnInput")
 
   if (typeField.value == "Link") {
-    author.value = "";
-    isbn.value = "";
-    urlField.style.display = "block";
-    authorField.style.display = "none";
-    isbnField.style.display = "none";
+    author.value = ""
+    isbn.value = ""
+    urlField.style.display = "block"
+    authorField.style.display = "none"
+    isbnField.style.display = "none"
   } else if (typeField.value == "Article") {
-    url.value = "";
-    isbn.value = "";
-    urlField.style.display = "none";
-    authorField.style.display = "block";
-    isbnField.style.display = "none";
+    url.value = ""
+    isbn.value = ""
+    urlField.style.display = "none"
+    authorField.style.display = "block"
+    isbnField.style.display = "none"
   } else if (typeField.value == "Book") {
-    url.value = "";
-    urlField.style.display = "none";
-    authorField.style.display = "block";
-    isbnField.style.display = "block";
+    url.value = ""
+    urlField.style.display = "none"
+    authorField.style.display = "block"
+    isbnField.style.display = "block"
   }
 }
 
