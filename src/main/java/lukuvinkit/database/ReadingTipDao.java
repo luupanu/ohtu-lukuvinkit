@@ -130,7 +130,7 @@ public class ReadingTipDao {
 
         ResultSet result = statement.executeQuery();
 
-        ReadingTip tip =new ReadingTip(
+        ReadingTip tip = new ReadingTip(
             result.getInt("id"),
             result.getString("title"),
             result.getString("type"),
@@ -151,7 +151,7 @@ public class ReadingTipDao {
     }
     
     // To update String
-    public void updateValue(int readingTipId, String fieldName, String newValue) throws SQLException  {
+    public void updateValue(int readingTipId, String fieldName, String newValue) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
             "UPDATE ReadingTip SET " + fieldName + "=" + newValue + " WHERE id=" + readingTipId
@@ -164,7 +164,7 @@ public class ReadingTipDao {
     }
     
     // To update int
-    public void updateValue(int readingTipId, String fieldName, int newValue) throws SQLException  {
+    public void updateValue(int readingTipId, String fieldName, int newValue) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
             "UPDATE ReadingTip SET " + fieldName + "=" + newValue + " WHERE id=" + readingTipId
@@ -221,7 +221,7 @@ public class ReadingTipDao {
         return allReadingTips.get(allReadingTips.size() - 1).getId();
     }
     
-        // Find max read_priority value and return it's id (if not found return -1)
+    // Find max read_priority value and return it's id (if not found return -1)
     public int findUnreadPriority() throws SQLException {        
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(

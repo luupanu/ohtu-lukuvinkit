@@ -1,11 +1,11 @@
 package lukuvinkit.domain;
 
+import java.util.Comparator;
 import javax.validation.constraints.AssertTrue;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.stereotype.Component;
-import java.util.Comparator;
 
 @Component
 public class ReadingTip {
@@ -211,10 +211,10 @@ public class ReadingTip {
     
     // Comparing read priorities
     public static Comparator<ReadingTip> readComparator = new Comparator<ReadingTip>() {
-        
+ 
         @Override
         public int compare(ReadingTip tip1, ReadingTip tip2) {
-            return tip1.getPriorityRead()-tip2.getPriorityRead();       
+            return tip1.getPriorityRead() - tip2.getPriorityRead();       
         }
     };
     
@@ -222,7 +222,7 @@ public class ReadingTip {
         
         @Override
         public int compare(ReadingTip tip1, ReadingTip tip2) {
-            return tip1.getPriorityUnread()-tip2.getPriorityUnread();     
+            return tip1.getPriorityUnread() - tip2.getPriorityUnread();     
         }
     };
 
