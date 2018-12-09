@@ -24,9 +24,8 @@ public class Comment {
     }
 
     public Comment(int id, String description, int readingTipId) {
+        this(description, readingTipId);
         this.id = id;
-        this.commentDescription = description;
-        this.readingTipId = readingTipId;
     }
 
     public int getId() {

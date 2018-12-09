@@ -37,3 +37,4 @@ A user story can be seen as done when all of the following requirements are fulf
 * The code is documented at a general level (The usage cases for classes)
 * Travis CI build is successful
 * Heroku build is successful and runs
+
