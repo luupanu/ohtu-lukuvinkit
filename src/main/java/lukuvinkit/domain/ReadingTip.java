@@ -50,26 +50,14 @@ public class ReadingTip {
 
     public ReadingTip(int id, String title, String type, String url, String author, 
         String isbn, String description, boolean read) {
+        this(title, type, url, author, isbn, description, read);
         this.id = id;
-        this.title = title;
-        this.type = type;
-        this.url = url;
-        this.author = author;
-        this.isbn = isbn;
-        this.description = description;
-        this.read = read;
     }
     
     public ReadingTip(int id, String title, String type, String url, String author, 
         String isbn, String description, boolean read, int priority_read, int priority_unread) {
+        this(title, type, url, author, isbn, description, read);
         this.id = id;
-        this.title = title;
-        this.type = type;
-        this.url = url;
-        this.author = author;
-        this.isbn = isbn;
-        this.description = description;
-        this.read = read;
         this.priority_read = priority_read;
         this.priority_unread = priority_unread;
     }
