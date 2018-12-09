@@ -105,8 +105,8 @@ public class Controllers {
      * @param tag a list of possible tags being added together with the new tip.
      * @param bindingResultTip holds the result for the validation for tips.
      * @param bindingResultTag holds the result for the validation of tags.
-     * @return index - if errors are present.
-     * @return redirect:/ - redirects to the main page.
+     * @return redirect:/ - redirects to the main page. In case of validation errors,
+     * redirects without saving tip.
      * @throws SQLException in case of database errors.
      */
     @PostMapping("/readingtip")
@@ -114,7 +114,7 @@ public class Controllers {
             BindingResult bindingResultTip, @ModelAttribute Tag tag, 
             BindingResult bindingResultTag) throws SQLException {
         if (bindingResultTip.hasErrors() || bindingResultTag.hasErrors()) {
-            return "index";
+            return "redirect:/";
         }
 
         service.saveNewReadingTip(readingTip, tag);
