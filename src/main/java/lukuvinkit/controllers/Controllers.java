@@ -84,7 +84,7 @@ public class Controllers {
      * <p>A method that handles saving new comments that 
      * have been sent as a POST-request from the view.</p>
      * <p>The comments are saved with {@link ReadingTipService#saveNewComment(Comment, int)}.</p>
-     * @param readingTipId takes the id of the associated tip from the view.
+     * @param readingTipId takes the id of the associated tip from the view
      * to tie it together with the comment parameter.
      * @param comment the contents of the comment that's being added.
      * @return redirect:/ - redirects to the main page.
@@ -100,7 +100,8 @@ public class Controllers {
     /**
      * <p>A method that handles saving new tips that 
      * have been sent as a POST-request from the view.</p>
-     * <p>The comments are saved with {@link ReadingTipService#saveNewReadingTip(ReadingTip, Tag)}.</p>
+     * <p>The comments are saved with 
+     * {@link ReadingTipService#saveNewReadingTip(ReadingTip, Tag)}.</p>
      * @param readingTip information of the tip being saved down to the database.
      * @param tag a list of possible tags being added together with the new tip.
      * @param bindingResultTip holds the result for the validation for tips.
