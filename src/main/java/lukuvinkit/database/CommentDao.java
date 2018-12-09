@@ -12,7 +12,7 @@ import lukuvinkit.domain.Comment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CommentDao {
+public class CommentDao implements Dao<Comment> {
     
     private Database database;
     
@@ -50,7 +50,7 @@ public class CommentDao {
         return allCommentsForReadingTip;
     }
     
-    public void save(Comment comment) throws SQLException {
+    public Comment save(Comment comment) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
             "INSERT INTO Comment(description, readingtip_id) values (?, ?)"
@@ -63,6 +63,7 @@ public class CommentDao {
 
         statement.close();
         connection.close();
+        return comment;
     }    
     
 }

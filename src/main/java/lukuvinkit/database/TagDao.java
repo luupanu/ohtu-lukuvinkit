@@ -12,7 +12,7 @@ import lukuvinkit.domain.Tag;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TagDao {
+public class TagDao implements Dao<Tag> {
 
     private Database database;
 

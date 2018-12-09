@@ -13,7 +13,7 @@ import lukuvinkit.domain.Tag;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReadingTipDao {
+public class ReadingTipDao implements Dao<ReadingTip> {
     
     private Database database;
     
@@ -55,6 +55,7 @@ public class ReadingTipDao {
         return allReadingTips;
     }
     
+    @Override
     public ReadingTip save(ReadingTip tip) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement;
@@ -120,5 +121,6 @@ public class ReadingTipDao {
 
         connection.close();
     }
+
     
 }
