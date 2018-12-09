@@ -114,7 +114,7 @@ public class Controllers {
             BindingResult bindingResultTip, @ModelAttribute Tag tag, 
             BindingResult bindingResultTag) throws SQLException {
         if (bindingResultTip.hasErrors() || bindingResultTag.hasErrors()) {
-            return "redirect:/";
+            return "index";
         }
 
         service.saveNewReadingTip(readingTip, tag);
