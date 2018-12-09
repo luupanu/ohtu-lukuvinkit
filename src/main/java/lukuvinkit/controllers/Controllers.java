@@ -30,13 +30,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-// this can be turned into lukuvinkkicontroller if needed
 @Controller
 @SessionAttributes("list")
 public class Controllers {
 
     private ReadingTipService service;
 
+    /**
+     * <p>The constructor is annotated with @Autowired for spring dependency injections.</p>
+     * <p>The database is initialized in this constructor with
+     * {@link Database#initializeDatabase()}.</p>
+     * <p>A service for handling database actions is created through
+     * {@link ReadingTipService#ReadingTipService()}.</p>
+     * @throws SQLException in case of database errors.
+     */
     @Autowired
     public Controllers() throws SQLException {
         Database database = new Database("jdbc:sqlite:data.db");
@@ -47,6 +54,15 @@ public class Controllers {
         this.service = new ReadingTipService(readingTipDao, commentDao, tagDao);
     }
 
+    /**
+     * <p>This method handles all of the GET-requests in our single-page app.</p>
+     * <p>A list of {@link ReadingTipListingUnit#ReadingTipListingUnit()}
+     * objects is made and added to the model as an attribute to be shown in the view.</p>
+     * <p>Attributes for comments, new tips and tags are also added for data handling.</p>
+     * @param model the models being sent to the view.
+     * @return index - the main view.
+     * @throws SQLException in case of database errors.
+     */
     @GetMapping("*")
     public String home(Model model) throws SQLException {
         ArrayList<ReadingTipListingUnit> tipListing = service.generateReadingTipListing();
@@ -59,6 +75,16 @@ public class Controllers {
         return "index";
     }
 
+    /**
+     * <p>A method that handles saving new comments that 
+     * have been sent as a POST-request from the view.</p>
+     * <p>The comments are saved with {@link ReadingTipService#saveNewComment(Comment, int)}.</p>
+     * @param readingTipId takes the id of the associated tip from the view.
+     * to tie it together with the comment parameter.
+     * @param comment the contents of the comment that's being added.
+     * @return redirect:/ - redirects to the main page.
+     * @throws SQLException in case of database errors.
+     */
     @PostMapping("/comment")
     public String createComment(@RequestParam Integer readingTipId, @ModelAttribute Comment comment)
             throws SQLException {
@@ -66,6 +92,18 @@ public class Controllers {
         return "redirect:/";
     }
 
+    /**
+     * <p>A method that handles saving new tips that 
+     * have been sent as a POST-request from the view.</p>
+     * <p>The comments are saved with {@link ReadingTipService#saveNewReadingTip(ReadingTip, Tag)}.</p>
+     * @param readingTip information of the tip being saved down to the database.
+     * @param tag a list of possible tags being added together with the new tip.
+     * @param bindingResultTip holds the result for the validation for tips.
+     * @param bindingResultTag holds the result for the validation of tags.
+     * @return index - if errors are present.
+     * @return redirect:/ - redirects to the main page.
+     * @throws SQLException in case of database errors.
+     */
     @PostMapping("/readingtip")
     public String createReadingTip(@Valid @ModelAttribute ReadingTip readingTip, 
             BindingResult bindingResultTip, @ModelAttribute Tag tag, 
@@ -79,6 +117,14 @@ public class Controllers {
         return "redirect:/";
     }
 
+    /**
+     * <p>A method that handles setting tips as read and unread
+     * with a PATCH-request from the view.</p>
+     * <p>The toggling is handled by {@link ReadingTipService#toggleReadingTipRead(int)}</p>
+     * @param id the id of the tip being toggled as read/unread.
+     * @return redirect:/ - redirects to the main page.
+     * @throws SQLException in case of database errors.
+     */
     @PatchMapping("/")
     public String toggleRead(@RequestParam Integer id) throws SQLException {
         service.toggleReadingTipRead(id);
