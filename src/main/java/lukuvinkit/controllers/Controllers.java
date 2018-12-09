@@ -30,6 +30,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+/**
+ * A centralized controller class.
+ * Has the Spring @SessionAttributes("list") annotation to preserve list
+ * on redirects and page refreshes.
+ */
 @Controller
 @SessionAttributes("list")
 public class Controllers {
