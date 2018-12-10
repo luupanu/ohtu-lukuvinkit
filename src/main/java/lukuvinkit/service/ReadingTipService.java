@@ -79,6 +79,10 @@ public class ReadingTipService {
             ++i;
         }
         
+        // Find out and set the proper priority_unread value for the new reading tip.
+        int priorityUnread = readingTipDao.findMaxUnreadPriority() + 1;
+        newTip.setPriorityUnread(priorityUnread);
+        
         // Save the new reading tip.
         newTip = readingTipDao.save(newTip);
         
@@ -92,7 +96,33 @@ public class ReadingTipService {
     }
     
     public void toggleReadingTipRead(int readingTipId) throws SQLException {
-        readingTipDao.toggleRead(readingTipId);
+        ReadingTip tip = readingTipDao.findOne(readingTipId);
+        
+        if (!tip.isRead()) {
+            tip.setRead(true);
+            tip.setPriorityRead(readingTipDao.findMaxReadPriority());
+        } else {
+            tip.setRead(false);
+            tip.setPriorityUnread(readingTipDao.findMaxUnreadPriority());
+        }
+        
+        readingTipDao.update(tip);
+    }
+    
+    public void swapPriorities(int readingTipId1, int readingTipId2) throws SQLException {
+        ReadingTip tip1 = readingTipDao.findOne(readingTipId1);
+        ReadingTip tip2 = readingTipDao.findOne(readingTipId2);
+        
+        if (tip1.isRead() != tip2.isRead()) {
+            return;
+        }
+        
+        int UnreadPriorityTip1 = tip1.getPriorityUnread();
+        int ReadPriorityTip1 = tip1.getPriorityRead();
+        tip1.setPriorityUnread(tip2.getPriorityUnread());
+        tip1.setPriorityRead(tip2.getPriorityRead());
+        tip2.setPriorityUnread(UnreadPriorityTip1);
+        tip2.setPriorityRead(ReadPriorityTip1);
     }
 
 }
