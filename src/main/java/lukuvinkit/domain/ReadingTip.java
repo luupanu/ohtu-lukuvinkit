@@ -196,23 +196,5 @@ public class ReadingTip {
         
         return this.url.equals("") && !this.isbn.equals("");
     }
-    
-    // Comparing read priorities
-    public static Comparator<ReadingTip> readComparator = new Comparator<ReadingTip>() {
- 
-        @Override
-        public int compare(ReadingTip tip1, ReadingTip tip2) {
-            return tip1.getPriorityRead() - tip2.getPriorityRead();       
-        }
-    };
-    
-    public static Comparator<ReadingTip> unreadComparator = new Comparator<ReadingTip>() {
-        
-        @Override
-        public int compare(ReadingTip tip1, ReadingTip tip2) {
-            return tip1.getPriorityUnread() - tip2.getPriorityUnread();     
-        }
-    };
-
 
 }

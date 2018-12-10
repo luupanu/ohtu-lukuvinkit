@@ -200,64 +200,52 @@ public class ReadingTipDao {
     }
     
     
-    // Find max read_priority value and return it (if not found return -1)
+    // Find max read_priority value and return it (if not found return 0, if error return -1)
     public int findMaxReadPriority() throws SQLException {        
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
-            "SELECT * FROM ReadingTip"
+            "SELECT MAX(priority_read) FROM ReadingTip"
         );
 
         ResultSet result = statement.executeQuery();
         
-        ArrayList<ReadingTip> allReadingTips = new ArrayList<>();
-
-        while (result.next()) {
-            allReadingTips.add(new ReadingTip(
-                result.getInt("id"),
-                result.getString("title"),
-                result.getString("type"),
-                result.getString("url"),
-                result.getString("author"),
-                result.getString("isbn"),
-                result.getString("description"),
-                result.getBoolean("read"),
-                result.getInt("priority_read"),
-                result.getInt("priority_unread")
-            ));
-        }
+        int priority;
         
-        Collections.sort(allReadingTips, ReadingTip.readComparator);    
-        return allReadingTips.get(allReadingTips.size() - 1).getPriorityRead();
+        if (result.next()) {
+            priority = result.getInt(1);
+        } else {
+            priority = -1;
+        }
+
+        result.close();
+        statement.close();
+        connection.close();
+
+        return priority;
     }
     
-    // Find max unread_priority value and return it (if not found return -1)
-    public int findUnreadPriority() throws SQLException {        
+    // Find max unread_priority value and return it (if not found return 0, if error return -1)
+    public int findMaxUnreadPriority() throws SQLException {        
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
-            "SELECT * FROM ReadingTip"
+            "SELECT MAX(priority_unread) FROM ReadingTip"
         );
 
         ResultSet result = statement.executeQuery();
         
-        ArrayList<ReadingTip> allReadingTips = new ArrayList<>();
-
-        while (result.next()) {
-            allReadingTips.add(new ReadingTip(
-                result.getInt("id"),
-                result.getString("title"),
-                result.getString("type"),
-                result.getString("url"),
-                result.getString("author"),
-                result.getString("isbn"),
-                result.getString("description"),
-                result.getBoolean("read"),
-                result.getInt("priority_read"),
-                result.getInt("priority_unread")
-            ));
-        }
+        int priority;
         
-        Collections.sort(allReadingTips, ReadingTip.unreadComparator);    
-        return allReadingTips.get(allReadingTips.size() - 1).getPriorityUnread();
+        if (result.next()) {
+            priority = result.getInt(1);
+        } else {
+            priority = -1;
+        }
+
+        result.close();
+        statement.close();
+        connection.close();
+
+        return priority;
     }
 
 }
