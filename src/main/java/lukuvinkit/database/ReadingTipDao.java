@@ -157,48 +157,31 @@ public class ReadingTipDao {
         return tip;
     }
     
-    
-    // To update String
-    public void updateValue(int readingTipId, String fieldName, String newValue) throws SQLException {
+    public void update(ReadingTip tip) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
-            "UPDATE ReadingTip SET " + fieldName + "=" + newValue + " WHERE id=" + readingTipId
+        PreparedStatement statement;
+        
+        statement = connection.prepareStatement(
+            "UPDATE ReadingTip "
+                    + "SET title = ?, type = ?, url = ?, author = ?, isbn = ?, description = ?, read = ?, "
+                    + "priority_read = ?, priority_unread = ? "
+                    + "WHERE id = ?"
         );
-        
+        statement.setString(1, tip.getTitle());
+        statement.setString(2, tip.getType());
+        statement.setString(3, tip.getUrl());
+        statement.setString(4, tip.getAuthor());
+        statement.setString(5, tip.getIsbn());
+        statement.setString(6, tip.getDescription());
+        statement.setBoolean(7, tip.isRead());
+        statement.setInt(8, tip.getPriorityRead());
+        statement.setInt(9, tip.getPriorityUnread());
+        statement.setInt(10, tip.getId());
         statement.executeUpdate();
-        
+
         statement.close();
         connection.close();
     }
-    
-    // To update int
-    public void updateValue(int readingTipId, String fieldName, int newValue) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
-            "UPDATE ReadingTip SET " + fieldName + "=" + newValue + " WHERE id=" + readingTipId
-        );
-        
-        statement.executeUpdate();
-        
-        statement.close();
-        connection.close();
-        
-    }
-    
-    // To update boolean
-    public void updateValue(int readingTipId, String fieldName, boolean newValue) throws SQLException {
-        Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement(
-            "UPDATE ReadingTip SET " + fieldName + "=" + newValue + " WHERE id=" + readingTipId
-        );  
-        
-        statement.executeUpdate();
-        
-        statement.close();
-        connection.close();
-               
-    }
-    
     
     // Find max read_priority value and return it (if not found return 0, if error return -1)
     public int findMaxReadPriority() throws SQLException {        
