@@ -125,8 +125,9 @@ public class ReadingTipDao {
     public ReadingTip findOne(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
-            "SELECT * FROM ReadingTip WHERE id=" + readingTipId
+            "SELECT * FROM ReadingTip WHERE id = ?"
         );
+        statement.setInt(1, readingTipId);
 
         ResultSet result = statement.executeQuery();
         
