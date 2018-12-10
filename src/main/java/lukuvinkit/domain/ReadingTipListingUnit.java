@@ -24,7 +24,13 @@ public class ReadingTipListingUnit implements Comparable<ReadingTipListingUnit> 
 
     @Override
     public int compareTo(ReadingTipListingUnit other) {
-        return this.readingTip.isRead() ? 1 : -1;
+        if (!this.readingTip.isRead()) {
+            if (other.readingTip.isRead()) return -1;
+            else return this.readingTip.getPriorityUnread() < other.readingTip.getPriorityUnread() ? -1 : 1;
+        } else {
+            if (!other.readingTip.isRead()) return 1;
+            else return this.readingTip.getPriorityRead() < other.readingTip.getPriorityRead() ? -1 : 1;
+        }
     }
     
 }
