@@ -129,19 +129,25 @@ public class ReadingTipDao {
         );
 
         ResultSet result = statement.executeQuery();
-
-        ReadingTip tip = new ReadingTip(
-            result.getInt("id"),
-            result.getString("title"),
-            result.getString("type"),
-            result.getString("url"),
-            result.getString("author"),
-            result.getString("isbn"),
-            result.getString("description"),
-            result.getBoolean("read"),
-            result.getInt("priority_read"),
-            result.getInt("priority_unread")
-            );        
+        
+        ReadingTip tip;
+        
+        if (result.next()) {
+            tip = new ReadingTip(
+                result.getInt("id"),
+                result.getString("title"),
+                result.getString("type"),
+                result.getString("url"),
+                result.getString("author"),
+                result.getString("isbn"),
+                result.getString("description"),
+                result.getBoolean("read"),
+                result.getInt("priority_read"),
+                result.getInt("priority_unread")
+            );
+        } else {
+            tip = null;
+        }
 
         result.close();
         statement.close();
@@ -149,6 +155,7 @@ public class ReadingTipDao {
 
         return tip;
     }
+    
     
     // To update String
     public void updateValue(int readingTipId, String fieldName, String newValue) throws SQLException {
@@ -191,7 +198,8 @@ public class ReadingTipDao {
                
     }
     
-    // Find max read_priority value and return it's id (if not found return -1)
+    
+    // Find max read_priority value and return it (if not found return -1)
     public int findMaxReadPriority() throws SQLException {        
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
@@ -218,10 +226,10 @@ public class ReadingTipDao {
         }
         
         Collections.sort(allReadingTips, ReadingTip.readComparator);    
-        return allReadingTips.get(allReadingTips.size() - 1).getId();
+        return allReadingTips.get(allReadingTips.size() - 1).getPriorityRead();
     }
     
-    // Find max read_priority value and return it's id (if not found return -1)
+    // Find max unread_priority value and return it (if not found return -1)
     public int findUnreadPriority() throws SQLException {        
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
@@ -248,7 +256,7 @@ public class ReadingTipDao {
         }
         
         Collections.sort(allReadingTips, ReadingTip.unreadComparator);    
-        return allReadingTips.get(allReadingTips.size() - 1).getId();
+        return allReadingTips.get(allReadingTips.size() - 1).getPriorityUnread();
     }
 
 }
