@@ -108,10 +108,10 @@ public class ReadingTipService {
         
         if (!tip.isRead()) {
             tip.setRead(true);
-            tip.setPriorityRead(readingTipDao.findMaxReadPriority());
+            tip.setPriorityRead(readingTipDao.findMaxReadPriority() + 1);
         } else {
             tip.setRead(false);
-            tip.setPriorityUnread(readingTipDao.findMaxUnreadPriority());
+            tip.setPriorityUnread(readingTipDao.findMaxUnreadPriority() + 1);
         }
         
         readingTipDao.update(tip);
