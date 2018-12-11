@@ -104,10 +104,10 @@ const swapPriorities = (event) => {
 // Submits the form with the given id and properties.
 const submitForm = (id, properties) => {
   const form = document.getElementById(id)
-  const array = [...form]
+  const formInputs = [...form]
 
   // Map the given properties to the values of form inputs with the same name.
-  array.forEach(input => {
+  formInputs.forEach(input => {
     if (properties[input.name]) {
       input.value = properties[input.name]
     }
