@@ -10,13 +10,11 @@ const toggleRead = (element) => {
 const toggleComments = (element) => {
   const comments = element
     .parentNode
-    .querySelectorAll(".commentarea")
+    .querySelector(".commentarea")
 
-  comments.forEach(comment => {
-    comment.style.display === "block"
-      ? comment.style.display = "none"
-      : comment.style.display = "block"
-  })
+  comments.style.display === "block"
+    ? comments.style.display = "none"
+    : comments.style.display = "block"
 }
 
 // Creates a new comment if comment is valid.
