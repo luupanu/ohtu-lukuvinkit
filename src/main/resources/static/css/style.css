@@ -97,7 +97,7 @@ input[type=submit]:hover {
     background-color: #52c8ce;
 }
 
-.topnav input {
+.filters, .topnav input, .readingtips-read {
     float: right;
 }
 
@@ -147,10 +147,6 @@ td {
     margin-left: 5px;
 }
 
-.filters {
-    float: right;
-}
-
 .readingtips-author p,
 .readingtips-isbn p {
     display: inline;
@@ -167,10 +163,6 @@ td {
 
 .readingtips-description {
     color: #64e1e7;
-}
-
-.readingtips-read {
-    float: right;
 }
 
 .tag {
