@@ -82,16 +82,16 @@ public class Controllers {
      * <p>A method that handles saving new comments that 
      * have been sent as a POST-request from the view.</p>
      * <p>The comments are saved with {@link ReadingTipService#saveNewComment(Comment, int)}.</p>
-     * @param readingTipId takes the id of the associated tip from the view
+     * @param id takes the id of the associated tip from the view
      * to tie it together with the comment parameter.
      * @param comment the contents of the comment that's being added.
      * @return redirect:/ - redirects to the main page.
      * @throws SQLException in case of database errors.
      */
     @PostMapping("/comment")
-    public String createComment(@RequestParam Integer readingTipId, @ModelAttribute Comment comment)
+    public String createComment(@RequestParam Integer id, @ModelAttribute Comment comment)
             throws SQLException {
-        service.saveNewComment(comment, readingTipId);
+        service.saveNewComment(comment, id);
         return "redirect:/";
     }
 

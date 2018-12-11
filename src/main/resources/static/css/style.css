@@ -82,7 +82,7 @@ input[type=text] {
     width: 436px;
 }
 
-input[type=submit] {
+.submitbutton {
     font-size: 12px;
     font-weight: bold;
     width: 200px;
@@ -93,7 +93,7 @@ input[type=submit] {
     padding: 10px;
 }
 
-input[type=submit]:hover {
+.submitbutton:hover {
     background-color: #52c8ce;
 }
 

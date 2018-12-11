@@ -1,22 +1,9 @@
 // MAIN FUNCTIONS
 
-// Submits the form with the id formId affecting given readingTipIds.
-const submitForm = (formId, ...readingTipIds) => {
-  const form = document.getElementById(formId)
-  const array = [...form]
-
-  // Map the readingTipIds to the values of form inputs.
-  array
-    .filter(input => input.name.startsWith("id"))
-    .map((input, i) => input.value = readingTipIds[i])
-
-  form.submit()
-}
-
 // Toggles the read status of this ReadingTip.
 const toggleRead = (element) => {
   const id = getParentArticle(element).id
-  submitForm('toggleread', id)
+  submitForm('toggleread', { id })
 }
 
 // Toggles the visibility of parent class '.commentarea'.
@@ -30,6 +17,22 @@ const toggleComments = (element) => {
       ? comment.style.display = "none"
       : comment.style.display = "block"
   })
+}
+
+// Creates a new comment if comment is valid.
+const newComment = (element) => {
+  const id = getParentArticle(element).id
+  const commentDescription = element.previousElementSibling
+
+  // if not valid comment, give an error message and return
+  if (!commentDescription.checkValidity()) {
+    element.nextElementSibling.click()
+    return
+  }
+
+  const properties = { id, commentDescription: commentDescription.value }
+
+  submitForm('newcomment', properties)
 }
 
 // Toggles the visibility of tips based on various filters.
@@ -87,11 +90,31 @@ const swapPriorities = (event) => {
   const dropId = getParentArticle(event.target).id || dragId
 
   if (dragId !== dropId) {
-    submitForm('swappriorities', dragId, dropId)
+    const properties = {
+      id1: dragId,
+      id2: dropId
+    }
+
+    submitForm('swappriorities', properties)
   }
 }
 
 // HELPER FUNCTIONS
+
+// Submits the form with the given id and properties.
+const submitForm = (id, properties) => {
+  const form = document.getElementById(id)
+  const array = [...form]
+
+  // Map the given properties to the values of form inputs with the same name.
+  array.forEach(input => {
+    if (properties[input.name]) {
+      input.value = properties[input.name]
+    }
+  })
+
+  form.submit()
+}
 
 // Checks if given tip is read.
 const tipIsRead = (tip) => tip.className === "tip-read"
