@@ -97,6 +97,10 @@ public class ReadingTipService {
     
     public void toggleReadingTipRead(int readingTipId) throws SQLException {
         ReadingTip tip = readingTipDao.findOne(readingTipId);
+
+        if (tip == null) {
+            return;
+        }
         
         if (!tip.isRead()) {
             tip.setRead(true);
@@ -113,16 +117,18 @@ public class ReadingTipService {
         ReadingTip tip1 = readingTipDao.findOne(readingTipId1);
         ReadingTip tip2 = readingTipDao.findOne(readingTipId2);
         
-        if (tip1.isRead() != tip2.isRead()) {
+        if (tip1 == null || tip2 == null
+                || (tip1.isRead() != tip2.isRead())
+                || (tip1.getId() == tip2.getId())) {
             return;
         }
         
-        int UnreadPriorityTip1 = tip1.getPriorityUnread();
-        int ReadPriorityTip1 = tip1.getPriorityRead();
+        int unreadPriorityTip1 = tip1.getPriorityUnread();
+        int readPriorityTip1 = tip1.getPriorityRead();
         tip1.setPriorityUnread(tip2.getPriorityUnread());
         tip1.setPriorityRead(tip2.getPriorityRead());
-        tip2.setPriorityUnread(UnreadPriorityTip1);
-        tip2.setPriorityRead(ReadPriorityTip1);
+        tip2.setPriorityUnread(unreadPriorityTip1);
+        tip2.setPriorityRead(readPriorityTip1);
         
         readingTipDao.update(tip1);
         readingTipDao.update(tip2);
