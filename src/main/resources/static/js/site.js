@@ -1,20 +1,5 @@
 // MAIN FUNCTIONS
 
-// Submits the form with the given id and properties.
-const submitForm = (id, properties) => {
-  const form = document.getElementById(id)
-  const array = [...form]
-
-  // Map the given properties to the values of form inputs with the same name.
-  array.forEach(input => {
-    if (properties[input.name]) {
-      input.value = properties[input.name]
-    }
-  })
-
-  form.submit()
-}
-
 // Toggles the read status of this ReadingTip.
 const toggleRead = (element) => {
   const id = getParentArticle(element).id
@@ -115,6 +100,21 @@ const swapPriorities = (event) => {
 }
 
 // HELPER FUNCTIONS
+
+// Submits the form with the given id and properties.
+const submitForm = (id, properties) => {
+  const form = document.getElementById(id)
+  const array = [...form]
+
+  // Map the given properties to the values of form inputs with the same name.
+  array.forEach(input => {
+    if (properties[input.name]) {
+      input.value = properties[input.name]
+    }
+  })
+
+  form.submit()
+}
 
 // Checks if given tip is read.
 const tipIsRead = (tip) => tip.className === "tip-read"
