@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import lukuvinkit.database.CommentDao;
@@ -51,6 +52,8 @@ public class ReadingTipService {
             );
             readingTipListing.add(listingUnit);
         }
+        
+        Collections.sort(readingTipListing);
 
         return readingTipListing;
     }
@@ -84,6 +87,7 @@ public class ReadingTipService {
         newTip.setPriorityUnread(priorityUnread);
         
         // Save the new reading tip.
+        newTip.setRead(false);
         newTip = readingTipDao.save(newTip);
         
         // Bind all tags to the new reading tip.

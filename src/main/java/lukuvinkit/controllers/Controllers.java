@@ -52,7 +52,7 @@ public class Controllers {
     @Autowired
     public Controllers() throws SQLException {
         Database database = new Database("jdbc:sqlite:data.db");
-        database.initializeDatabase();
+        database.initializeDatabaseIfUninitialized();
         ReadingTipDao readingTipDao = new ReadingTipDao(database);
         CommentDao commentDao = new CommentDao(database);
         TagDao tagDao = new TagDao(database);

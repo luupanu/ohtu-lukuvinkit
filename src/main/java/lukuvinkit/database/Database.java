@@ -25,10 +25,10 @@ public class Database {
         return DriverManager.getConnection(this.address);
     }
     
-    public void initializeDatabase() throws SQLException {
+    public void initializeDatabaseIfUninitialized() throws SQLException {
         Connection connection = this.getConnection();
         
-        // Check if database table is already created.
+        // Check if database tables are already created.
         PreparedStatement statementTableCheck = connection.prepareStatement(
             "select count(*) from sqlite_master"
         );
@@ -38,7 +38,7 @@ public class Database {
         result.close();
         statementTableCheck.close();
 
-        // Create database tables if it is not yet created.
+        // Create database tables if they are not yet created.
         if (tableExists == 0) {
             PreparedStatement statementCreateTable = connection.prepareStatement(
                 "CREATE TABLE ReadingTip"
@@ -89,6 +89,30 @@ public class Database {
             statementCreateTable.executeUpdate();
             
             statementCreateTable.close();
+        }
+
+        connection.close();
+    }
+    
+    public void clearDatabase() throws SQLException {
+        Connection connection = this.getConnection();
+        
+        // Check if database tables exist.
+        PreparedStatement statementTableCheck = connection.prepareStatement(
+            "select count(*) from sqlite_master"
+        );
+        ResultSet result = statementTableCheck.executeQuery();
+        result.next();
+        int tableExists = result.getInt(1);
+        result.close();
+        statementTableCheck.close();
+
+        // Delete tables if tables exist.
+        if (tableExists != 0) {
+            connection.prepareStatement("DROP TABLE ReadingTip").executeUpdate();
+            connection.prepareStatement("DROP TABLE Tag").executeUpdate();
+            connection.prepareStatement("DROP TABLE ReadingTipTag").executeUpdate();
+            connection.prepareStatement("DROP TABLE Comment").executeUpdate();
         }
 
         connection.close();

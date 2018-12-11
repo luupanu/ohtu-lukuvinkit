@@ -45,7 +45,9 @@ public class ReadingTipDao {
                 result.getString("author"),
                 result.getString("isbn"),
                 result.getString("description"),
-                result.getBoolean("read")
+                result.getBoolean("read"),
+                result.getInt("priority_read"),
+                result.getInt("priority_unread")
             ));
         }
 
@@ -61,8 +63,8 @@ public class ReadingTipDao {
         PreparedStatement statement;
         
         statement = connection.prepareStatement(
-            "INSERT INTO ReadingTip(title, type, url, author, isbn, description, read) " 
-            + "values (?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO ReadingTip(title, type, url, author, isbn, description, read, priority_read, priority_unread) " 
+            + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         statement.setString(1, tip.getTitle());
         statement.setString(2, tip.getType());
@@ -71,6 +73,8 @@ public class ReadingTipDao {
         statement.setString(5, tip.getIsbn());
         statement.setString(6, tip.getDescription());
         statement.setBoolean(7, tip.isRead());
+        statement.setInt(8,tip.getPriorityRead());
+        statement.setInt(9, tip.getPriorityUnread());
         statement.executeUpdate();
         
         statement = connection.prepareStatement("select last_insert_rowid()");
