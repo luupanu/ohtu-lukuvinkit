@@ -22,7 +22,7 @@ const newComment = (element) => {
   const id = getParentArticle(element).id
   const commentDescription = element.previousElementSibling
 
-  // if not valid comment, give an error message and return
+  // If not a valid comment, give an error message and return.
   if (!commentDescription.checkValidity()) {
     element.nextElementSibling.click()
     return
@@ -87,14 +87,16 @@ const swapPriorities = (event) => {
   const dragId = event.dataTransfer.getData("text")
   const dropId = getParentArticle(event.target).id || dragId
 
-  if (dragId !== dropId) {
-    const properties = {
-      id1: dragId,
-      id2: dropId
-    }
-
-    submitForm('swappriorities', properties)
+  if (dragId === dropId) {
+    return
   }
+
+  const properties = {
+    id1: dragId,
+    id2: dropId
+  }
+
+  submitForm('swappriorities', properties)
 }
 
 // HELPER FUNCTIONS
@@ -145,18 +147,18 @@ const someTagIncludesFilter = (tip, filter) => {
 
 // Returns true if a tip is of a type that's being hidden by a checkbox.
 const tipTypeHidden = (tip) => {
-    const tipType = tip.querySelector(".tip-type").innerText
-    return isTypeHidden(tipType)
+  const tipType = tip.querySelector(".tip-type").innerText
+  return isTypeHidden(tipType)
 }
 
 // Checks if a type is being hidden by the checkbox associated with it.
 const isTypeHidden = (type) => {
-    if (type == "Link") {
-      return checkBoxIsChecked("filter-links")
-    } else if (type == "Article") {
-      return checkBoxIsChecked("filter-articles")
-    }
-    return checkBoxIsChecked("filter-books")
+  if (type == "Link") {
+    return checkBoxIsChecked("filter-links")
+  } else if (type == "Article") {
+    return checkBoxIsChecked("filter-articles")
+  }
+  return checkBoxIsChecked("filter-books")
 }
 
 // Gets parent node of type <article>. Returns null if not found.
