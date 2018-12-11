@@ -123,6 +123,9 @@ public class ReadingTipService {
         tip1.setPriorityRead(tip2.getPriorityRead());
         tip2.setPriorityUnread(UnreadPriorityTip1);
         tip2.setPriorityRead(ReadPriorityTip1);
+        
+        readingTipDao.update(tip1);
+        readingTipDao.update(tip2);
     }
 
 }
