@@ -41,26 +41,18 @@
                     <li class="comment" th:each="comment : ${listingUnit.comments}" th:text="${comment.commentDescription}"></li>
 
                     <div class="newcomment">
-                        <form th:action="@{/comment}" th:object="${comment}" method="POST">
-                            <input type="hidden" name="readingTipId" th:value="${listingUnit.readingTip.id}" />
+                        <form>
                             <label for="comment">Add a new comment:</label>
-                            <input type="text" name="commentDescription" placeholder="Type your new comment here..."
-                                required="true" />
-                            <input name="create-comment" value="Submit" type="submit" />
+                            <input type="text" name="commentDescription" placeholder="Type your new comment here..." required="true" />
+                            <input type="button" class="submitbutton" onclick="newComment(this)" value="Submit" />
+                            <input type="submit" style="display:none" />
                         </form>
                     </div>
                 </div>
             </div>
         </article>
 
-        <form th:action="@{/toggleread}" id="toggleread" th:method="PATCH">
-            <input type="hidden" name="id" />
-        </form>
-
-        <form th:action="@{/swappriorities}" id="swappriorities" th:method="PATCH">
-            <input type="hidden" name="id1" />
-            <input type="hidden" name="id2" />
-        </form>
+        <div th:replace="/fragments/readingtip-actions :: readingtip-actions"></div>
     </div>
 
 </div>
