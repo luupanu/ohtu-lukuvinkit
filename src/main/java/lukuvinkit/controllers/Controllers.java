@@ -131,9 +131,25 @@ public class Controllers {
      * @return redirect:/ - redirects to the main page.
      * @throws SQLException in case of database errors.
      */
-    @PatchMapping("/")
+    @PatchMapping("/toggleread")
     public String toggleRead(@RequestParam Integer id) throws SQLException {
         service.toggleReadingTipRead(id);
+        return "redirect:/";
+    }
+
+    /**
+     * <p>A method that handles swapping priorities of two different ReadingTips
+     * with a PATCH-request from the view.</p>
+     * <p>The swapping is handled by {@link ReadingTipService#swapPriorities(int, int)}</p>
+     * @param id1 the id of the first tip being swapped.
+     * @param id2 the id of the other tip being swapped.
+     * @return redirect:/ - redirects to the main page.
+     * @throws SQLException in case of database errors.
+     */
+    @PatchMapping("/swappriorities")
+    public String swapPriorities(@RequestParam Integer id1,
+        @RequestParam Integer id2) throws SQLException {
+        service.swapPriorities(id1, id2);
         return "redirect:/";
     }
 }

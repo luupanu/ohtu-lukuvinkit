@@ -68,6 +68,32 @@ const newReadingTipFormRefresh = () => {
   }
 }
 
+const drag = (event) => {
+  event.dataTransfer.effectAllowed = "move" // for a visual move effect
+  event.dataTransfer.setData("text", event.target.id)
+}
+
+const allowDrop = (event) => {
+  event.preventDefault()
+  event.dataTransfer.dropEffect = "move" // for a visual move effect
+}
+
+const drop = (event) => {
+  event.preventDefault()
+
+  const dragId = event.dataTransfer.getData("text")
+  const dropId = getParentArticle(event.target).id
+
+  if (!dropId || dragId === dropId) {
+    return
+  }
+
+  document.getElementById("priority-id1").value = dragId;
+  document.getElementById("priority-id2").value = dropId;
+
+  document.getElementById("swap-priorities").submit()
+}
+
 // HELPER FUNCTIONS
 
 // Checks if tip is read.
@@ -111,5 +137,7 @@ const isTypeHidden = (type) => {
     return checkBoxIsChecked("filter-books")
 }
 
-
-
+// Gets parent node of type <article>. Returns null if not found.
+const getParentArticle = (element) => {
+  return element.nodeName === "ARTICLE" ? element : getParentArticle(element.parentNode)
+}
