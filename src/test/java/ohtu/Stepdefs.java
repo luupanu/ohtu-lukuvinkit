@@ -132,7 +132,7 @@ public class Stepdefs {
         WebElement element = driver.findElement(By.name("commentDescription"));
         element.sendKeys(comment);
         element = driver.findElement(By.name("create-comment"));
-        element.submit();
+        element.click();
     }
 
     @Then("^only one \"([^\"]*)\" is shown$")
