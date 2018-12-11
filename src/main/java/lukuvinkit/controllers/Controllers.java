@@ -43,7 +43,7 @@ public class Controllers {
     /**
      * <p>The constructor is annotated with @Autowired for spring dependency injections.</p>
      * <p>The database is initialized in this constructor with
-     * {@link Database#initializeDatabase()}.</p>
+     * {@link Database#initializeDatabaseIfUninitialized()}.</p>
      * <p>A service for handling database actions is created through
      * {@link ReadingTipService#ReadingTipService()}.</p>
      * @throws SQLException in case of database errors.
