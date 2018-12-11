@@ -113,6 +113,10 @@ const convertToSearchString = _ => _.trim().toUpperCase()
 
 // Returns true if some tag in the tip includes the filter phrase.
 const someTagIncludesFilter = (tip, filter) => {
+  if (!filter) {
+    return true
+  }
+
   const tags = [...tip.querySelectorAll(".tag")]
 
   return tags.some(tag => {
