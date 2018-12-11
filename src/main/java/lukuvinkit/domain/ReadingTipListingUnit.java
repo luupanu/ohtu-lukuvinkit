@@ -26,13 +26,14 @@ public class ReadingTipListingUnit implements Comparable<ReadingTipListingUnit> 
     public int compareTo(ReadingTipListingUnit other) {
         int result = Boolean.compare(this.readingTip.isRead(), other.readingTip.isRead());
         
-        if (result == 0 && !this.readingTip.isRead()) {
-            return Integer.compare(this.readingTip.getPriorityUnread(), other.readingTip.getPriorityUnread());
-        } else if (result == 0 && this.readingTip.isRead()) {
+        if (result != 0) {
+            return result;
+        }
+
+        if (this.readingTip.isRead()) {
             return Integer.compare(this.readingTip.getPriorityRead(), other.readingTip.getPriorityRead());
         }
-        
-        return result;
+        return Integer.compare(this.readingTip.getPriorityUnread(), other.readingTip.getPriorityUnread());
     }
     
 }
