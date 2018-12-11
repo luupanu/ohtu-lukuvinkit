@@ -3,7 +3,6 @@ package lukuvinkit.controllers;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.validation.Valid;
 
@@ -71,8 +70,7 @@ public class Controllers {
     @GetMapping("*")
     public String home(Model model) throws SQLException {
         ArrayList<ReadingTipListingUnit> tipListing = service.generateReadingTipListing();
-        Collections.sort(tipListing);
-
+        
         model.addAttribute("list", tipListing);
         model.addAttribute("comment", new Comment());
         model.addAttribute("readingTip", new ReadingTip());
