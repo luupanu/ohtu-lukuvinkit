@@ -1,9 +1,22 @@
 // MAIN FUNCTIONS
 
-// Submits the parent form of given element.
-const submitForm = (element) => {
-  const form = element.parentNode
+// Submits the form with the id formId affecting given readingTipIds.
+const submitForm = (formId, ...readingTipIds) => {
+  const form = document.getElementById(formId)
+  const array = [...form]
+
+  // Map the readingTipIds to the values of form inputs.
+  array
+    .filter(input => input.name.startsWith("id"))
+    .map((input, i) => input.value = readingTipIds[i])
+
   form.submit()
+}
+
+// Toggles the read status of this ReadingTip.
+const toggleRead = (element) => {
+  const id = getParentArticle(element).id
+  submitForm('toggleread', id)
 }
 
 // Toggles the visibility of parent class '.commentarea'.
@@ -13,15 +26,13 @@ const toggleComments = (element) => {
     .querySelectorAll(".commentarea")
 
   comments.forEach(comment => {
-    if (comment.style.display === "block") {
-      comment.style.display = "none"
-    } else {
-      comment.style.display = "block"
-    }
+    comment.style.display === "block"
+      ? comment.style.display = "none"
+      : comment.style.display = "block"
   })
 }
 
-// Toggles the visibility of tips.
+// Toggles the visibility of tips based on various filters.
 const filterTips = () => {
   const tips = getTips()
 
@@ -68,48 +79,34 @@ const newReadingTipFormRefresh = () => {
   }
 }
 
-const drag = (event) => {
-  event.dataTransfer.effectAllowed = "move" // for a visual move effect
-  event.dataTransfer.setData("text", event.target.id)
-}
-
-const allowDrop = (event) => {
-  event.preventDefault()
-  event.dataTransfer.dropEffect = "move" // for a visual move effect
-}
-
-const drop = (event) => {
+// Swaps priorities of the dragged ReadingTip with the ReadingTip it was dropped into.
+const swapPriorities = (event) => {
   event.preventDefault()
 
   const dragId = event.dataTransfer.getData("text")
-  const dropId = getParentArticle(event.target).id
+  const dropId = getParentArticle(event.target).id || dragId
 
-  if (!dropId || dragId === dropId) {
-    return
+  if (dragId !== dropId) {
+    submitForm('swappriorities', dragId, dropId)
   }
-
-  document.getElementById("priority-id1").value = dragId;
-  document.getElementById("priority-id2").value = dropId;
-
-  document.getElementById("swap-priorities").submit()
 }
 
 // HELPER FUNCTIONS
 
-// Checks if tip is read.
+// Checks if given tip is read.
 const tipIsRead = (tip) => tip.className === "tip-read"
 
-// Checks if checkbox is checked.
+// Checks if given checkbox is checked.
 const checkBoxIsChecked = (checkbox) => document.getElementById(checkbox).checked
 
 // Gets all tips in the document.
 const getTips = () => document.getElementById("readingTipsList").querySelectorAll("article")
 
 // Gets the value of the search box in the document.
-const getFilter = () => convertToSearchString(document.getElementById("search").value)
+const getFilter = () => normalizeString(document.getElementById("search").value)
 
 // Does some string manipulations to be able to compare strings.
-const convertToSearchString = _ => _.trim().toUpperCase()
+const normalizeString = _ => _.trim().toUpperCase()
 
 // Returns true if some tag in the tip includes the filter phrase.
 const someTagIncludesFilter = (tip, filter) => {
@@ -120,7 +117,7 @@ const someTagIncludesFilter = (tip, filter) => {
   const tags = [...tip.querySelectorAll(".tag")]
 
   return tags.some(tag => {
-    const tagValue = convertToSearchString(tag.innerText)
+    const tagValue = normalizeString(tag.innerText)
     return tagValue.includes(filter)
   })
 }
@@ -144,4 +141,16 @@ const isTypeHidden = (type) => {
 // Gets parent node of type <article>. Returns null if not found.
 const getParentArticle = (element) => {
   return element.nodeName === "ARTICLE" ? element : getParentArticle(element.parentNode)
+}
+
+// On drag, transfer this object id.
+const onDrag = (event) => {
+  event.dataTransfer.effectAllowed = "move" // for a visual move effect
+  event.dataTransfer.setData("text", event.target.id)
+}
+
+// Prevents default handling of HTML5 ondragover.
+const allowDrop = (event) => {
+  event.preventDefault()
+  event.dataTransfer.dropEffect = "move" // for a visual move effect
 }
