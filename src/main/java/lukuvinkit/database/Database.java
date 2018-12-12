@@ -1,4 +1,3 @@
-
 package lukuvinkit.database;
 
 import java.sql.Connection;

@@ -3,7 +3,7 @@
 // Toggles the read status of this ReadingTip.
 const toggleRead = (element) => {
   const id = getParentArticle(element).id
-  submitForm('toggleread', { id })
+  submitForm("toggleread", { id })
 }
 
 // Toggles the visibility of parent class '.commentarea'.
@@ -30,7 +30,7 @@ const newComment = (element) => {
 
   const properties = { id, commentDescription: commentDescription.value }
 
-  submitForm('newcomment', properties)
+  submitForm("newcomment", properties)
 }
 
 // Toggles the visibility of tips based on various filters.
@@ -96,7 +96,7 @@ const swapPriorities = (event) => {
     id2: dropId
   }
 
-  submitForm('swappriorities', properties)
+  submitForm("swappriorities", properties)
 }
 
 // HELPER FUNCTIONS

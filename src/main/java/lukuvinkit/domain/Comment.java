@@ -1,4 +1,3 @@
-
 package lukuvinkit.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;

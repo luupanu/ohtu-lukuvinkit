@@ -1,4 +1,3 @@
-
 package lukuvinkit.domain;
 
 import java.util.ArrayList;
