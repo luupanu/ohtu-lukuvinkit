@@ -12,14 +12,14 @@ import cucumber.api.java.en.When;
 import java.io.File;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class Stepdefs {
 
-    final static int PORT_NUMBER = 8080;
+    private static final int PORT_NUMBER = 8080;
     private WebDriver driver;
 
     public Stepdefs() {
@@ -153,10 +153,8 @@ public class Stepdefs {
         assertEquals(1, counter);
     }
 
-    /*
-        Call this method always with the right order of arguments
-        -> title, description, url, author, isbn, tagDescription
-    */
+    // Call this method always with the right order of arguments
+    // -> title, description, url, author, isbn, tagDescription
     private void fillNewGenericTip(String... arguments) {
         assertTrue(driver.getPageSource().contains("Add a new reading tip"));
 

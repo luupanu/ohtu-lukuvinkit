@@ -63,7 +63,11 @@ public class ReadingTipDao {
         PreparedStatement statement;
         
         statement = connection.prepareStatement(
-            "INSERT INTO ReadingTip(title, type, url, author, isbn, description, read, priority_read, priority_unread) " 
+            "INSERT INTO ReadingTip"
+            + "("
+                + "title, type, url, author, isbn, description, "
+                + "read, priority_read, priority_unread"
+            + ") "
             + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         statement.setString(1, tip.getTitle());
@@ -167,9 +171,9 @@ public class ReadingTipDao {
         
         statement = connection.prepareStatement(
             "UPDATE ReadingTip "
-                    + "SET title = ?, type = ?, url = ?, author = ?, isbn = ?, description = ?, read = ?, "
-                    + "priority_read = ?, priority_unread = ? "
-                    + "WHERE id = ?"
+                + "SET title = ?, type = ?, url = ?, author = ?, isbn = ?, "
+                + "description = ?, read = ?, priority_read = ?, priority_unread = ? "
+                + "WHERE id = ?"
         );
         statement.setString(1, tip.getTitle());
         statement.setString(2, tip.getType());

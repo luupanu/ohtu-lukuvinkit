@@ -1,6 +1,7 @@
 <div th:fragment="readingtips">
 
     <div id="readingTipsList" class="readingtips">
+
         <article th:with="tip=${listingUnit.readingTip}, tags=${listingUnit.tags}, comments=${listingUnit.comments}" th:id="${tip.id}" th:class="${tip.read} ? 'read ' + ${tip.type} : 'unread ' + ${tip.type}" th:each="listingUnit : ${list}" draggable="true" ondragstart="onDrag(event)" ondragover="allowDrop(event)" ondrop="swapPriorities(event)">
 
             <div class="readingtips-read">
@@ -53,6 +54,7 @@
         </article>
 
         <div th:replace="/fragments/readingtip-actions :: readingtip-actions"></div>
+
     </div>
 
 </div>

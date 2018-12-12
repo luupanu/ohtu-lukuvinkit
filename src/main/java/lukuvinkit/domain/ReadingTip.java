@@ -29,8 +29,8 @@ public class ReadingTip {
 
     private boolean read;
     
-    private int priority_read;    
-    private int priority_unread;
+    private int priorityRead;
+    private int priorityUnread;
     
 
     public ReadingTip() {
@@ -55,11 +55,11 @@ public class ReadingTip {
     }
     
     public ReadingTip(int id, String title, String type, String url, String author, 
-        String isbn, String description, boolean read, int priority_read, int priority_unread) {
+        String isbn, String description, boolean read, int priorityRead, int priorityUnread) {
         this(title, type, url, author, isbn, description, read);
         this.id = id;
-        this.priority_read = priority_read;
-        this.priority_unread = priority_unread;
+        this.priorityRead = priorityRead;
+        this.priorityUnread = priorityUnread;
     }
 
     public int getId() {
@@ -126,20 +126,20 @@ public class ReadingTip {
         this.read = read;
     }
     
-    public void setPriorityRead(int priority_read) {
-        this.priority_read = priority_read;
+    public void setPriorityRead(int priorityRead) {
+        this.priorityRead = priorityRead;
     }
     
     public int getPriorityRead() {
-        return this.priority_read;
+        return this.priorityRead;
     }
     
-    public void setPriorityUnread(int priority_unread) {
-        this.priority_unread = priority_unread;
+    public void setPriorityUnread(int priorityUnread) {
+        this.priorityUnread = priorityUnread;
     }
     
     public int getPriorityUnread() {
-        return this.priority_unread;
+        return this.priorityUnread;
     }
     
     

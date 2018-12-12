@@ -83,7 +83,7 @@ public class Controllers {
      * have been sent as a POST-request from the view.</p>
      * <p>The comments are saved with {@link ReadingTipService#saveNewComment(Comment, int)}.</p>
      * @param id takes the id of the associated tip from the view
-     * to tie it together with the comment parameter.
+     *     to tie it together with the comment parameter.
      * @param comment the contents of the comment that's being added.
      * @return redirect:/ - redirects to the main page.
      * @throws SQLException in case of database errors.
@@ -105,7 +105,7 @@ public class Controllers {
      * @param bindingResultTip holds the result for the validation for tips.
      * @param bindingResultTag holds the result for the validation of tags.
      * @return redirect:/ - redirects to the main page. In case of validation errors,
-     * redirects without saving tip.
+     *     redirects without saving tip.
      * @throws SQLException in case of database errors.
      */
     @PostMapping("/readingtip")

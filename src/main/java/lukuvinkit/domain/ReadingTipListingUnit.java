@@ -30,9 +30,15 @@ public class ReadingTipListingUnit implements Comparable<ReadingTipListingUnit> 
         }
 
         if (this.readingTip.isRead()) {
-            return Integer.compare(this.readingTip.getPriorityRead(), other.readingTip.getPriorityRead());
+            return Integer.compare(
+                this.readingTip.getPriorityRead(),
+                other.readingTip.getPriorityRead()
+            );
         }
-        return Integer.compare(this.readingTip.getPriorityUnread(), other.readingTip.getPriorityUnread());
+        return Integer.compare(
+            this.readingTip.getPriorityUnread(),
+            other.readingTip.getPriorityUnread()
+        );
     }
     
 }

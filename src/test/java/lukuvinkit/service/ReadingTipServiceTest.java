@@ -1,20 +1,24 @@
 
 package lukuvinkit.service;
 
-import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
+
 import java.sql.SQLException;
+
+import java.util.ArrayList;
+
 import junit.framework.Assert;
+
 import lukuvinkit.database.CommentDao;
 import lukuvinkit.database.Database;
 import lukuvinkit.database.ReadingTipDao;
 import lukuvinkit.database.TagDao;
 import lukuvinkit.domain.ReadingTip;
-import lukuvinkit.domain.Tag;
 import lukuvinkit.domain.ReadingTipListingUnit;
+import lukuvinkit.domain.Tag;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.BeforeClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ReadingTipServiceTest {
@@ -39,7 +43,7 @@ public class ReadingTipServiceTest {
         database.initializeDatabaseIfUninitialized();
     }
     
-    //@Test
+    @Test
     public void oneReadingTipCanBeAddedAndListed() throws SQLException {
         service.saveNewReadingTip(
                 new ReadingTip("Helsingin Sanomat", "Link", "http://hs.fi", "", 
@@ -47,7 +51,8 @@ public class ReadingTipServiceTest {
                 new Tag("nettisivu"));
         
         assertEquals(1, service.generateReadingTipListing().size());
-        assertEquals("Helsingin Sanomat", service.generateReadingTipListing().get(0).readingTip.getTitle());
+        assertEquals("Helsingin Sanomat",
+            service.generateReadingTipListing().get(0).readingTip.getTitle());
     }
     
     @Test

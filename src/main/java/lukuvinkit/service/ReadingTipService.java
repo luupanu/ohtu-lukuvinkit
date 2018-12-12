@@ -4,8 +4,8 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import lukuvinkit.database.CommentDao;
@@ -121,7 +121,8 @@ public class ReadingTipService {
         ReadingTip tip1 = readingTipDao.findOne(readingTipId1);
         ReadingTip tip2 = readingTipDao.findOne(readingTipId2);
         
-        if (tip1 == null || tip2 == null
+        if (tip1 == null
+                || tip2 == null
                 || (tip1.isRead() != tip2.isRead())
                 || (tip1.getId() == tip2.getId())) {
             return;
@@ -129,6 +130,7 @@ public class ReadingTipService {
         
         int unreadPriorityTip1 = tip1.getPriorityUnread();
         int readPriorityTip1 = tip1.getPriorityRead();
+
         tip1.setPriorityUnread(tip2.getPriorityUnread());
         tip1.setPriorityRead(tip2.getPriorityRead());
         tip2.setPriorityUnread(unreadPriorityTip1);
