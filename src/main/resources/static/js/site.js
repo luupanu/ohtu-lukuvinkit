@@ -56,7 +56,7 @@ const filterTips = () => {
     tip.read = tipIsRead(tip)
 
     if (!(typeIsHidden(tip.type))
-      && someTagIncludesFilter(tip, getFilter())
+      && someTagIncludesFilter(tip, normalizeString(getFilter()))
         && !(checkBoxIsChecked("filter-read") && tip.read)) {
           tip.style.display = "block"
         } else {
@@ -172,7 +172,7 @@ const someTagIncludesFilter = (tip, filter) => {
 
   return tags.some(tag => {
     const tagValue = normalizeString(tag.innerText)
-    return tagValue.includes(normalizeString(filter))
+    return tagValue.includes(filter)
   })
 }
 
