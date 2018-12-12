@@ -43,8 +43,17 @@ body {
 
 /* individual elements */
 
-a, .title, .filters b {
+a, .title, .filters span {
     color: #64e1e7;
+}
+
+.filters span {
+    font-weight: bold;
+    float: right;
+}
+
+.filters input {
+    clear: right;
 }
 
 article {

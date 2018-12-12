@@ -1,14 +1,17 @@
 <div th:fragment="filters">
 
     <div class="filters">
-        <b>Hide read</b>
-        <input id="filter-read" type="checkbox" name="hideRead" onclick="filterTips()" /><br />
-        <b>Hide links</b>
-        <input id="filter-links" type="checkbox" name="hideLinks" onclick="filterTips()" /><br />
-        <b>Hide articles</b>
-        <input id="filter-articles" type="checkbox" name="hideArticles" onclick="filterTips()" /><br />
-        <b>Hide books</b>
-        <input id="filter-books" type="checkbox" name="hideBooks" onclick="filterTips()" /><br />
+        <input id="filter-read" type="checkbox" name="hideRead" onclick="filterTips()" />
+        <span>Hide read</span>
+
+        <input id="filter-links" type="checkbox" name="hideLinks" onclick="filterTips()" />
+        <span>Hide links</span>
+
+        <input id="filter-articles" type="checkbox" name="hideArticles" onclick="filterTips()" />
+        <span>Hide articles</span>
+
+        <input id="filter-books" type="checkbox" name="hideBooks" onclick="filterTips()" />
+        <span>Hide books</span>
     </div>
 
 </div>
