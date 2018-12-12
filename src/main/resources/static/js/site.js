@@ -33,6 +33,17 @@ const newComment = (element) => {
   submitForm("newcomment", properties)
 }
 
+// Removes all filters and shows every tip again.
+const showAllTips = () => {
+  filterCheckboxes.forEach(item => {
+    document.getElementById(item).checked = false
+  })
+  document.getElementById("filter-none").checked = false
+  document.getElementById("search").value = ""
+
+  filterTips()
+}
+
 // Toggles the visibility of tips based on various filters.
 const filterTips = () => {
   const tips = getTips()

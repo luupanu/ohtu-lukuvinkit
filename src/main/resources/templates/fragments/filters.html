@@ -1,6 +1,9 @@
 <div th:fragment="filters">
 
     <div class="filters">
+        <input id="filter-none" type="checkbox" name="showAll" onclick="showAllTips()" />
+        <span>Remove all filters</span>
+
         <input id="filter-read" type="checkbox" name="hideRead" onclick="filterTips()" />
         <span>Hide read</span>
 
