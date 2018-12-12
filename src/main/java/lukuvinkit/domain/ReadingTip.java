@@ -151,7 +151,7 @@ public class ReadingTip {
             return false;
         }
         
-        if (!this.type.equals("Link")) {
+        if (!this.type.equals("link")) {
             return true;
         }
         
@@ -164,7 +164,7 @@ public class ReadingTip {
             return false;
         }
         
-        if (!this.type.equals("Article")) {
+        if (!this.type.equals("article")) {
             return true;
         }
         
@@ -177,7 +177,7 @@ public class ReadingTip {
             return false;
         }
         
-        if (!this.type.equals("Book")) {
+        if (!this.type.equals("book")) {
             return true;
         }
         
@@ -190,7 +190,7 @@ public class ReadingTip {
             return false;
         }
         
-        if (!this.type.equals("Book")) {
+        if (!this.type.equals("book")) {
             return true;
         }
         
