@@ -20,10 +20,9 @@ body {
     overflow: hidden;    
 }
 
-.heading {
-    padding-top: 10px;
-    padding-bottom: 20px;
-    text-align: center;
+.filters {
+    margin-top: 5px;
+    padding-right: 8px;
 }
 
 .readingtips {
@@ -83,6 +82,11 @@ input[type=text] {
     margin: 2px 0;
 }
 
+td {
+    margin: 0 10px;
+    display: block;
+}
+
 .create-readingtip input[type=text] {
     width: 350px;
 }
@@ -111,24 +115,16 @@ input[type=text] {
 }
 
 .filters input {
+    margin-left: 6px;
     position: relative;
     top: 5px;
     float: right; 
-}
-
-td {
-    margin: 0 10px;
-    display: block;
 }
 
 /* other custom classes */
 
 .center {
     text-align: center;
-}
-
-.error {
-    color: red;
 }
 
 .comment {
@@ -141,6 +137,16 @@ td {
 .commentarea {
     display: none;
     margin-left: 20px;
+}
+
+.error {
+    color: red;
+}
+
+.heading {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: center;
 }
 
 .newcomment {
