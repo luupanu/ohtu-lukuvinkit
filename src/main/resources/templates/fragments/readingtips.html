@@ -1,44 +1,44 @@
 <div th:fragment="readingtips">
 
     <div id="readingTipsList" class="readingtips">
-        <article th:id="${listingUnit.readingTip.id}" th:class="${listingUnit.readingTip.read} ? 'tip-read' : 'tip-unread'" th:each="listingUnit : ${list}" draggable="true" ondragstart="onDrag(event)" ondragover="allowDrop(event)" ondrop="swapPriorities(event)">
+        <article th:with="tip=${listingUnit.readingTip}, tags=${listingUnit.tags}, comments=${listingUnit.comments}" th:id="${tip.id}" th:class="${tip.read} ? 'read ' + ${tip.type} : 'unread ' + ${tip.type}" th:each="listingUnit : ${list}" draggable="true" ondragstart="onDrag(event)" ondragover="allowDrop(event)" ondrop="swapPriorities(event)">
 
             <div class="readingtips-read">
-                <label for="read" th:text="${listingUnit.readingTip.read} ? 'Mark as unread' : 'Mark as read' "></label>
+                <label for="read" th:text="${tip.read} ? 'Mark as unread' : 'Mark as read' "></label>
                 <input type="checkbox" name="read" onclick="toggleRead(this)" />
             </div>
 
             <div class="readingtips-title">
                 <h3>
-                    <span class="tip-type" th:text="${listingUnit.readingTip.type}"></span>
-                    <span class="title" th:if="${listingUnit.readingTip.url == ''}" th:text="${listingUnit.readingTip.title}"></span>
-                    <a class="title" th:if="${listingUnit.readingTip.url != ''}" th:href="@{__${listingUnit.readingTip.url}__}"
-                        th:text="${listingUnit.readingTip.title}" />
+                    <span th:text="${tip.type}"></span>
+                    <span class="title" th:if="${tip.url == ''}" th:text="${tip.title}"></span>
+                    <a class="title" th:if="${tip.url != ''}" th:href="@{__${tip.url}__}"
+                        th:text="${tip.title}" />
                 </h3>
-                <span class="read-tag" th:if="${listingUnit.readingTip.read}">READ</span>
+                <span class="read-tag" th:if="${tip.read}">READ</span>
             </div>
 
             <div class="readingtips-description">
-                <div class="readingtips-author" th:if="${listingUnit.readingTip.author != ''}">
+                <div class="readingtips-author" th:if="${tip.author != ''}">
                     <span>Author:</span>
-                    <p th:text="${listingUnit.readingTip.author}" />
+                    <p th:text="${tip.author}" />
                 </div>
-                <div class="readingtips-isbn" th:if="${listingUnit.readingTip.isbn != ''}">
+                <div class="readingtips-isbn" th:if="${tip.isbn != ''}">
                     <span>ISBN:</span>
-                    <p th:text="${listingUnit.readingTip.isbn}" />
+                    <p th:text="${tip.isbn}" />
                 </div>
-                <p th:text="${listingUnit.readingTip.description}" />
+                <p th:text="${tip.description}" />
             </div>
 
             <div class="readingtips-tags">
-                <span class="tag" th:each="tag : ${listingUnit.tags}" th:text="${tag.tagDescription}"></span>
+                <span class="tag" th:each="tag : ${tags}" th:text="${tag.tagDescription}"></span>
             </div>
 
             <div class="readingtips-comments">
-                <a href="#" onclick="toggleComments(this)" th:text="${#lists.size(listingUnit.comments)} + ' comment(s)'"></a>
+                <a href="#" onclick="toggleComments(this)" th:text="${#lists.size(comments)} + ' comment(s)'"></a>
 
                 <div class="commentarea">
-                    <li class="comment" th:each="comment : ${listingUnit.comments}" th:text="${comment.commentDescription}"></li>
+                    <li class="comment" th:each="comment : ${comments}" th:text="${comment.commentDescription}"></li>
 
                     <div class="newcomment">
                         <form>
