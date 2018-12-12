@@ -36,7 +36,7 @@ Scenario: When user hides tips of all types, none are shown
     Then "Article tip for filter test" is not shown
     Then "Book tip for filter test" is not shown
 
-Scenario: When user hides and rehides tips of all types, all are shown
+Scenario: When user hides and then unhides tips of all types manually, all are shown
     Given user is at the main page
     When "hideArticles" is clicked
     When "hideLinks" is clicked
@@ -50,3 +50,13 @@ Scenario: When user hides and rehides tips of all types, all are shown
     Then "Link tip for filter test" is shown
     Then "Article tip for filter test" is shown
     Then "Book tip for filter test" is shown
+
+Scenario: When user clears all filters with the checkbox reserved for it, tips that were hidden are shown
+    Given user is at the main page
+    When "hideArticles" is clicked
+    When "hideLinks" is clicked
+    And "Link tip for filter test" is not shown
+    And "Article tip for filter test" is not shown
+    When "showAll" is clicked
+    Then "Link tip for filter test" is shown
+    Then "Article tip for filter test" is shown
