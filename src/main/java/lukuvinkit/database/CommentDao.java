@@ -33,6 +33,16 @@ public class CommentDao {
 
         ResultSet result = statement.executeQuery();
 
+        ArrayList<Comment> allCommentsForReadingTip = extractComments(result);
+
+        result.close();
+        statement.close();
+        connection.close();
+
+        return allCommentsForReadingTip;
+    }
+    
+    private ArrayList<Comment> extractComments(ResultSet result) throws SQLException {
         ArrayList<Comment> allCommentsForReadingTip = new ArrayList<>();
 
         while (result.next()) {
@@ -42,20 +52,16 @@ public class CommentDao {
                 result.getInt("readingtip_id")
             ));
         }
-
-        result.close();
-        statement.close();
-        connection.close();
-
+        
         return allCommentsForReadingTip;
     }
+    
     
     public void save(Comment comment) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
             "INSERT INTO Comment(description, readingtip_id) values (?, ?)"
         );
-
         statement.setString(1, comment.getCommentDescription());
         statement.setInt(2, comment.getReadingTipId());
 

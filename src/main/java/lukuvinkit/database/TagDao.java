@@ -24,6 +24,7 @@ public class TagDao {
         this.database = database;
     }
 
+    
     public ArrayList<Tag> findAllForReadingTip(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
@@ -36,6 +37,16 @@ public class TagDao {
 
         ResultSet result = statement.executeQuery();
 
+        ArrayList<Tag> allTagsForReadingTip = extractTags(result);
+
+        result.close();
+        statement.close();
+        connection.close();
+
+        return allTagsForReadingTip;
+    }
+    
+    private ArrayList<Tag> extractTags(ResultSet result) throws SQLException {
         ArrayList<Tag> allTagsForReadingTip = new ArrayList<>();
 
         while (result.next()) {
@@ -44,13 +55,10 @@ public class TagDao {
                 result.getString("tagDescription")
             ));
         }
-
-        result.close();
-        statement.close();
-        connection.close();
-
+        
         return allTagsForReadingTip;
     }
+    
 
     public Tag save(Tag tag) throws SQLException {
         Connection connection = database.getConnection();
@@ -60,6 +68,7 @@ public class TagDao {
             "INSERT INTO Tag(tagDescription) values (?) ON CONFLICT (tagDescription) DO NOTHING"
         );
         statement.setString(1, tag.getTagDescription());
+        
         int rowsInserted = statement.executeUpdate();
         
         int id;
