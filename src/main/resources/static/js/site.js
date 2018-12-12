@@ -38,8 +38,11 @@ const showAllTips = () => {
   filterCheckboxes.forEach(item => {
     document.getElementById(item).checked = false
   })
-  document.getElementById("filter-none").checked = false
   document.getElementById("search").value = ""
+
+  setTimeout(() => {
+    document.getElementById("filter-none").checked = false
+  }, 100)
 
   filterTips()
 }
