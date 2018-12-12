@@ -30,6 +30,7 @@ public class ReadingTip {
     private boolean read;
     
     private int priorityRead;
+    
     private int priorityUnread;
     
 
@@ -39,6 +40,7 @@ public class ReadingTip {
 
     public ReadingTip(String title, String type, String url, String author, 
         String isbn, String description, boolean read) {
+        
         this.title = title;
         this.type = type;
         this.url = url;
@@ -50,13 +52,17 @@ public class ReadingTip {
 
     public ReadingTip(int id, String title, String type, String url, String author, 
         String isbn, String description, boolean read) {
+        
         this(title, type, url, author, isbn, description, read);
+        
         this.id = id;
     }
     
     public ReadingTip(int id, String title, String type, String url, String author, 
         String isbn, String description, boolean read, int priorityRead, int priorityUnread) {
+        
         this(title, type, url, author, isbn, description, read);
+        
         this.id = id;
         this.priorityRead = priorityRead;
         this.priorityUnread = priorityUnread;

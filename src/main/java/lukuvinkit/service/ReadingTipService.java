@@ -36,55 +36,40 @@ public class ReadingTipService {
         this.tagDao = tagDao;
     }
 
+    
     public ArrayList<ReadingTipListingUnit> generateReadingTipListing() throws SQLException {
-
         ArrayList<ReadingTipListingUnit> readingTipListing = new ArrayList<>();
-
-        ArrayList<ReadingTip> allReadingTips = readingTipDao.findAll();
-
-        for (ReadingTip tip : allReadingTips) {
-            ArrayList<Comment> commentsOfTip = commentDao.findAllForReadingTip(tip.getId());
-            ArrayList<Tag> tagsOfTip = tagDao.findAllForReadingTip(tip.getId());
-            ReadingTipListingUnit listingUnit = new ReadingTipListingUnit(
-                tip,
-                commentsOfTip,
-                tagsOfTip
-            );
-            readingTipListing.add(listingUnit);
-        }
         
+        for (ReadingTip tip : readingTipDao.findAll()) {
+            readingTipListing.add(listingUnitMaker(tip));
+        }
         Collections.sort(readingTipListing);
-
+        
         return readingTipListing;
     }
-
-    public void saveNewReadingTip(ReadingTip newTip, Tag allTagsTogether) throws SQLException {
-        // Separate tags into individual Tag-instances.
-        List<String> tagsAsString = new ArrayList<String>(
-            Arrays.asList((allTagsTogether.getTagDescription()).split("\\s*,\\s*")));
-        List<String> noDuplicateTags =  tagsAsString.stream()
-                                                    .distinct()
-                                                    .collect(Collectors.toList());
-
-        ArrayList<Tag> tags = new ArrayList<Tag>();
-        for (String t : noDuplicateTags) {
-            if (t != null && !t.isEmpty()) {
-                tags.add(new Tag(t));
-            }
-        }
+    
+    private ReadingTipListingUnit listingUnitMaker(ReadingTip tip) throws SQLException {
+        ArrayList<Comment> commentsOfTip = commentDao.findAllForReadingTip(tip.getId());
+        ArrayList<Tag> tagsOfTip = tagDao.findAllForReadingTip(tip.getId());
         
-        // Save all tags into database that are not yet there,
-        // fetch IDs for all tags at the same time.
-        int i = 0;
-        while (i < tags.size()) {
-            Tag tag = tags.get(i);
-            tag = tagDao.save(tag);
-            ++i;
-        }
+        ReadingTipListingUnit listingUnit = new ReadingTipListingUnit(
+            tip,
+            commentsOfTip,
+            tagsOfTip
+        );
+        
+        return listingUnit;
+    }
+
+    
+    public void saveNewReadingTip(ReadingTip newTip, Tag allTagsTogether) throws SQLException {
+        ArrayList<Tag> tags = tagSeparator(allTagsTogether);
+        
+        saveNovelTagsAndUpdateIdsForAll(tags);
         
         // Find out and set the proper priority_unread value for the new reading tip.
-        int priorityUnread = readingTipDao.findMaxUnreadPriority() + 1;
-        newTip.setPriorityUnread(priorityUnread);
+        int lowestPriorityUnread = readingTipDao.findMaxUnreadPriority() + 1;
+        newTip.setPriorityUnread(lowestPriorityUnread);
         
         // Save the new reading tip.
         newTip.setRead(false);
@@ -94,10 +79,41 @@ public class ReadingTipService {
         readingTipDao.bindTagsToReadingTip(newTip, tags);
     }
     
+    private ArrayList<Tag> tagSeparator(Tag allTagsTogether) {
+        // Separate tags into individual Tag-instances.
+        List<String> tagsAsString = new ArrayList<>(
+            Arrays.asList((allTagsTogether.getTagDescription()).split("\\s*,\\s*")));
+        List<String> noDuplicateTags =  tagsAsString.stream()
+                                                    .distinct()
+                                                    .collect(Collectors.toList());
+        
+        ArrayList<Tag> tags = new ArrayList<>();
+        for (String t : noDuplicateTags) {
+            if (t != null && !t.isEmpty()) {
+                tags.add(new Tag(t));
+            }
+        }
+        
+        return tags;
+    }
+    
+    private void saveNovelTagsAndUpdateIdsForAll(ArrayList<Tag> tags) throws SQLException {
+        // Save all tags into database that are not yet there,
+        // fetch IDs for all tags at the same time.
+        int i = 0;
+        while (i < tags.size()) {
+            Tag tag = tags.get(i);
+            tagDao.save(tag);
+            ++i;
+        }
+    }
+    
+    
     public void saveNewComment(Comment newComment, int readingTipId) throws SQLException {
         newComment.setReadingTipId(readingTipId);
         commentDao.save(newComment);
     }
+    
     
     public void toggleReadingTipRead(int readingTipId) throws SQLException {
         ReadingTip tip = readingTipDao.findOne(readingTipId);
@@ -106,38 +122,51 @@ public class ReadingTipService {
             return;
         }
         
+        toggleReadAndSetLowestPriority(tip);
+        
+        readingTipDao.update(tip);
+    }
+    
+    private void toggleReadAndSetLowestPriority(ReadingTip tip) throws SQLException {
         if (!tip.isRead()) {
             tip.setRead(true);
             tip.setPriorityRead(readingTipDao.findMaxReadPriority() + 1);
         } else {
             tip.setRead(false);
             tip.setPriorityUnread(readingTipDao.findMaxUnreadPriority() + 1);
-        }
-        
-        readingTipDao.update(tip);
+        }        
     }
+    
     
     public void swapPriorities(int readingTipId1, int readingTipId2) throws SQLException {
         ReadingTip tip1 = readingTipDao.findOne(readingTipId1);
         ReadingTip tip2 = readingTipDao.findOne(readingTipId2);
         
+        if (!bothAreEitherReadOrUnread(tip1, tip2)) return;
+        
+        swapPrioritiesOfTwoReadingTipInstances(tip1, tip2);
+        readingTipDao.update(tip1);
+        readingTipDao.update(tip2);
+    }
+    
+    private boolean bothAreEitherReadOrUnread(ReadingTip tip1, ReadingTip tip2) {
         if (tip1 == null
                 || tip2 == null
                 || (tip1.isRead() != tip2.isRead())
                 || (tip1.getId() == tip2.getId())) {
-            return;
+            return false;
         }
-        
+        return true;
+    }
+    
+    private void swapPrioritiesOfTwoReadingTipInstances(ReadingTip tip1, ReadingTip tip2) {
         int unreadPriorityTip1 = tip1.getPriorityUnread();
         int readPriorityTip1 = tip1.getPriorityRead();
 
         tip1.setPriorityUnread(tip2.getPriorityUnread());
         tip1.setPriorityRead(tip2.getPriorityRead());
         tip2.setPriorityUnread(unreadPriorityTip1);
-        tip2.setPriorityRead(readPriorityTip1);
-        
-        readingTipDao.update(tip1);
-        readingTipDao.update(tip2);
+        tip2.setPriorityRead(readPriorityTip1);        
     }
 
 }
