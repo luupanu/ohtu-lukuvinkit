@@ -31,7 +31,6 @@ public class ReadingTipDao {
         PreparedStatement statement = connection.prepareStatement(
             "SELECT * FROM ReadingTip"
         );
-
         ResultSet result = statement.executeQuery();
         
         ArrayList<ReadingTip> allReadingTips = extractReadingTips(result);
@@ -75,17 +74,10 @@ public class ReadingTipDao {
             + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         setAttributesOfReadingTipInsertQuery(statement, tip);
-        
         statement.executeUpdate();
         
-        statement = connection.prepareStatement("select last_insert_rowid()");
-        ResultSet result = statement.executeQuery();
-        result.next();
-
-        int id = result.getInt(1);
-        tip.setId(id);
-
-        result.close();
+        tip.setId(Database.lastInsertRowid(connection));
+        
         statement.close();
         connection.close();
         
@@ -110,7 +102,6 @@ public class ReadingTipDao {
             "UPDATE ReadingTip SET read=CASE read WHEN true THEN false ELSE true END WHERE id=?"
         );
         statement.setInt(1, readingTipId);
-        
         statement.executeUpdate();
 
         statement.close();
@@ -141,7 +132,6 @@ public class ReadingTipDao {
             "SELECT * FROM ReadingTip WHERE id = ?"
         );
         statement.setInt(1, readingTipId);
-
         ResultSet result = statement.executeQuery();
         
         ReadingTip tip = extractReadingTip(result);
@@ -183,7 +173,6 @@ public class ReadingTipDao {
                 + "WHERE id = ?"
         );
         setAttributesOfReadingTipUpdateQuery(statement, tip);
-        
         statement.executeUpdate();
 
         statement.close();
@@ -219,11 +208,9 @@ public class ReadingTipDao {
         PreparedStatement statement = connection.prepareStatement(
             "SELECT MAX(" + columnName + ") FROM ReadingTip"
         );
-
         ResultSet result = statement.executeQuery();
         
         int priority;
-        
         if (result.next()) {
             priority = result.getInt(1);
         } else {
