@@ -177,13 +177,10 @@ public class ReadingTipService {
     }
     
     private boolean bothAreEitherReadOrUnread(ReadingTip tip1, ReadingTip tip2) {
-        if (tip1 == null
-                || tip2 == null
-                || (tip1.isRead() != tip2.isRead())
-                || (tip1.getId() == tip2.getId())) {
-            return false;
-        }
-        return true;
+        return tip1 != null
+            && tip2 != null
+            && tip1.isRead() == tip2.isRead()
+            && tip1.getId() != tip2.getId();
     }
     
     private void swapPrioritiesOfTwoReadingTipInstances(ReadingTip tip1, ReadingTip tip2) {
