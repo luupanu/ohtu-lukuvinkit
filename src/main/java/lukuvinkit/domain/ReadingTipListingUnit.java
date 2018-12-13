@@ -3,6 +3,10 @@ package lukuvinkit.domain;
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
+/**
+ * A container that holds one reading tip, the comments of that reading tip
+ * and the tags associated to that reading tip.
+ */
 @Component
 public class ReadingTipListingUnit implements Comparable<ReadingTipListingUnit> {
 

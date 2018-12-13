@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.stereotype.Component;
 
+/**
+ * Represents the database.
+ */
 @Component
 public class Database {
     
@@ -16,10 +19,19 @@ public class Database {
         // default constructor for Spring
     }
     
+    /**
+     * Sets up the database.
+     * @param address The location and filename of the database.
+     */
     public Database(String address) {
         this.address = address;
     }
     
+    /**
+     * Provides connection to the database.
+     * @return The database connection.
+     * @throws SQLException 
+     */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(this.address);
     }
@@ -37,8 +49,10 @@ public class Database {
         );
         ResultSet result = statement.executeQuery();
         
-        result.next();
-        int tableCount = result.getInt(1);
+        int tableCount = 0;
+        if (result.next()) {
+            tableCount = result.getInt(1);
+        }
         
         result.close();
         statement.close();

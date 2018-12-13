@@ -6,6 +6,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.stereotype.Component;
 
+/**
+ * Represents a reading tip.
+ */
 @Component
 public class ReadingTip {
 

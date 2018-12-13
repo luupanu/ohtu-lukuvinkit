@@ -15,6 +15,9 @@ import lukuvinkit.domain.ReadingTipListingUnit;
 import lukuvinkit.domain.Tag;
 import org.springframework.stereotype.Component;
 
+/**
+ * Provides the backend services needed by the frontend reading tip application.
+ */
 @Component
 public class ReadingTipService {
 
@@ -80,7 +83,7 @@ public class ReadingTipService {
         
         // Save the new reading tip.
         newTip.setRead(false);
-        newTip = readingTipDao.save(newTip);
+        readingTipDao.save(newTip);
         
         // Bind all tags to the new reading tip.
         readingTipDao.bindTagsToReadingTip(newTip, tags);
