@@ -1,6 +1,6 @@
-# Demo cheat sheet (Sprint 3)
+# Demo cheat sheet (Sprint 4)
 
-## Valmiit user storyt (Sprint 3):
+## Valmiit user storyt (Sprint 4):
 
 1. Asiakas voi lisätä lukuvinkin
 2. Asiakas voi selata lukuvinkkejä
@@ -11,6 +11,8 @@
 7. Asiakas voi lisätä artikkelin lukuvinkkeihin
 8. Asiakas voi hakea lukuvinkkejä tagien perusteella
 9. Asiakas voi filtteröidä jo luetut lukuvinkit pois
+10. Asiakas voi filtteröidä vinekkjä tyypin perusteella
+11. Asiakas voi asettaa lukuvienkeille prioriteetti järjestyksen
 
 ## DEMO
 
@@ -21,10 +23,11 @@
 * Lukuvinkkien selaus
 * Urlin validointi
 
-### Step 2 (Storyt 3, 9)
+### Step 2 (Storyt 3, 9, 10)
 
 * Lukuvinkin merkitseminen luetuksi
 * Luetuksi merkittyjen lukuvinkkien filtteröiminen
+* Filtteröiminen tyypin perusteella
 
 ### Step 3 (Story 4)
 
@@ -34,6 +37,10 @@
 
 * Lukuvienkkin haku tagien perusteella
 * Haku tageilla: AI sekä Software
+
+### Step 5 (Story 11)
+
+* Lukuvinkkien priorisointi
 
 
 ## Lukuvinkkjeä demoa varten:
