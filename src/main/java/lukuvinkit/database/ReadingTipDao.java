@@ -1,15 +1,12 @@
 package lukuvinkit.database;
 
+import lukuvinkit.domain.ReadingTip;
+import lukuvinkit.domain.Tag;
+import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import java.util.ArrayList;
-
-import lukuvinkit.domain.ReadingTip;
-import lukuvinkit.domain.Tag;
-
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,6 +24,7 @@ public class ReadingTipDao {
     
     /**
      * Lists all reading tips in the database.
+     * @return A list of reading tips.
      * @throws SQLException 
      */
     public ArrayList<ReadingTip> findAll() throws SQLException {
