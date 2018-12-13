@@ -12,4 +12,5 @@ Feature: User can write comments to old and newly created reading tips
     And new tip is submitted
     And link "0 comment(s)" is clicked
     Then comment "Dope tip" is submitted
-    And link "1 comment(s)" is shown
+    And tip "Otm reading tip" is shown with link "1 comment(s)"
+

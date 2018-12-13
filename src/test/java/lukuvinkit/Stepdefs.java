@@ -12,6 +12,7 @@ import cucumber.api.java.en.When;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import lukuvinkit.service.ReadingTipService;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -118,6 +119,14 @@ public class Stepdefs {
 
         simulateDragAndDrop(from, to);
     }
+    
+    @Then("^tip \"([^\"]*)\" is shown with link \"([^\"]*)\"$")
+    public void tipHasrightNumberOfComments(String tipTitle, String commentText) {
+        String tipId = getTipIdByTitle(tipTitle);
+        WebElement tip = driver.findElement(By.id(tipId));
+        boolean result = tip.getText().contains(commentText);
+        assertEquals(true, result);
+    }
 
     @Then("^link \"([^\"]*)\" is shown$")
     public void linkIsShown(String linkText) {
@@ -164,6 +173,7 @@ public class Stepdefs {
         }
         assertEquals(1, counter);
     }
+    
 
     @Then("^\"([^\"]*)\" has higher priority than \"([^\"]*)\"$")
     public void hasHigherPriorityThan(String tip1, String tip2) {
@@ -242,5 +252,4 @@ public class Stepdefs {
 
         executor.executeScript(dragAndDropSimulator + injectedString);
     }
-
 }
