@@ -125,7 +125,7 @@ public class Database {
         if (result.next()) {
             id = result.getInt(1);
         } else {
-            throw new SQLException("Couldn't find row id of last insert.")
+            throw new SQLException("Couldn't find row id of last insert.");
         }
         
         result.close();
