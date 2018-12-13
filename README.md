@@ -23,7 +23,7 @@ The app should be quite intuitive to use. At the bottom of the page you will fin
 
 * [Heroku](https://lukuvinkit.herokuapp.com/)
 * [Test coverage report](https://app.codacy.com/app/Koppari/ohtu-lukuvinkit/files)
-* [Documentation](https://docs.google.com/document/d/1O4CmI0dEY2C_Ug7-gUTDmSD48oMHeIVG8lrNBHUmthI)
+* [Architecture](https://github.com/luupanu/ohtu-lukuvinkit/blob/master/docs/arkkitehtuuri.pdf)
 * [Product Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU)
 * [Sprint 1 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=0)
 * [Sprint 2 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=1294251749)
