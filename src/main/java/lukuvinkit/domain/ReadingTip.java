@@ -1,8 +1,6 @@
 package lukuvinkit.domain;
 
-import java.util.Comparator;
 import javax.validation.constraints.AssertTrue;
-
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.stereotype.Component;
