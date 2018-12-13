@@ -79,19 +79,19 @@ const newReadingTipFormRefresh = () => {
   const author = document.getElementById("authorInput")
   const isbn = document.getElementById("isbnInput")
 
-  if (typeField.value == "link") {
+  if (typeField.value === "link") {
     author.value = ""
     isbn.value = ""
     urlField.style.display = "block"
     authorField.style.display = "none"
     isbnField.style.display = "none"
-  } else if (typeField.value == "article") {
+  } else if (typeField.value === "article") {
     url.value = ""
     isbn.value = ""
     urlField.style.display = "none"
     authorField.style.display = "block"
     isbnField.style.display = "none"
-  } else if (typeField.value == "book") {
+  } else if (typeField.value === "book") {
     url.value = ""
     urlField.style.display = "none"
     authorField.style.display = "block"
