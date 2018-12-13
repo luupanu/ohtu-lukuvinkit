@@ -24,8 +24,7 @@ const newComment = (element) => {
 
   // If not a valid comment, give an error message and return.
   if (!commentDescription.checkValidity()) {
-    element.nextElementSibling.click()
-    return
+    return element.nextElementSibling.click()
   }
 
   const properties = { id, commentDescription: commentDescription.value }
@@ -107,14 +106,15 @@ const swapPriorities = (event) => {
   const dragId = event.dataTransfer.getData("text")
   const dropId = getParentArticle(event.target).id || dragId
 
-  if (dragId === dropId) {
-    return
+  const tip1 = document.getElementById(dragId)
+  const tip2 = document.getElementById(dropId)
+
+  // Check if we allow swapPriorities here, if not, reset css and return.
+  if (dragId === dropId || tipIsRead(tip1) !== tipIsRead(tip2)) {
+    return [...getTips()].map(tip => tip.style.backgroundColor = "")
   }
 
-  const properties = {
-    id1: dragId,
-    id2: dropId
-  }
+  const properties = { id1: dragId, id2: dropId }
 
   submitForm("swappriorities", properties)
 }
@@ -195,6 +195,14 @@ const getParentArticle = (element) => {
 const onDrag = (event) => {
   event.dataTransfer.effectAllowed = "move" // for a visual 'move' effect
   event.dataTransfer.setData("text", event.target.id)
+
+  // Visuals to "disable" tips you can't swap priorities with.
+  const dragged = document.getElementById(event.target.id)
+  const unswappableTips = [...getTips()]
+    .filter(tip => tipIsRead(tip) !== tipIsRead(dragged))
+  const disabled = "rgba(255, 255, 255, 0.4)"
+
+  unswappableTips.map(tip => tip.style.backgroundColor = disabled)
 }
 
 // Prevents default handling of HTML5 ondragover.
