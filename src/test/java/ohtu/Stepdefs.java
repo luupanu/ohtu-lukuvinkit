@@ -10,8 +10,11 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -71,8 +74,16 @@ public class Stepdefs {
     }
 
     @When("^^\"([^\"]*)\" is clicked$")
-    public void anElementIsClicked(String arg1) throws Throwable {
-        clickElementByName(arg1);
+    public void anElementIsClicked(String element) throws Throwable {
+        clickElementByName(element);
+    }
+
+    @When("^\"([^\"]*)\" inside \"([^\"]*)\" is clicked$")
+    public void insideTipIsClicked(String name, String tipTitle) throws Throwable {
+        String id = getTipIdByTitle(tipTitle);
+        WebElement tip = driver.findElement(By.id(id));
+        WebElement element = tip.findElement(By.name(name));
+        element.click();
     }
 
     @When("^link \"([^\"]*)\" is clicked$")
@@ -101,6 +112,20 @@ public class Stepdefs {
         fillNewBookTipWithTags(title, description, author, isbn, tags);
     }
 
+    @When("^\"([^\"]*)\" is dragged and dropped to \"([^\"]*)\"$")
+    public void tipIsDraggedAndDroppedTo(String tip1, String tip2) throws Throwable {
+        String from = getTipIdByTitle(tip1);
+        String to = getTipIdByTitle(tip2);
+
+        // Note: Couldn't get Selenium's drag and drop working, using an external library from
+        // https://github.com/Photonios/JS-DragAndDrop-Simulator
+        String dragAndDropSimulator = new String(Files.readAllBytes(Paths.get("lib/dndsim.js")));
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+
+        String injectedString = "\nDndSimulator.simulate(" + from + ", " + to + ");";
+
+        executor.executeScript(dragAndDropSimulator + injectedString);
+    }
 
     @Then("^link \"([^\"]*)\" is shown$")
     public void linkIsShown(String linkText) {
@@ -153,8 +178,15 @@ public class Stepdefs {
         assertEquals(1, counter);
     }
 
+    @Then("^\"([^\"]*)\" has higher priority than \"([^\"]*)\"$")
+    public void hasHigherPriorityThan(String tip1, String tip2) throws Throwable {
+        String body = driver.findElement(By.tagName("body")).getText();
+
+        assertTrue(body.indexOf(tip1) < body.indexOf(tip2));
+    }
+
     // Call this method always with the right order of arguments
-    // -> title, description, url, author, isbn, tagDescription
+    //  -> title, description, url, author, isbn, tagDescription
     private void fillNewGenericTip(String... arguments) {
         assertTrue(driver.getPageSource().contains("Add a new reading tip"));
 
@@ -205,6 +237,12 @@ public class Stepdefs {
             System.out.println(e.getStackTrace());
         }
 
+    }
+
+    private String getTipIdByTitle(String title) {
+        return driver.findElement(
+            By.xpath("//*[text() = '" + title + "']//ancestor::article"))
+            .getAttribute("id");
     }
 
 }
