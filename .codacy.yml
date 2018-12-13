@@ -6,3 +6,5 @@ exclude_paths:
   - src/main/java/lukuvinkit/Main.java
   - Demo_cheatsheet.md
   - CREDITS.md
+  - docs/**
+  - lib/**
