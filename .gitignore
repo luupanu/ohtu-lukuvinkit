@@ -14,6 +14,7 @@ bin/
 
 # Ignore local db
 data.db
+testdata.db
 
 # Ignore jacoco files
 jacococoverage/test/jacocoTestReport.xml

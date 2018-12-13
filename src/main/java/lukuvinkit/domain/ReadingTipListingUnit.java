@@ -1,9 +1,12 @@
-
 package lukuvinkit.domain;
 
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
+/**
+ * A container that holds one reading tip, the comments of that reading tip
+ * and the tags associated to that reading tip.
+ */
 @Component
 public class ReadingTipListingUnit implements Comparable<ReadingTipListingUnit> {
 
@@ -24,7 +27,22 @@ public class ReadingTipListingUnit implements Comparable<ReadingTipListingUnit> 
 
     @Override
     public int compareTo(ReadingTipListingUnit other) {
-        return this.readingTip.isRead() ? 1 : -1;
+        int result = Boolean.compare(this.readingTip.isRead(), other.readingTip.isRead());
+        
+        if (result != 0) {
+            return result;
+        }
+
+        if (this.readingTip.isRead()) {
+            return Integer.compare(
+                this.readingTip.getPriorityRead(),
+                other.readingTip.getPriorityRead()
+            );
+        }
+        return Integer.compare(
+            this.readingTip.getPriorityUnread(),
+            other.readingTip.getPriorityUnread()
+        );
     }
     
 }

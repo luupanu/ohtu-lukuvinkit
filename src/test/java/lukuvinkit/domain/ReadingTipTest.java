@@ -9,6 +9,14 @@ import org.junit.Test;
 
 public class ReadingTipTest {
 
+    private ReadingTip readingTipTestConstructor1;
+
+    @Before
+    public void setUp() {
+        readingTipTestConstructor1 = new ReadingTip(1, "Tip 1 for testing", "https://yle.fi/", "Just testing here", "",
+                "", "", false);
+    }
+  
     @Test
     public void settersWorkLikeShould() {
         ReadingTip readingTipTestConstructor1 = new ReadingTip(1, "Tip 1 for testing", "https://yle.fi/", "Just testing here", "",

@@ -3,7 +3,7 @@ body {
     font-family: 'Noto Sans SC', sans-serif;
     margin: 0;
     padding: 0;
-    height: 100%
+    height: 100%;
 }
 
 /* main containers */
@@ -20,10 +20,9 @@ body {
     overflow: hidden;    
 }
 
-.heading {
-    padding-top: 10px;
-    padding-bottom: 20px;
-    text-align: center;
+.filters {
+    margin-top: 5px;
+    padding-right: 8px;
 }
 
 .readingtips {
@@ -43,8 +42,17 @@ body {
 
 /* individual elements */
 
-a, #hideCheck, .title {
+a, .title, .filters span {
     color: #64e1e7;
+}
+
+.filters span {
+    font-weight: bold;
+    float: right;
+}
+
+.filters input {
+    clear: right;
 }
 
 article {
@@ -74,6 +82,11 @@ input[type=text] {
     margin: 2px 0;
 }
 
+td {
+    margin: 0 10px;
+    display: block;
+}
+
 .create-readingtip input[type=text] {
     width: 350px;
 }
@@ -82,7 +95,7 @@ input[type=text] {
     width: 436px;
 }
 
-input[type=submit] {
+.submitbutton {
     font-size: 12px;
     font-weight: bold;
     width: 200px;
@@ -93,27 +106,25 @@ input[type=submit] {
     padding: 10px;
 }
 
-input[type=submit]:hover {
+.submitbutton:hover {
     background-color: #52c8ce;
 }
 
-.topnav input {
+.filters, .topnav input, .readingtips-read {
     float: right;
 }
 
-td {
-    margin: 0 10px;
-    display: block;
+.filters input {
+    margin-left: 6px;
+    position: relative;
+    top: 5px;
+    float: right; 
 }
 
 /* other custom classes */
 
 .center {
     text-align: center;
-}
-
-.error {
-    color: red;
 }
 
 .comment {
@@ -128,6 +139,16 @@ td {
     margin-left: 20px;
 }
 
+.error {
+    color: red;
+}
+
+.heading {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
 .newcomment {
     border-top: 2px solid #64e1e7;
     padding: 20px 0 0 0;
@@ -139,11 +160,6 @@ td {
     border: 2px solid white;
     padding: 2px;
     margin-left: 5px;
-}
-
-.readFilter {
-    float: right
-
 }
 
 .readingtips-author p,
@@ -162,10 +178,6 @@ td {
 
 .readingtips-description {
     color: #64e1e7;
-}
-
-.readingtips-read {
-    float: right;
 }
 
 .tag {

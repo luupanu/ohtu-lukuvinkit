@@ -1,9 +1,11 @@
-
 package lukuvinkit.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
+/**
+ * Represents a comment of a reading tip.
+ */
 @Component
 public class Comment {
 
@@ -24,9 +26,8 @@ public class Comment {
     }
 
     public Comment(int id, String description, int readingTipId) {
+        this(description, readingTipId);
         this.id = id;
-        this.commentDescription = description;
-        this.readingTipId = readingTipId;
     }
 
     public int getId() {

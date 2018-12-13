@@ -1,4 +1,3 @@
-
 package lukuvinkit.database;
 
 import java.sql.Connection;
@@ -8,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.stereotype.Component;
 
+/**
+ * Represents the database.
+ */
 @Component
 public class Database {
     
@@ -17,79 +19,133 @@ public class Database {
         // default constructor for Spring
     }
     
+    /**
+     * Sets up the database.
+     * @param address The location and filename of the database.
+     */
     public Database(String address) {
         this.address = address;
     }
     
+    /**
+     * Provides connection to the database.
+     * @return The database connection.
+     * @throws SQLException 
+     */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(this.address);
     }
     
-    public void initializeDatabase() throws SQLException {
+    public void initializeDatabaseIfUninitialized() throws SQLException {
+        if (countTables() == 0) {
+            createTables();
+        }
+    }
+    
+    private int countTables() throws SQLException {
         Connection connection = this.getConnection();
-        
-        // Check if database table is already created.
-        PreparedStatement statementTableCheck = connection.prepareStatement(
+        PreparedStatement statement = connection.prepareStatement(
             "select count(*) from sqlite_master"
         );
-        ResultSet result = statementTableCheck.executeQuery();
-        result.next();
-        int tableExists = result.getInt(1);
+        ResultSet result = statement.executeQuery();
+        
+        int tableCount = 0;
+        if (result.next()) {
+            tableCount = result.getInt(1);
+        }
+        
         result.close();
-        statementTableCheck.close();
+        statement.close();
+        connection.close();
+        
+        return tableCount;
+    }
+    
+    private void createTables() throws SQLException {
+        Connection connection = this.getConnection();
 
-        // Create database tables if it is not yet created.
-        if (tableExists == 0) {
-            PreparedStatement statementCreateTable = connection.prepareStatement(
-                "CREATE TABLE ReadingTip"
-                + "("
-                    + "id INTEGER PRIMARY KEY, "
-                    + "title TEXT, "
-                    + "type TEXT, "
-                    + "url TEXT, "
-                    + "author TEXT, "
-                    + "isbn TEXT, "
-                    + "description TEXT, "
-                    + "read BOOLEAN"
-                + ")"
-            );
-            statementCreateTable.executeUpdate();
-            
-            statementCreateTable = connection.prepareStatement(
-                "CREATE TABLE Tag"
-                + "("
-                    + "id INTEGER PRIMARY KEY, "
-                    + "tagDescription TEXT UNIQUE"
-                + ")"
-            );
-            statementCreateTable.executeUpdate();
-            
-            statementCreateTable = connection.prepareStatement(
-                "CREATE TABLE ReadingTipTag"
-                + "("
-                    + "readingtip_id INTEGER, "
-                    + "tag_id INTEGER, "
-                    + "FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id), "
-                    + "FOREIGN KEY(tag_id) REFERENCES Tag(id)"
-                + ")"
-            );
-            statementCreateTable.executeUpdate();
-            
-            statementCreateTable = connection.prepareStatement(
-                "CREATE TABLE Comment"
-                + "("
-                    + "id INTEGER PRIMARY KEY, "
-                    + "description TEXT, "
-                    + "readingtip_id INTEGER, "
-                    + "FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id)"
-                + ")"
-            );
-            statementCreateTable.executeUpdate();
-            
-            statementCreateTable.close();
+        PreparedStatement statement = connection.prepareStatement(
+            "CREATE TABLE ReadingTip"
+            + "("
+                + "id INTEGER PRIMARY KEY, "
+                + "title TEXT, "
+                + "type TEXT, "
+                + "url TEXT, "
+                + "author TEXT, "
+                + "isbn TEXT, "
+                + "description TEXT, "
+                + "read BOOLEAN, "
+                + "priority_read INTEGER, "
+                + "priority_unread INTEGER"
+            + ")"
+        );
+        statement.executeUpdate();
+
+        statement = connection.prepareStatement(
+            "CREATE TABLE Tag"
+            + "("
+                + "id INTEGER PRIMARY KEY, "
+                + "tagDescription TEXT UNIQUE"
+            + ")"
+        );
+        statement.executeUpdate();
+
+        statement = connection.prepareStatement(
+            "CREATE TABLE ReadingTipTag"
+            + "("
+                + "readingtip_id INTEGER, "
+                + "tag_id INTEGER, "
+                + "FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id), "
+                + "FOREIGN KEY(tag_id) REFERENCES Tag(id)"
+            + ")"
+        );
+        statement.executeUpdate();
+
+        statement = connection.prepareStatement(
+            "CREATE TABLE Comment"
+            + "("
+                + "id INTEGER PRIMARY KEY, "
+                + "description TEXT, "
+                + "readingtip_id INTEGER, "
+                + "FOREIGN KEY(readingtip_id) REFERENCES ReadingTip(id)"
+            + ")"
+        );
+        statement.executeUpdate();
+
+        statement.close();
+        connection.close();        
+    }
+    
+    public void clearDatabase() throws SQLException {
+        Connection connection = this.getConnection();
+
+        // Delete tables if tables exist.
+        if (countTables() != 0) {
+            connection.prepareStatement("DROP TABLE ReadingTip").executeUpdate();
+            connection.prepareStatement("DROP TABLE Tag").executeUpdate();
+            connection.prepareStatement("DROP TABLE ReadingTipTag").executeUpdate();
+            connection.prepareStatement("DROP TABLE Comment").executeUpdate();
         }
 
         connection.close();
+    }
+    
+    protected static int lastInsertRowid(Connection connection) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("select last_insert_rowid()");
+        ResultSet result = statement.executeQuery();
+        
+        int id;
+
+        if (result.next()) {
+            id = result.getInt(1);
+        } else {
+            throw new SQLException("Couldn't find row id of last insert.");
+        }
+        
+        result.close();
+        statement.close();
+        
+        return id;
     }
     
 }

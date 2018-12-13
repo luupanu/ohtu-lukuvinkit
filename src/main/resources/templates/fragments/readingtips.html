@@ -1,0 +1,60 @@
+<div th:fragment="readingtips">
+
+    <div id="readingTipsList" class="readingtips">
+
+        <article th:with="tip=${listingUnit.readingTip}, tags=${listingUnit.tags}, comments=${listingUnit.comments}" th:id="${tip.id}" th:class="${tip.read} ? 'read ' + ${tip.type} : 'unread ' + ${tip.type}" th:each="listingUnit : ${list}" draggable="true" ondragstart="onDrag(event)" ondragover="allowDrop(event)" ondrop="swapPriorities(event)">
+
+            <div class="readingtips-read">
+                <label for="read" th:text="${tip.read} ? 'Mark as unread' : 'Mark as read' "></label>
+                <input type="checkbox" name="read" onclick="toggleRead(this)" />
+            </div>
+
+            <div class="readingtips-title">
+                <h3>
+                    <span th:text="${tip.type}"></span>
+                    <span class="title" th:if="${tip.url == ''}" th:text="${tip.title}"></span>
+                    <a class="title" th:if="${tip.url != ''}" th:href="@{__${tip.url}__}"
+                        th:text="${tip.title}" />
+                </h3>
+                <span class="read-tag" th:if="${tip.read}">READ</span>
+            </div>
+
+            <div class="readingtips-description">
+                <div class="readingtips-author" th:if="${tip.author != ''}">
+                    <span>Author:</span>
+                    <p th:text="${tip.author}" />
+                </div>
+                <div class="readingtips-isbn" th:if="${tip.isbn != ''}">
+                    <span>ISBN:</span>
+                    <p th:text="${tip.isbn}" />
+                </div>
+                <p th:text="${tip.description}" />
+            </div>
+
+            <div class="readingtips-tags">
+                <span class="tag" th:each="tag : ${tags}" th:text="${tag.tagDescription}"></span>
+            </div>
+
+            <div class="readingtips-comments">
+                <a href="#" onclick="toggleComments(this)" th:text="${#lists.size(comments)} + ' comment(s)'"></a>
+
+                <div class="commentarea">
+                    <li class="comment" th:each="comment : ${comments}" th:text="${comment.commentDescription}"></li>
+
+                    <div class="newcomment">
+                        <form>
+                            <label for="comment">Add a new comment:</label>
+                            <input type="text" name="commentDescription" placeholder="Type your new comment here..." required="true" />
+                            <input type="button" class="submitbutton" name="create-comment" onclick="newComment(this)" value="Submit" />
+                            <input type="submit" style="display:none" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div th:replace="/fragments/readingtip-actions :: readingtip-actions"></div>
+
+    </div>
+
+</div>

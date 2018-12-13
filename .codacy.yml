@@ -1,6 +1,10 @@
 exclude_paths:
   - README.md
-  - config/**
-  - jacococoverage/**
+  - config/checkstyle/checkstyle.xml
   - src/main/resources/static/js/site.js
   - src/test/**
+  - src/main/java/lukuvinkit/Main.java
+  - Demo_cheatsheet.md
+  - CREDITS.md
+  - docs/**
+  - lib/**

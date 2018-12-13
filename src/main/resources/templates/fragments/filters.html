@@ -1,0 +1,20 @@
+<div th:fragment="filters">
+
+    <div class="filters">
+        <input id="filter-none" type="checkbox" name="showAll" onclick="showAllTips()" />
+        <span>Remove all filters</span>
+
+        <input id="filter-read" type="checkbox" name="hideRead" onclick="filterTips()" />
+        <span>Hide read</span>
+
+        <input id="filter-links" type="checkbox" name="hideLinks" onclick="filterTips()" />
+        <span>Hide links</span>
+
+        <input id="filter-articles" type="checkbox" name="hideArticles" onclick="filterTips()" />
+        <span>Hide articles</span>
+
+        <input id="filter-books" type="checkbox" name="hideBooks" onclick="filterTips()" />
+        <span>Hide books</span>
+    </div>
+
+</div>

@@ -1,0 +1,21 @@
+<!-- This fragment is called from readingtips.html. 
+It's used to send information to the controller with forms
+that are submitted by their related site.js methods. -->
+
+<div th:fragment="readingtip-actions">
+
+    <form th:action="@{/comment}" th:object="${comment}" id="newcomment" method="POST">
+        <input type="hidden" name="id" />
+        <input type="hidden" name="commentDescription" />
+    </form>
+
+    <form th:action="@{/toggleread}" id="toggleread" th:method="PATCH">
+        <input type="hidden" name="id" />
+    </form>
+
+    <form th:action="@{/swappriorities}" id="swappriorities" th:method="PATCH">
+        <input type="hidden" name="id1" />
+        <input type="hidden" name="id2" />
+    </form>
+
+</div>

@@ -1,38 +1,70 @@
 // MAIN FUNCTIONS
 
-// Submits the parent form of given element.
-const submitForm = (element) => {
-  const form = element.parentNode
-  form.submit()
+// Toggles the read status of this ReadingTip.
+const toggleRead = (element) => {
+  const id = getParentArticle(element).id
+  submitForm("toggleread", { id })
 }
 
 // Toggles the visibility of parent class '.commentarea'.
 const toggleComments = (element) => {
   const comments = element
     .parentNode
-    .querySelectorAll(".commentarea")
+    .querySelector(".commentarea")
 
-  comments.forEach(comment => {
-    if (comment.style.display === "block") {
-      comment.style.display = "none"
-    } else {
-      comment.style.display = "block"
-    }
-  })
+  comments.style.display === "block"
+    ? comments.style.display = "none"
+    : comments.style.display = "block"
 }
 
-// Toggles the visibility of tips.
+// Creates a new comment if comment is valid.
+const newComment = (element) => {
+  const id = getParentArticle(element).id
+  const commentDescription = element.previousElementSibling
+
+  // If not a valid comment, give an error message and return.
+  if (!commentDescription.checkValidity()) {
+    return element.nextElementSibling.click()
+  }
+
+  const properties = { id, commentDescription: commentDescription.value }
+
+  submitForm("newcomment", properties)
+}
+
+// Removes all filters and shows every tip again.
+const showAllTips = () => {
+  filterCheckboxes.forEach(item => {
+    document.getElementById(item).checked = false
+  })
+  document.getElementById("search").value = ""
+
+  setTimeout(() => {
+    document.getElementById("filter-none").checked = false
+  }, 100)
+
+  filterTips()
+}
+
+// Toggles the visibility of tips based on various filters.
 const filterTips = () => {
   const tips = getTips()
 
   tips.forEach(tip => {
-    if (someTagIncludesFilter(tip, getFilter())
-      && !(hideReadIsChecked() && tipIsRead(tip))) {
-        tip.style.display = "block"
-      } else {
-        tip.style.display = "none"
-      }
+    tip.type = getTipType(tip)
+    tip.read = tipIsRead(tip)
+
+    if (!(typeIsHidden(tip.type))
+      && someTagIncludesFilter(tip, normalizeString(getFilter()))
+        && !(checkBoxIsChecked("filter-read") && tip.read)) {
+          tip.style.display = "block"
+        } else {
+          tip.style.display = "none"
+        }
   })
+
+  // Update local storage so that filters stay even with page refresh.
+  updateLocalStorage()
 }
 
 // Toggles the visibility of form elements based on type.
@@ -47,49 +79,157 @@ const newReadingTipFormRefresh = () => {
   const author = document.getElementById("authorInput")
   const isbn = document.getElementById("isbnInput")
 
-  if (typeField.value == "Link") {
-    author.value = "";
-    isbn.value = "";
-    urlField.style.display = "block";
-    authorField.style.display = "none";
-    isbnField.style.display = "none";
-  } else if (typeField.value == "Article") {
-    url.value = "";
-    isbn.value = "";
-    urlField.style.display = "none";
-    authorField.style.display = "block";
-    isbnField.style.display = "none";
-  } else if (typeField.value == "Book") {
-    url.value = "";
-    urlField.style.display = "none";
-    authorField.style.display = "block";
-    isbnField.style.display = "block";
+  if (typeField.value === "link") {
+    author.value = ""
+    isbn.value = ""
+    urlField.style.display = "block"
+    authorField.style.display = "none"
+    isbnField.style.display = "none"
+  } else if (typeField.value === "article") {
+    url.value = ""
+    isbn.value = ""
+    urlField.style.display = "none"
+    authorField.style.display = "block"
+    isbnField.style.display = "none"
+  } else if (typeField.value === "book") {
+    url.value = ""
+    urlField.style.display = "none"
+    authorField.style.display = "block"
+    isbnField.style.display = "block"
   }
+}
+
+// Swaps priorities of the dragged ReadingTip with the ReadingTip it was dropped into.
+const swapPriorities = (event) => {
+  event.preventDefault()
+
+  const dragId = event.dataTransfer.getData("text")
+  const dropId = getParentArticle(event.target).id || dragId
+
+  const tip1 = document.getElementById(dragId)
+  const tip2 = document.getElementById(dropId)
+
+  // Check if we allow swapPriorities here, if not, reset css and return.
+  if (dragId === dropId || tipIsRead(tip1) !== tipIsRead(tip2)) {
+    return [...getTips()].map(tip => tip.style.backgroundColor = "")
+  }
+
+  const properties = { id1: dragId, id2: dropId }
+
+  submitForm("swappriorities", properties)
+}
+
+// Updates local storage with things we want to keep between page reloads.
+const updateLocalStorage = () => {
+  filterCheckboxes.forEach(item => {
+    localStorage.setItem(item, checkBoxIsChecked(item))
+  })
+  localStorage.setItem("search", getFilter())
 }
 
 // HELPER FUNCTIONS
 
-// Checks if tip is read.
-const tipIsRead = (tip) => tip.className === "tip-read"
+// Submits the form with the given id and properties.
+const submitForm = (id, properties) => {
+  const form = document.getElementById(id)
+  const formInputs = [...form]
 
-// Check if the 'Hide read' checkbox is checked.
-const hideReadIsChecked = () => document.getElementById("filter-read").checked
+  // Map the given properties to the values of form inputs with the same name.
+  formInputs.forEach(input => {
+    if (properties[input.name]) {
+      input.value = properties[input.name]
+    }
+  })
+
+  form.submit()
+}
+
+// Checks if given tip is read.
+const tipIsRead = (tip) => tip.classList[0] === "read"
+
+// Gets the type of this tip.
+const getTipType = (tip) => tip.classList[1]
+
+// Checks if given checkbox is checked.
+const checkBoxIsChecked = (checkbox) => document.getElementById(checkbox).checked
 
 // Gets all tips in the document.
 const getTips = () => document.getElementById("readingTipsList").querySelectorAll("article")
 
 // Gets the value of the search box in the document.
-const getFilter = () => convertToSearchString(document.getElementById("search").value)
+const getFilter = () => document.getElementById("search").value
 
-// Does some string manipulations to be able to compare strings.
-const convertToSearchString = _ => _.trim().toUpperCase()
+// Does some string manipulations in order to be able to compare strings.
+const normalizeString = _ => _.trim().toUpperCase()
 
 // Returns true if some tag in the tip includes the filter phrase.
 const someTagIncludesFilter = (tip, filter) => {
+  if (!filter) {
+    return true
+  }
+
   const tags = [...tip.querySelectorAll(".tag")]
 
   return tags.some(tag => {
-    const tagValue = convertToSearchString(tag.innerText)
+    const tagValue = normalizeString(tag.innerText)
     return tagValue.includes(filter)
   })
 }
+
+// Checks if a type is being hidden by the checkbox associated with it.
+const typeIsHidden = (type) => {
+  if (type == "link") {
+    return checkBoxIsChecked("filter-links")
+  } else if (type == "article") {
+    return checkBoxIsChecked("filter-articles")
+  }
+  return checkBoxIsChecked("filter-books")
+}
+
+// Gets parent node of type <article>. Returns null if not found.
+const getParentArticle = (element) => {
+  return element.nodeName === "ARTICLE" ? element : getParentArticle(element.parentNode)
+}
+
+// On drag, transfer this object id.
+const onDrag = (event) => {
+  event.dataTransfer.effectAllowed = "move" // for a visual 'move' effect
+  event.dataTransfer.setData("text", event.target.id)
+
+  // Visuals to "disable" tips you can't swap priorities with.
+  const dragged = document.getElementById(event.target.id)
+  const unswappableTips = [...getTips()]
+    .filter(tip => tipIsRead(tip) !== tipIsRead(dragged))
+  const disabled = "rgba(255, 255, 255, 0.4)"
+
+  unswappableTips.map(tip => tip.style.backgroundColor = disabled)
+}
+
+// Prevents default handling of HTML5 ondragover.
+const allowDrop = (event) => {
+  event.preventDefault()
+  event.dataTransfer.dropEffect = "move" // for a visual 'move' effect
+}
+
+// EVENT LISTENERS
+
+// Get and set filter status from localStorage before loading the page.
+document.addEventListener("DOMContentLoaded", () => {
+  filterCheckboxes.forEach(item => {
+    const checked = localStorage.getItem(item) == "true"
+    document.getElementById(item).checked = checked
+  })
+
+  document.getElementById("search").value = localStorage.getItem("search")
+
+  filterTips()
+})
+
+// CONSTANTS
+
+const filterCheckboxes = [
+  "filter-read",
+  "filter-links",
+  "filter-articles",
+  "filter-books"
+]

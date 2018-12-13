@@ -11,4 +11,3 @@ Feature: User can search and filter tips by tags
     When "searchbar" is clicked
     And "wgjorhjortehnjrlwgmwgrgkegbee" is typed in
     Then "Otm reading tip" is not shown
-  

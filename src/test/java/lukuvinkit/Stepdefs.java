@@ -1,4 +1,4 @@
-package ohtu;
+package lukuvinkit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,16 +10,20 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import lukuvinkit.service.ReadingTipService;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class Stepdefs {
 
-    final static int PORT_NUMBER = 8080;
+    private static final int PORT_NUMBER = 8080;
     private WebDriver driver;
 
     public Stepdefs() {
@@ -43,40 +47,47 @@ public class Stepdefs {
     }
 
     @Given("^user is at the main page$")
-    public void userIsAtTheMainPage() throws Throwable {
+    public void userIsAtTheMainPage() {
         driver.get("http://localhost:" + PORT_NUMBER + "/");
     }
 
     @When("^\"([^\"]*)\" is typed in$")
-    public void isTypedIn(String searchterm) throws Throwable {
+    public void isTypedIn(String searchterm) {
         WebElement element = driver.findElement(By.id("search"));
         element.sendKeys(searchterm);
     }
 
     @When("^new tip is submitted$")
-    public void formIsSubmitted() throws Throwable {
+    public void formIsSubmitted() {
         WebElement element = driver.findElement(By.name("create-readingtip"));
         element.submit();
     }
 
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" tags \"([^\"]*)\"$")
-    public void formIsFilledWithNewLinkTipWithTags(String title, String description, String url, String tags)
-            throws Throwable {
+    public void formIsFilledWithNewLinkTipWithTags(String title, String description, String url, String tags) {
         fillNewLinkTipWithTags(title, description, url, tags);
     }
 
     @When("^form is filled with tags \"([^\"]*)\"$")
-    public void formIsFilledWithOnlyTags(String tags) throws Throwable {
+    public void formIsFilledWithOnlyTags(String tags) {
         fillNewLinkTipWithTags("", "", "", tags);
     }
 
     @When("^^\"([^\"]*)\" is clicked$")
-    public void anElementIsClicked(String arg1) throws Throwable {
-        clickElementByName(arg1);
+    public void anElementIsClicked(String element) {
+        clickElementByName(element);
+    }
+
+    @When("^\"([^\"]*)\" inside \"([^\"]*)\" is clicked$")
+    public void insideTipIsClicked(String name, String tipTitle) {
+        String id = getTipIdByTitle(tipTitle);
+        WebElement tip = driver.findElement(By.id(id));
+        WebElement element = tip.findElement(By.name(name));
+        element.click();
     }
 
     @When("^link \"([^\"]*)\" is clicked$")
-    public void linkIsClicked(String arg1) throws Throwable {
+    public void linkIsClicked(String arg1) {
         driver.findElement(By.linkText(arg1)).click();
     }
 
@@ -86,21 +97,36 @@ public class Stepdefs {
     }
 
     @When("^type \"([^\"]*)\" is selected in the form$")
-    public void typeIsSelectedInTheForm(String type) throws Throwable {
+    public void typeIsSelectedInTheForm(String type) {
         Select dropdown = new Select(driver.findElement(By.id("typeField")));
         dropdown.selectByVisibleText(type);
     }
 
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" author \"([^\"]*)\" tags \"([^\"]*)\"$")
-    public void formIsFilledWithTitleDescriptionAuthorTagsAndIsSubmitted(String title, String description, String author, String tags) throws Throwable {
+    public void formIsFilledWithTitleDescriptionAuthorTagsAndIsSubmitted(String title, String description, String author, String tags) {
         fillNewArticleTipWithTags(title, description, author, tags);
     }
 
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" author \"([^\"]*)\" isbn \"([^\"]*)\" tags \"([^\"]*)\"$")
-    public void formIsFilledWithTitleDescriptionAuthorIsbnTagsAndIsSubmitted(String title, String description, String author, String isbn, String tags) throws Throwable {
+    public void formIsFilledWithTitleDescriptionAuthorIsbnTagsAndIsSubmitted(String title, String description, String author, String isbn, String tags) {
         fillNewBookTipWithTags(title, description, author, isbn, tags);
     }
 
+    @When("^\"([^\"]*)\" is dragged and dropped to \"([^\"]*)\"$")
+    public void tipIsDraggedAndDroppedTo(String tip1, String tip2) {
+        String from = getTipIdByTitle(tip1);
+        String to = getTipIdByTitle(tip2);
+
+        simulateDragAndDrop(from, to);
+    }
+    
+    @Then("^tip \"([^\"]*)\" is shown with link \"([^\"]*)\"$")
+    public void tipHasrightNumberOfComments(String tipTitle, String commentText) {
+        String tipId = getTipIdByTitle(tipTitle);
+        WebElement tip = driver.findElement(By.id(tipId));
+        boolean result = tip.getText().contains(commentText);
+        assertEquals(true, result);
+    }
 
     @Then("^link \"([^\"]*)\" is shown$")
     public void linkIsShown(String linkText) {
@@ -108,35 +134,30 @@ public class Stepdefs {
     }
 
     @Then("^\"([^\"]*)\" is shown$")
-    public void isShown(String arg1) throws Throwable {
+    public void isShown(String arg1) {
         assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
     }
 
     @Then("^\"([^\"]*)\" is not shown$")
-    public void isNotShown(String arg1) throws Throwable {
+    public void isNotShown(String arg1) {
         assertFalse(driver.findElement(By.tagName("body")).getText().contains(arg1));
     }
 
     @Then("^error \"([^\"]*)\" is shown$")
-    public void errorIsShown(String arg1) throws Throwable {
-        try {
-            assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
-        } catch (Exception e) {
-            Thread.sleep(4000);
-            System.out.println(e.getStackTrace());
-        }
+    public void errorIsShown(String arg1) {
+        assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
     }
 
     @Then("^comment \"([^\"]*)\" is submitted$")
-    public void submitNewComment(String comment) throws Throwable {
+    public void submitNewComment(String comment) {
         WebElement element = driver.findElement(By.name("commentDescription"));
         element.sendKeys(comment);
         element = driver.findElement(By.name("create-comment"));
-        element.submit();
+        element.click();
     }
 
     @Then("^only one \"([^\"]*)\" is shown$")
-    public void onlyOneIsShown(String arg1) throws Throwable {
+    public void onlyOneIsShown(String arg1) {
         String body = driver.findElement(By.tagName("body")).getText();
 
         int counter = 0;
@@ -152,11 +173,17 @@ public class Stepdefs {
         }
         assertEquals(1, counter);
     }
+    
 
-    /*
-        Call this method always with the right order of arguments
-        -> title, description, url, author, isbn, tagDescription
-    */
+    @Then("^\"([^\"]*)\" has higher priority than \"([^\"]*)\"$")
+    public void hasHigherPriorityThan(String tip1, String tip2) {
+        String body = driver.findElement(By.tagName("body")).getText();
+
+        assertTrue(body.indexOf(tip1) < body.indexOf(tip2));
+    }
+
+    // Call this method always with the right order of arguments
+    //  -> title, description, url, author, isbn, tagDescription
     private void fillNewGenericTip(String... arguments) {
         assertTrue(driver.getPageSource().contains("Add a new reading tip"));
 
@@ -200,13 +227,29 @@ public class Stepdefs {
     }
 
     private void clickElementByName(String text) {
+        WebElement element = driver.findElement(By.name(text));
+        element.click();
+    }
+
+    private String getTipIdByTitle(String title) {
+        return driver.findElement(
+            By.xpath("//*[text() = '" + title + "']//ancestor::article"))
+            .getAttribute("id");
+    }
+
+    // Note: Couldn't get Selenium's drag and drop working, using an external library from
+    // https://github.com/Photonios/JS-DragAndDrop-Simulator
+    private void simulateDragAndDrop(String from, String to) {
+        String dragAndDropSimulator = "";
         try {
-            WebElement element = driver.findElement(By.name(text));
-            element.click();
+            dragAndDropSimulator = new String(Files.readAllBytes(Paths.get("lib/dndsim.js")));
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
         }
 
-    }
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        String injectedString = "\nDndSimulator.simulate(" + from + ", " + to + ");";
 
+        executor.executeScript(dragAndDropSimulator + injectedString);
+    }
 }

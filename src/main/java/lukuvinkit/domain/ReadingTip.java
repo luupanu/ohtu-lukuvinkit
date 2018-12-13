@@ -6,6 +6,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.stereotype.Component;
 
+/**
+ * Represents a reading tip.
+ */
 @Component
 public class ReadingTip {
 
@@ -27,6 +30,11 @@ public class ReadingTip {
     private String description;
 
     private boolean read;
+    
+    private int priorityRead;
+    
+    private int priorityUnread;
+    
 
     public ReadingTip() {
         // default constructor for Spring
@@ -45,14 +53,18 @@ public class ReadingTip {
 
     public ReadingTip(int id, String title, String type, String url, String author, 
         String isbn, String description, boolean read) {
+        this(title, type, url, author, isbn, description, read);
         this.id = id;
-        this.title = title;
-        this.type = type;
-        this.url = url;
-        this.author = author;
-        this.isbn = isbn;
-        this.description = description;
-        this.read = read;
+    }
+    
+    public ReadingTip(int id, String title, String type, String url, String author, 
+        String isbn, String description, boolean read, int priorityRead, int priorityUnread) {
+        
+        this(title, type, url, author, isbn, description, read);
+        
+        this.id = id;
+        this.priorityRead = priorityRead;
+        this.priorityUnread = priorityUnread;
     }
 
     public int getId() {
@@ -119,6 +131,21 @@ public class ReadingTip {
         this.read = read;
     }
     
+    public void setPriorityRead(int priorityRead) {
+        this.priorityRead = priorityRead;
+    }
+    
+    public int getPriorityRead() {
+        return this.priorityRead;
+    }
+    
+    public void setPriorityUnread(int priorityUnread) {
+        this.priorityUnread = priorityUnread;
+    }
+    
+    public int getPriorityUnread() {
+        return this.priorityUnread;
+    }
     
     // Multi-field validators:
     
@@ -128,7 +155,7 @@ public class ReadingTip {
             return false;
         }
         
-        if (!this.type.equals("Link")) {
+        if (!this.type.equals("link")) {
             return true;
         }
         
@@ -141,7 +168,7 @@ public class ReadingTip {
             return false;
         }
         
-        if (!this.type.equals("Article")) {
+        if (!this.type.equals("article")) {
             return true;
         }
         
@@ -154,7 +181,7 @@ public class ReadingTip {
             return false;
         }
         
-        if (!this.type.equals("Book")) {
+        if (!this.type.equals("book")) {
             return true;
         }
         
@@ -167,7 +194,7 @@ public class ReadingTip {
             return false;
         }
         
-        if (!this.type.equals("Book")) {
+        if (!this.type.equals("book")) {
             return true;
         }
         
