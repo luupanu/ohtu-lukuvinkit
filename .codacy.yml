@@ -1,10 +1,8 @@
 exclude_paths:
-  - README.md
+  - **.MD
   - config/**
-  - jacococoverage/**
-  - src/main/resources/static/js/site.js
-  - src/test/**
+  - src/main/resources/**
   - src/main/java/lukuvinkit/Main.java
-  - Demo_cheatsheet.md
+  - src/test/**
   - docs/**
   - lib/**
