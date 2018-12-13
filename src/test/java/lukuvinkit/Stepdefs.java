@@ -46,40 +46,39 @@ public class Stepdefs {
     }
 
     @Given("^user is at the main page$")
-    public void userIsAtTheMainPage() throws Throwable {
+    public void userIsAtTheMainPage() {
         driver.get("http://localhost:" + PORT_NUMBER + "/");
     }
 
     @When("^\"([^\"]*)\" is typed in$")
-    public void isTypedIn(String searchterm) throws Throwable {
+    public void isTypedIn(String searchterm) {
         WebElement element = driver.findElement(By.id("search"));
         element.sendKeys(searchterm);
     }
 
     @When("^new tip is submitted$")
-    public void formIsSubmitted() throws Throwable {
+    public void formIsSubmitted() {
         WebElement element = driver.findElement(By.name("create-readingtip"));
         element.submit();
     }
 
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" url \"([^\"]*)\" tags \"([^\"]*)\"$")
-    public void formIsFilledWithNewLinkTipWithTags(String title, String description, String url, String tags)
-            throws Throwable {
+    public void formIsFilledWithNewLinkTipWithTags(String title, String description, String url, String tags) {
         fillNewLinkTipWithTags(title, description, url, tags);
     }
 
     @When("^form is filled with tags \"([^\"]*)\"$")
-    public void formIsFilledWithOnlyTags(String tags) throws Throwable {
+    public void formIsFilledWithOnlyTags(String tags) {
         fillNewLinkTipWithTags("", "", "", tags);
     }
 
     @When("^^\"([^\"]*)\" is clicked$")
-    public void anElementIsClicked(String element) throws Throwable {
+    public void anElementIsClicked(String element) {
         clickElementByName(element);
     }
 
     @When("^\"([^\"]*)\" inside \"([^\"]*)\" is clicked$")
-    public void insideTipIsClicked(String name, String tipTitle) throws Throwable {
+    public void insideTipIsClicked(String name, String tipTitle) {
         String id = getTipIdByTitle(tipTitle);
         WebElement tip = driver.findElement(By.id(id));
         WebElement element = tip.findElement(By.name(name));
@@ -87,7 +86,7 @@ public class Stepdefs {
     }
 
     @When("^link \"([^\"]*)\" is clicked$")
-    public void linkIsClicked(String arg1) throws Throwable {
+    public void linkIsClicked(String arg1) {
         driver.findElement(By.linkText(arg1)).click();
     }
 
@@ -97,23 +96,23 @@ public class Stepdefs {
     }
 
     @When("^type \"([^\"]*)\" is selected in the form$")
-    public void typeIsSelectedInTheForm(String type) throws Throwable {
+    public void typeIsSelectedInTheForm(String type) {
         Select dropdown = new Select(driver.findElement(By.id("typeField")));
         dropdown.selectByVisibleText(type);
     }
 
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" author \"([^\"]*)\" tags \"([^\"]*)\"$")
-    public void formIsFilledWithTitleDescriptionAuthorTagsAndIsSubmitted(String title, String description, String author, String tags) throws Throwable {
+    public void formIsFilledWithTitleDescriptionAuthorTagsAndIsSubmitted(String title, String description, String author, String tags) {
         fillNewArticleTipWithTags(title, description, author, tags);
     }
 
     @When("^form is filled with title \"([^\"]*)\" description \"([^\"]*)\" author \"([^\"]*)\" isbn \"([^\"]*)\" tags \"([^\"]*)\"$")
-    public void formIsFilledWithTitleDescriptionAuthorIsbnTagsAndIsSubmitted(String title, String description, String author, String isbn, String tags) throws Throwable {
+    public void formIsFilledWithTitleDescriptionAuthorIsbnTagsAndIsSubmitted(String title, String description, String author, String isbn, String tags) {
         fillNewBookTipWithTags(title, description, author, isbn, tags);
     }
 
     @When("^\"([^\"]*)\" is dragged and dropped to \"([^\"]*)\"$")
-    public void tipIsDraggedAndDroppedTo(String tip1, String tip2) throws Throwable {
+    public void tipIsDraggedAndDroppedTo(String tip1, String tip2) {
         String from = getTipIdByTitle(tip1);
         String to = getTipIdByTitle(tip2);
 
@@ -126,27 +125,22 @@ public class Stepdefs {
     }
 
     @Then("^\"([^\"]*)\" is shown$")
-    public void isShown(String arg1) throws Throwable {
+    public void isShown(String arg1) {
         assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
     }
 
     @Then("^\"([^\"]*)\" is not shown$")
-    public void isNotShown(String arg1) throws Throwable {
+    public void isNotShown(String arg1) {
         assertFalse(driver.findElement(By.tagName("body")).getText().contains(arg1));
     }
 
     @Then("^error \"([^\"]*)\" is shown$")
-    public void errorIsShown(String arg1) throws Throwable {
-        try {
-            assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
-        } catch (Exception e) {
-            Thread.sleep(4000);
-            System.out.println(e.getStackTrace());
-        }
+    public void errorIsShown(String arg1) {
+        assertTrue(driver.findElement(By.tagName("body")).getText().contains(arg1));
     }
 
     @Then("^comment \"([^\"]*)\" is submitted$")
-    public void submitNewComment(String comment) throws Throwable {
+    public void submitNewComment(String comment) {
         WebElement element = driver.findElement(By.name("commentDescription"));
         element.sendKeys(comment);
         element = driver.findElement(By.name("create-comment"));
@@ -154,7 +148,7 @@ public class Stepdefs {
     }
 
     @Then("^only one \"([^\"]*)\" is shown$")
-    public void onlyOneIsShown(String arg1) throws Throwable {
+    public void onlyOneIsShown(String arg1) {
         String body = driver.findElement(By.tagName("body")).getText();
 
         int counter = 0;
@@ -172,7 +166,7 @@ public class Stepdefs {
     }
 
     @Then("^\"([^\"]*)\" has higher priority than \"([^\"]*)\"$")
-    public void hasHigherPriorityThan(String tip1, String tip2) throws Throwable {
+    public void hasHigherPriorityThan(String tip1, String tip2) {
         String body = driver.findElement(By.tagName("body")).getText();
 
         assertTrue(body.indexOf(tip1) < body.indexOf(tip2));
@@ -223,13 +217,8 @@ public class Stepdefs {
     }
 
     private void clickElementByName(String text) {
-        try {
-            WebElement element = driver.findElement(By.name(text));
-            element.click();
-        } catch (Exception e) {
-            System.out.println(e.getStackTrace());
-        }
-
+        WebElement element = driver.findElement(By.name(text));
+        element.click();
     }
 
     private String getTipIdByTitle(String title) {
