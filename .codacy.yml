@@ -1,8 +1,8 @@
 exclude_paths:
-  - **.MD
-  - config/**
-  - src/main/resources/**
-  - src/main/java/lukuvinkit/Main.java
+  - README.md
+  - config/checkstyle/checkstyle.xml
+  - src/main/resources/static/js/site.js
   - src/test/**
-  - docs/**
-  - lib/**
+  - src/main/java/lukuvinkit/Main.java
+  - Demo_cheatsheet.md
+  - CREDITS.md
