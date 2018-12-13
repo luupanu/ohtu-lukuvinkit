@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import lukuvinkit.domain.Comment;
 import org.springframework.stereotype.Component;
 
+/**
+ * Handles all comment related database operations.
+ */
 @Component
 public class CommentDao {
     

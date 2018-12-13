@@ -9,6 +9,9 @@ import lukuvinkit.domain.ReadingTip;
 import lukuvinkit.domain.Tag;
 import org.springframework.stereotype.Component;
 
+/**
+ * Handles all reading tip related database operations.
+ */
 @Component
 public class ReadingTipDao {
     
@@ -47,21 +50,26 @@ public class ReadingTipDao {
         ArrayList<ReadingTip> allReadingTips = new ArrayList<>();
 
         while (result.next()) {
-            allReadingTips.add(new ReadingTip(
-                result.getInt("id"),
-                result.getString("title"),
-                result.getString("type"),
-                result.getString("url"),
-                result.getString("author"),
-                result.getString("isbn"),
-                result.getString("description"),
-                result.getBoolean("read"),
-                result.getInt("priority_read"),
-                result.getInt("priority_unread")
-            ));
+            allReadingTips.add(extractOneReadingTipFromResultSet(result));
         }
         
         return allReadingTips;
+    }
+    
+    private ReadingTip extractOneReadingTipFromResultSet(
+            ResultSet result) throws SQLException {
+        return new ReadingTip(
+            result.getInt("id"),
+            result.getString("title"),
+            result.getString("type"),
+            result.getString("url"),
+            result.getString("author"),
+            result.getString("isbn"),
+            result.getString("description"),
+            result.getBoolean("read"),
+            result.getInt("priority_read"),
+            result.getInt("priority_unread")
+        );
     }
 
     /**
@@ -81,7 +89,7 @@ public class ReadingTipDao {
             + ") "
             + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
-        setAttributesOfReadingTipInsertQuery(statement, tip);
+        readingTipAttributesToStatementWithoutId(statement, tip);
         statement.executeUpdate();
         
         tip.setId(Database.lastInsertRowid(connection));
@@ -92,7 +100,7 @@ public class ReadingTipDao {
         return tip;
     }
     
-    private void setAttributesOfReadingTipInsertQuery(
+    private void readingTipAttributesToStatementWithoutId(
             PreparedStatement statement, ReadingTip tip) throws SQLException {
         statement.setString(1, tip.getTitle());
         statement.setString(2, tip.getType());
@@ -173,18 +181,7 @@ public class ReadingTipDao {
         ReadingTip tip = null;
         
         if (result.next()) {
-            tip = new ReadingTip(
-                result.getInt("id"),
-                result.getString("title"),
-                result.getString("type"),
-                result.getString("url"),
-                result.getString("author"),
-                result.getString("isbn"),
-                result.getString("description"),
-                result.getBoolean("read"),
-                result.getInt("priority_read"),
-                result.getInt("priority_unread")
-            );
+            tip = extractOneReadingTipFromResultSet(result);
         } 
         
         return tip;
@@ -203,24 +200,16 @@ public class ReadingTipDao {
                 + "description = ?, read = ?, priority_read = ?, priority_unread = ? "
                 + "WHERE id = ?"
         );
-        setAttributesOfReadingTipUpdateQuery(statement, tip);
+        readingTipAttributesToStatement(statement, tip);
         statement.executeUpdate();
 
         statement.close();
         connection.close();
     }
     
-    private void setAttributesOfReadingTipUpdateQuery(
+    private void readingTipAttributesToStatement(
             PreparedStatement statement, ReadingTip tip) throws SQLException {
-        statement.setString(1, tip.getTitle());
-        statement.setString(2, tip.getType());
-        statement.setString(3, tip.getUrl());
-        statement.setString(4, tip.getAuthor());
-        statement.setString(5, tip.getIsbn());
-        statement.setString(6, tip.getDescription());
-        statement.setBoolean(7, tip.isRead());
-        statement.setInt(8, tip.getPriorityRead());
-        statement.setInt(9, tip.getPriorityUnread());
+        readingTipAttributesToStatementWithoutId(statement, tip);
         statement.setInt(10, tip.getId());        
     }
     

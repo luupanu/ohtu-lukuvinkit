@@ -32,9 +32,9 @@ public class ReadingTipListingUnitTest {
         tags.add(tag1);
         tags.add(tag2);
 
-        readingTipRead = new ReadingTip(1, "Tip 1 for tesing", "https://yle.fi/", "Just testing here", "", "", "",
+        readingTipRead = new ReadingTip(1, "Tip 1 for testing", "https://yle.fi/", "Just testing here", "", "", "",
                 true);
-        readingTipNotRead = new ReadingTip(1, "Tip 2 for tesing", "https://hs.fi/", "Test test", "", "", "", false);
+        readingTipNotRead = new ReadingTip(1, "Tip 2 for testing", "https://hs.fi/", "Test test", "", "", "", false);
 
     }
 

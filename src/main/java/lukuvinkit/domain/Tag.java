@@ -3,6 +3,9 @@ package lukuvinkit.domain;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
+/**
+ * Represents a tag.
+ */
 @Component
 public class Tag {
 
