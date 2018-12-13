@@ -1,4 +1,4 @@
-package ohtu;
+package lukuvinkit;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;

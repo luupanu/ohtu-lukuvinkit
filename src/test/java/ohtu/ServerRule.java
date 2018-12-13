@@ -1,4 +1,4 @@
-package ohtu;
+package lukuvinkit;
 
 import lukuvinkit.Main;
 
