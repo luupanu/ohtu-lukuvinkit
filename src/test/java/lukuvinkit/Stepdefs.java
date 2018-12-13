@@ -117,14 +117,7 @@ public class Stepdefs {
         String from = getTipIdByTitle(tip1);
         String to = getTipIdByTitle(tip2);
 
-        // Note: Couldn't get Selenium's drag and drop working, using an external library from
-        // https://github.com/Photonios/JS-DragAndDrop-Simulator
-        String dragAndDropSimulator = new String(Files.readAllBytes(Paths.get("lib/dndsim.js")));
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-
-        String injectedString = "\nDndSimulator.simulate(" + from + ", " + to + ");";
-
-        executor.executeScript(dragAndDropSimulator + injectedString);
+        simulateDragAndDrop(from, to);
     }
 
     @Then("^link \"([^\"]*)\" is shown$")
@@ -243,6 +236,22 @@ public class Stepdefs {
         return driver.findElement(
             By.xpath("//*[text() = '" + title + "']//ancestor::article"))
             .getAttribute("id");
+    }
+
+    // Note: Couldn't get Selenium's drag and drop working, using an external library from
+    // https://github.com/Photonios/JS-DragAndDrop-Simulator
+    private void simulateDragAndDrop(String from, String to) {
+        String dragAndDropSimulator = "";
+        try {
+            dragAndDropSimulator = new String(Files.readAllBytes(Paths.get("lib/dndsim.js")));
+        } catch (Exception e) {
+            System.out.println(e.getStackTrace());
+        }
+
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        String injectedString = "\nDndSimulator.simulate(" + from + ", " + to + ");";
+
+        executor.executeScript(dragAndDropSimulator + injectedString);
     }
 
 }
