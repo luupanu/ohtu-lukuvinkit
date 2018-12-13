@@ -30,7 +30,6 @@ public class CommentDao {
             "SELECT * FROM Comment WHERE readingtip_id = ?"
         );
         statement.setInt(1, readingTipId);
-
         ResultSet result = statement.executeQuery();
 
         ArrayList<Comment> allCommentsForReadingTip = extractComments(result);
@@ -64,7 +63,6 @@ public class CommentDao {
         );
         statement.setString(1, comment.getCommentDescription());
         statement.setInt(2, comment.getReadingTipId());
-
         statement.executeUpdate();
 
         statement.close();

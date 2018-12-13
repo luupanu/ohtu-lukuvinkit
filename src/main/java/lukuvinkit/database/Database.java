@@ -33,8 +33,8 @@ public class Database {
         PreparedStatement statement = connection.prepareStatement(
             "select count(*) from sqlite_master"
         );
-        
         ResultSet result = statement.executeQuery();
+        
         result.next();
         int tableCount = result.getInt(1);
         
@@ -112,6 +112,19 @@ public class Database {
         }
 
         connection.close();
+    }
+    
+    protected static int lastInsertRowid(Connection connection) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("select last_insert_rowid()");
+        ResultSet result = statement.executeQuery();
+        
+        result.next();
+        int id = result.getInt(1);
+        
+        result.close();
+        statement.close();
+        
+        return id;
     }
     
 }

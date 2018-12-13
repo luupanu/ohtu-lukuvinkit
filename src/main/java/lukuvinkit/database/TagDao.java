@@ -24,7 +24,6 @@ public class TagDao {
         this.database = database;
     }
 
-    
     public ArrayList<Tag> findAllForReadingTip(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement(
@@ -34,7 +33,6 @@ public class TagDao {
             + "AND ReadingTipTag.tag_id = Tag.id"
         );
         statement.setInt(1, readingTipId);
-
         ResultSet result = statement.executeQuery();
 
         ArrayList<Tag> allTagsForReadingTip = extractTags(result);
@@ -62,35 +60,37 @@ public class TagDao {
 
     public Tag save(Tag tag) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement statement;
-        
-        statement = connection.prepareStatement(
+        PreparedStatement statement = connection.prepareStatement(
             "INSERT INTO Tag(tagDescription) values (?) ON CONFLICT (tagDescription) DO NOTHING"
         );
         statement.setString(1, tag.getTagDescription());
-        
         int rowsInserted = statement.executeUpdate();
         
-        int id;
-        ResultSet result;
         if (rowsInserted == 0) {  // If the tag was already in the database
-            statement = connection.prepareStatement("SELECT id FROM Tag WHERE tagDescription = ?");
-            statement.setString(1, tag.getTagDescription());
-            result = statement.executeQuery();
-            id = result.getInt(1);
-        } else {  // If new tag was inserted
-            statement = connection.prepareStatement("select last_insert_rowid()");
-            result = statement.executeQuery();
-            result.next();
-            id = result.getInt(1);           
+            tag.setId(idOfTag(tag.getTagDescription()));
+        } else {                  // If new tag was inserted
+            tag.setId(Database.lastInsertRowid(connection));         
         }
+        
+        statement.close();
+        connection.close();
+        
+        return tag;
+    }
+    
+    private int idOfTag(String tagDescription) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement("SELECT id FROM Tag WHERE tagDescription = ?");
+        statement.setString(1, tagDescription);
+        ResultSet result = statement.executeQuery();
+        
+        int id = result.getInt(1);
         
         result.close(); 
         statement.close();
         connection.close();
         
-        tag.setId(id);
-        return tag;
+        return id;
     }
 
 }
