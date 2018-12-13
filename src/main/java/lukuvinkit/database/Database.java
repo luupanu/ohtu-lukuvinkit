@@ -120,8 +120,13 @@ public class Database {
         PreparedStatement statement = connection.prepareStatement("select last_insert_rowid()");
         ResultSet result = statement.executeQuery();
         
-        result.next();
-        int id = result.getInt(1);
+        int id;
+
+        if (result.next()) {
+            id = result.getInt(1);
+        } else {
+            throw new SQLException("Couldn't find row id of last insert.")
+        }
         
         result.close();
         statement.close();
