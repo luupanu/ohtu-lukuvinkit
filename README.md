@@ -16,6 +16,9 @@ To run the app locally:
 2. Install [gradle](https://gradle.org/)
 3. Run `gradle run` in the project folder. A local server will be created to `localhost:8080`
 
+## Usage instructions
+The app should be quite intuitive to use. At the bottom of the page you will find a form to create a new reading tip. Currently you can choose from three types of reading tips. You can filter the reading tips from the top right hand of the screen. Click a comment section to browse and possibly leave a comment on a reading tip. You can reorder reading tips by dragging and dropping them around, however already read reading tips will always be found at the bottom of the page. It is only possible to reorder tips that belong to the same category (either read, or unread).
+
 ## Links
 
 * [Heroku](https://lukuvinkit.herokuapp.com/)
