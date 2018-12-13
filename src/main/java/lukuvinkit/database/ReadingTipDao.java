@@ -1,12 +1,12 @@
 package lukuvinkit.database;
 
-import lukuvinkit.domain.ReadingTip;
-import lukuvinkit.domain.Tag;
-import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import lukuvinkit.domain.ReadingTip;
+import lukuvinkit.domain.Tag;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,7 +25,7 @@ public class ReadingTipDao {
     /**
      * Lists all reading tips in the database.
      * @return A list of reading tips.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
     public ArrayList<ReadingTip> findAll() throws SQLException {
         Connection connection = database.getConnection();
@@ -68,8 +68,8 @@ public class ReadingTipDao {
      * Saves one reading tip into the database.
      * @param tip The new reading tip to be saved, id will be ignored. 
      * @return The reading tip which was just saved, with the id that was given
-     * for it in the database.
-     * @throws SQLException
+     *      for it in the database.
+     * @throws SQLException Throws SQL exceptions.
      */
     public ReadingTip save(ReadingTip tip) throws SQLException {
         Connection connection = database.getConnection();
@@ -92,7 +92,8 @@ public class ReadingTipDao {
         return tip;
     }
     
-    private void setAttributesOfReadingTipInsertQuery(PreparedStatement statement, ReadingTip tip) throws SQLException {
+    private void setAttributesOfReadingTipInsertQuery(
+            PreparedStatement statement, ReadingTip tip) throws SQLException {
         statement.setString(1, tip.getTitle());
         statement.setString(2, tip.getType());
         statement.setString(3, tip.getUrl());
@@ -107,7 +108,7 @@ public class ReadingTipDao {
     /**
      * Toggles the read value of a reading tip in the database.
      * @param readingTipId The reading tip which read value will be toggled.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
     public void toggleRead(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
@@ -122,12 +123,14 @@ public class ReadingTipDao {
     }
     
     /**
-     * Binds tags which are already in the databese to a reading tip which is already in the databese.
+     * Binds tags which are already in the databese to a reading tip
+     *      which is already in the databese.
      * @param tip The reading tip with ID.
      * @param tags The tags of the reading tip with IDs.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
-    public void bindTagsToReadingTip(ReadingTip tip, ArrayList<Tag> tags) throws SQLException {        
+    public void bindTagsToReadingTip(
+            ReadingTip tip, ArrayList<Tag> tags) throws SQLException {
         Connection connection = database.getConnection();
         
         for (Tag tag : tags) {
@@ -147,7 +150,7 @@ public class ReadingTipDao {
      * Searches for a reading tip in the database.
      * @param readingTipId The ID of the reading tip which is being searched.
      * @return The reading tip that was searched or null if not found.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
     public ReadingTip findOne(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
@@ -190,7 +193,7 @@ public class ReadingTipDao {
     /**
      * Updates the attributes of a reading tip in the database.
      * @param tip The reading tip which attributes are being updated. Must have ID.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
     public void update(ReadingTip tip) throws SQLException {
         Connection connection = database.getConnection();
@@ -207,7 +210,8 @@ public class ReadingTipDao {
         connection.close();
     }
     
-    private void setAttributesOfReadingTipUpdateQuery(PreparedStatement statement, ReadingTip tip) throws SQLException {
+    private void setAttributesOfReadingTipUpdateQuery(
+            PreparedStatement statement, ReadingTip tip) throws SQLException {
         statement.setString(1, tip.getTitle());
         statement.setString(2, tip.getType());
         statement.setString(3, tip.getUrl());
@@ -222,8 +226,9 @@ public class ReadingTipDao {
     
     /**
      * Finds the maximum value of the attribute priority_read in the database's reading tip table.
-     * @return The maximum value of the attribute priority_read, 0 if there is no rows in the table, -1 if error occured.
-     * @throws SQLException 
+     * @return The maximum value of the attribute priority_read,
+     *      0 if there is no rows in the table, -1 if error occured.
+     * @throws SQLException Throws SQL exceptions.
      */
     public int findMaxReadPriority() throws SQLException {        
         return findMaxValue("priority_read");
@@ -231,8 +236,9 @@ public class ReadingTipDao {
     
     /**
      * Finds the maximum value of the attribute priority_unread in the database's reading tip table.
-     * @return The maximum value of the attribute priority_unread, 0 if there is no rows in the table, -1 if error occured.
-     * @throws SQLException 
+     * @return The maximum value of the attribute priority_unread,
+     *      0 if there is no rows in the table, -1 if error occured.
+     * @throws SQLException Throws SQL exceptions.
      */
     public int findMaxUnreadPriority() throws SQLException {        
         return findMaxValue("priority_unread");
@@ -240,9 +246,11 @@ public class ReadingTipDao {
     
     /**
      * Finds the maximum value of a column in the database's reading tip table.
-     * @param columnName  The coulmn name which maximum value is wanted. User input not allowed in this parameter!
-     * @return The maximum value of the column, 0 if there is no rows in the table, -1 if error occured.
-     * @throws SQLException 
+     * @param columnName The column name which maximum value is wanted.
+     *      User input not allowed in this parameter!
+     * @return The maximum value of the column,
+     *      0 if there is no rows in the table, -1 if error occured.
+     * @throws SQLException Throws SQL exceptions.
      */
     private int findMaxValue(String columnName) throws SQLException {        
         Connection connection = database.getConnection();

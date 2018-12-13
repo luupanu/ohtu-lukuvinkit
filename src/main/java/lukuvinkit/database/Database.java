@@ -25,7 +25,9 @@ public class Database {
     }
     
     public void initializeDatabaseIfUninitialized() throws SQLException {
-        if (countTables() == 0) createTables();
+        if (countTables() == 0) {
+            createTables();
+        }
     }
     
     private int countTables() throws SQLException {

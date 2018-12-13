@@ -1,23 +1,17 @@
 package lukuvinkit.controllers;
 
 import java.sql.SQLException;
-
 import java.util.ArrayList;
-
 import javax.validation.Valid;
-
 import lukuvinkit.database.CommentDao;
 import lukuvinkit.database.Database;
 import lukuvinkit.database.ReadingTipDao;
 import lukuvinkit.database.TagDao;
-
 import lukuvinkit.domain.Comment;
 import lukuvinkit.domain.ReadingTip;
 import lukuvinkit.domain.ReadingTipListingUnit;
 import lukuvinkit.domain.Tag;
-
 import lukuvinkit.service.ReadingTipService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

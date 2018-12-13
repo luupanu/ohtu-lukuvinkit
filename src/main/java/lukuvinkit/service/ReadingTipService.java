@@ -1,5 +1,11 @@
 package lukuvinkit.service;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import lukuvinkit.database.CommentDao;
 import lukuvinkit.database.ReadingTipDao;
 import lukuvinkit.database.TagDao;
@@ -7,12 +13,6 @@ import lukuvinkit.domain.Comment;
 import lukuvinkit.domain.ReadingTip;
 import lukuvinkit.domain.ReadingTipListingUnit;
 import lukuvinkit.domain.Tag;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.sql.SQLException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -36,7 +36,7 @@ public class ReadingTipService {
     /**
      * Generates a listing of all the reading tips and their tags and comments.
      * @return A list of ReadingTipListingUnits.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
     public ArrayList<ReadingTipListingUnit> generateReadingTipListing() throws SQLException {
         ArrayList<ReadingTipListingUnit> readingTipListing = new ArrayList<>();
@@ -67,7 +67,7 @@ public class ReadingTipService {
      * Saves a new reading tip.
      * @param newTip The new reading tip to be saved.
      * @param allTagsTogether The tags of the new reading tip.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
     public void saveNewReadingTip(ReadingTip newTip, Tag allTagsTogether) throws SQLException {
         ArrayList<Tag> tags = tagSeparator(allTagsTogether);
@@ -120,7 +120,7 @@ public class ReadingTipService {
      * Saves a new comment for a reading tip.
      * @param newComment The new comment to be saved.
      * @param readingTipId The ID of the reading tip the comment is for.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
     public void saveNewComment(Comment newComment, int readingTipId) throws SQLException {
         newComment.setReadingTipId(readingTipId);
@@ -132,7 +132,7 @@ public class ReadingTipService {
      * Toggles a reading tip as read or unread and sets the lowest priority for it in
      * the new group that it ends up in. (read group or unread group.)
      * @param readingTipId The ID of the reading tip.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
     public void toggleReadingTipRead(int readingTipId) throws SQLException {
         ReadingTip tip = readingTipDao.findOne(readingTipId);
@@ -161,13 +161,15 @@ public class ReadingTipService {
      * Swaps the priorities of two reading tips. The tips must have the same read value.
      * @param readingTipId1 The ID of the reading tip 1.
      * @param readingTipId2 The ID of the reading tip 2.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
     public void swapPriorities(int readingTipId1, int readingTipId2) throws SQLException {
         ReadingTip tip1 = readingTipDao.findOne(readingTipId1);
         ReadingTip tip2 = readingTipDao.findOne(readingTipId2);
         
-        if (!bothAreEitherReadOrUnread(tip1, tip2)) return;
+        if (!bothAreEitherReadOrUnread(tip1, tip2)) {
+            return;
+        }
         
         swapPrioritiesOfTwoReadingTipInstances(tip1, tip2);
         readingTipDao.update(tip1);

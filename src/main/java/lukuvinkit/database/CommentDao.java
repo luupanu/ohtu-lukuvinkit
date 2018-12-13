@@ -1,11 +1,11 @@
 package lukuvinkit.database;
 
-import lukuvinkit.domain.Comment;
-import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import lukuvinkit.domain.Comment;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,7 +25,7 @@ public class CommentDao {
      * Finds all comments of a reading tip in the database.
      * @param readingTipId The ID of the reading tip whose comments are being looked for.
      * @return A list of comments.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
     public ArrayList<Comment> findAllForReadingTip(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
@@ -61,7 +61,7 @@ public class CommentDao {
     /**
      * Saves one comment into the database.
      * @param comment The new comments to be saved, must have readingtip_id set.
-     * @throws SQLException
+     * @throws SQLException Throws SQL exceptions.
      */
     public void save(Comment comment) throws SQLException {
         Connection connection = database.getConnection();

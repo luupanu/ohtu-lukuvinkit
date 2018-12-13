@@ -1,11 +1,11 @@
 package lukuvinkit.database;
 
-import lukuvinkit.domain.Tag;
-import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import lukuvinkit.domain.Tag;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,7 +25,7 @@ public class TagDao {
      * Finds all tags of a reading tip in the database.
      * @param readingTipId The ID of the reading tip whose tags are being looked for.
      * @return A list of tags.
-     * @throws SQLException 
+     * @throws SQLException Throws SQL exceptions.
      */
     public ArrayList<Tag> findAllForReadingTip(int readingTipId) throws SQLException {
         Connection connection = database.getConnection();
@@ -62,12 +62,13 @@ public class TagDao {
     
 
     /**
-     * Saves new tag to the database. Does nothing if a tag with the same tagDescription is alrady in the database.
+     * Saves new tag to the database.
+     *      Does nothing if a tag with the same tagDescription is already in the database.
      * @param tag The tag to be saved in the database.
      * @return The tag which was just saved, with the id that was given
-     * for it in the database. If the tag was already in the database, then
-     * the tag is returned with the id that was already in the database.
-     * @throws SQLException 
+     *      for it in the database. If the tag was already in the database, then
+     *      the tag is returned with the id that was already in the database.
+     * @throws SQLException Throws SQL exceptions.
      */
     public Tag save(Tag tag) throws SQLException {
         Connection connection = database.getConnection();
@@ -91,7 +92,9 @@ public class TagDao {
     
     private int idOfTag(String tagDescription) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT id FROM Tag WHERE tagDescription = ?");
+        PreparedStatement statement = connection.prepareStatement(
+            "SELECT id FROM Tag WHERE tagDescription = ?"
+        );
         statement.setString(1, tagDescription);
         ResultSet result = statement.executeQuery();
         
