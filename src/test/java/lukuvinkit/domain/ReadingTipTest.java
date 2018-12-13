@@ -16,9 +16,12 @@ public class ReadingTipTest {
         readingTipTestConstructor1 = new ReadingTip(1, "Tip 1 for testing", "https://yle.fi/", "Just testing here", "",
                 "", "", false);
     }
-
+  
     @Test
     public void settersWorkLikeShould() {
+        ReadingTip readingTipTestConstructor1 = new ReadingTip(1, "Tip 1 for testing", "https://yle.fi/", "Just testing here", "",
+            "", "", false);
+
         readingTipTestConstructor1.setId(2);
         assertEquals(readingTipTestConstructor1.getId(), 2);
         readingTipTestConstructor1.setTitle("New title");

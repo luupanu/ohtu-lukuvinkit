@@ -1,6 +1,7 @@
 package lukuvinkit.domain;
 
 import javax.validation.constraints.AssertTrue;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.stereotype.Component;
@@ -38,7 +39,6 @@ public class ReadingTip {
 
     public ReadingTip(String title, String type, String url, String author, 
         String isbn, String description, boolean read) {
-        
         this.title = title;
         this.type = type;
         this.url = url;
@@ -50,9 +50,7 @@ public class ReadingTip {
 
     public ReadingTip(int id, String title, String type, String url, String author, 
         String isbn, String description, boolean read) {
-        
         this(title, type, url, author, isbn, description, read);
-        
         this.id = id;
     }
     
@@ -145,7 +143,6 @@ public class ReadingTip {
     public int getPriorityUnread() {
         return this.priorityUnread;
     }
-    
     
     // Multi-field validators:
     

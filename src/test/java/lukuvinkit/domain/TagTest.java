@@ -7,7 +7,6 @@ import org.junit.Test;
 public class TagTest {
     
     private Tag tagConstructor1;
-    private Tag tagConstructor2;
 
     @Test
     public void constructor1Works() {
@@ -18,7 +17,7 @@ public class TagTest {
     
     @Test
     public void constructor2Works() {
-        tagConstructor2 = new Tag("tag2");
+        Tag tagConstructor2 = new Tag("tag2");
         assertEquals(tagConstructor2.getTagDescription(), "tag2");
     }
     

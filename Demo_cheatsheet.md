@@ -28,6 +28,7 @@
 * Lukuvinkin merkitseminen luetuksi
 * Luetuksi merkittyjen lukuvinkkien filtteröiminen
 * Filtteröiminen tyypin perusteella
+* Kaikkien filttereiden poisto
 
 ### Step 3 (Story 4)
 
