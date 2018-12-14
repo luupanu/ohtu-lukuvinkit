@@ -30,6 +30,7 @@ The app should be quite intuitive to use. At the bottom of the page you will fin
 * [Sprint 3 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=774886918)
 * [Sprint 4 Backlog](https://docs.google.com/spreadsheets/d/10v1C_SqCL5R2vVQS019tSk6TDwTYgx2USbZ7cdNQoRU/edit#gid=893567725)
 * [Project report](https://docs.google.com/document/d/1R37DjycL4cZtxiy4vopNPnmZpccZQRmjbc3LnRv8R70/)
+* [License](https://github.com/luupanu/ohtu-lukuvinkit/blob/master/LICENSE)
 
 ## Definition of Done
 
